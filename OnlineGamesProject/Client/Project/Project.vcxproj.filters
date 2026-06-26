@@ -42,9 +42,6 @@
     <ClCompile Include="Source\Input\InputString.cpp">
       <Filter>Source\Input</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Network\Host.cpp">
-      <Filter>Source\Network</Filter>
-    </ClCompile>
     <ClCompile Include="Source\MyMath\MyMath.cpp">
       <Filter>Source\MyMath</Filter>
     </ClCompile>
@@ -94,9 +91,6 @@
     </ClInclude>
     <ClInclude Include="Source\Input\InputString.h">
       <Filter>Source\Input</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Network\Host.h">
-      <Filter>Source\Network</Filter>
     </ClInclude>
     <ClInclude Include="Source\Memory\Memory.h">
       <Filter>Source\Memory</Filter>

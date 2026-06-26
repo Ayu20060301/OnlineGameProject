@@ -4,7 +4,7 @@ class SceneBase
 {
 public:
 	SceneBase();
-	~SceneBase();
+	virtual ~SceneBase();
 
 public:
 	virtual void Init() = 0;

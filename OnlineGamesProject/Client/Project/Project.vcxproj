@@ -147,7 +147,6 @@
     <ClCompile Include="Source\Main.cpp" />
     <ClCompile Include="Source\MyMath\MyMath.cpp" />
     <ClCompile Include="Source\Network\Client.cpp" />
-    <ClCompile Include="Source\Network\Host.cpp" />
     <ClCompile Include="Source\Player\NetworkPlayer.cpp" />
     <ClCompile Include="Source\Player\Player.cpp" />
     <ClCompile Include="Source\Player\PlayerManager.cpp" />
@@ -166,7 +165,6 @@
     <ClInclude Include="Source\Memory\Memory.h" />
     <ClInclude Include="Source\MyMath\MyMath.h" />
     <ClInclude Include="Source\Network\Client.h" />
-    <ClInclude Include="Source\Network\Host.h" />
     <ClInclude Include="Source\Network\NetworkCommonParam.h" />
     <ClInclude Include="Source\Network\NetworkUtility.h" />
     <ClInclude Include="Source\Player\NetworkPlayer.h" />

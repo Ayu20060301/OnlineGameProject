@@ -28,6 +28,9 @@ void SceneManager::Init()
     m_StateFunc[START] = &SceneManager::StartScene;
     m_StateFunc[LOOP] = &SceneManager::LoopScene;
     m_StateFunc[FIN] = &SceneManager::FinScene;
+
+    //最初のシーンを生成して初期化から開始
+    ChangeScene(TITLE);
 }
 
 void SceneManager::Step()
@@ -139,8 +142,8 @@ SceneBase* SceneManager::CreateScene(SceneType type)
     SceneBase* scene = nullptr;
     switch (type)
     {
-       case TITLE:     scene = new TitleScene;   break;
-       case PLAY:      scene = new PlayScene;   break;
+       case TITLE:         scene = new TitleScene;   break;
+       case PLAY:          scene = new PlayScene;   break;
        case NETWORK_PLAY:  scene = new NetworkPlayScene;  break;
     }
 
