@@ -1,7 +1,7 @@
 #include "PlayerManager.h"
 #include "Player.h"
 #include "NetworkPlayer.h"
-#include "../Network//Client.h"
+#include "../Network/Client.h"
 
 PlayerManager::PlayerManager()
 {
@@ -57,42 +57,35 @@ Player& PlayerManager::CreatePlayer()
 	return *(m_Players.back().get());
 }
 
-/// <summary>
-/// ネットワークプレイヤーの生成
-/// </summary>
-/// <param name="client">通信に使われているクライアントクラス</param>
-/// <param name="id">ID</param>
-/// <param name="isSelf"></param>
-/// <returns></returns>
-NetworkPlayer& PlayerManager::CreateNetworkPlayer(const Client* client, int id, bool isSelf)
+
+NetworkPlayer& PlayerManager::CreateNetworkPlayer(int id, bool isSelf)
 {
-	//生成して初期化～開始
-	UniquePtr<NetworkPlayer> player = MakeUnique<NetworkPlayer>(client, id, isSelf);
+	// 生成して初期化～開始
+	UniquePtr<NetworkPlayer> player = MakeUnique<NetworkPlayer>(id, isSelf);
 	player->Init();
 	player->Load();
-	player->Start();
 
-	//末尾に格納
+	// 末尾に格納
 	m_Players.push_back(std::move(player));
 
+	// 実は参照渡しの方が安全
 	return *static_cast<NetworkPlayer*>(m_Players.back().get());
 }
 
-/// <summary>
-/// プレイヤーを追加する
-/// </summary>
-/// <param name="client">通信に使われているクライアントクラス</param>
-/// <param name="data">ログインデータ</param>
-void PlayerManager::Login(const Client* client, Network::LoginData data)
+void PlayerManager::Login(Network::ResponseLoginData data)
 {
-	//既に参加済みのプレイヤーも含め生成
-	for (int i = 0; i < NETWORK_PLAYER_MAX; i++)
+	// 既に参加済みのプレイヤーも含め生成
+	for (int i = 0; i < Network::NETWORK_PLAYER_MAX; i++)
 	{
 		int id = data.playerID[i];
-		if (id < 0) return;
+		if (id <= 0) continue;
 
 		bool isSelf = id == data.selfID;
-		CreateNetworkPlayer(client, id, isSelf);
+		NetworkPlayer& player = CreateNetworkPlayer(id, isSelf);
+
+		// スポーン位置に移動
+		player.SetPosition(data.spawnPos);
+		player.SetServerPosition(data.spawnPos);
 	}
 }
 
@@ -103,7 +96,8 @@ void PlayerManager::Login(const Client* client, Network::LoginData data)
 void PlayerManager::Join(Network::JoinData data)
 {
 	//参加プレイヤーを生成
-	CreateNetworkPlayer(nullptr, data.playerID, false);
+	NetworkPlayer& player = CreateNetworkPlayer(data.playerID, false);
+	//player.SetPosition(data.spawnPos);
 }
 
 /// <summary>
@@ -125,20 +119,31 @@ void PlayerManager::Logout(Network::LogoutData data)
 	}
 }
 
-/// <summary>
-/// 座標を同期する
-/// </summary>
-/// <param name="data">座標データ</param>
-void PlayerManager::SyncTransform(Network::AllTransformData data)
+void PlayerManager::SyncServerTransform(Network::ResponseTransformData data)
 {
 	//全プレイヤーのトランスフォームをサーバーから受信したものにする
 	int i = 0;
 	for (auto& player : m_Players)
 	{
 		NetworkPlayer* nwPlayer = static_cast<NetworkPlayer*>(player.get());
-		nwPlayer->SetServerPos(data.pos[i]);
-		nwPlayer->SetServerRot(data.rot[i]);
+		nwPlayer->SetServerPosition(data.pos[i]);
+		nwPlayer->SetServerRotation(data.rot[i]);
 		nwPlayer->SetServerScale(data.scale[i]);
 		i++;
+	}
+}
+
+void PlayerManager::DiePlayer(int playerID)
+{
+	//IDが一致したプレイヤーを死亡させる
+	for (auto itr = m_Players.begin(); itr != m_Players.end(); itr++)
+	{
+		NetworkPlayer* nwPlayer = static_cast<NetworkPlayer*>((*itr).get());
+
+		if (nwPlayer->GetID() == playerID)
+		{
+			nwPlayer->Die();
+			break;
+		}
 	}
 }

@@ -1,5 +1,4 @@
 #pragma once
-
 #include "../Singleton/Singleton.h"
 #include "../Memory/Memory.h"
 #include "../Network/NetworkCommonParam.h"
@@ -27,16 +26,13 @@ public:
 	Player& CreatePlayer();
 
 	//ネットワーク関係
-	NetworkPlayer& CreateNetworkPlayer(const Client* client, int id, bool isSelf);
-	void Login(const Client* client, Network::LoginData data);
+	NetworkPlayer& CreateNetworkPlayer(int id, bool isSelf);
+	void Login(Network::ResponseLoginData data);
 	void Join(Network::JoinData data);
 	void Logout(Network::LogoutData data);
+	void SyncServerTransform(Network::ResponseTransformData data);
+	void DiePlayer(int playerID);
 
-	/// <summary>
-	/// 座標を同期する
-	/// </summary>
-	/// <param name="data">座標データ</param>
-	void SyncTransform(Network::AllTransformData data);
 private:
 	std::list<UniquePtr<Player>> m_Players;
 };

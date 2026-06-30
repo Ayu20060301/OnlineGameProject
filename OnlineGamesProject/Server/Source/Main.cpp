@@ -4,7 +4,7 @@
 // サーバー用グローバル変数
 Server* g_Server = nullptr;
 
-// プログラムは WinMain から始まります
+//メインループ
 int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_  HINSTANCE hPrevInstance, _In_ LPSTR lpCmdLine, _In_ int nShowCmd)
 {
 	// ウィンドウモードON

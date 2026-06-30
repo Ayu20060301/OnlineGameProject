@@ -1,14 +1,14 @@
 #include "DxLib.h"
 #include "Splite.h"
+#include "../GameObject/GameObject.h"
 
-Splite::Splite()
+Splite::Splite() : ComponentBase()
+, m_Handle(0)
+, m_Width(0)
+, m_Height(0)
+, m_CenterX(0)
+, m_CenterY(0)
 {
-	m_Handle = 0;
-	m_Transform = {};
-	m_Width = 0;
-	m_Height = 0;
-	m_CenterX = 0;
-	m_CenterY = 0;
 }
 
 Splite::~Splite()
@@ -31,9 +31,10 @@ void Splite::Draw()
 {
 	if (m_Handle != 0)
 	{
-		const VECTOR& pos = m_Transform.GetPos();
-		const VECTOR& rot = m_Transform.GetRot();
-		const VECTOR& scale = m_Transform.GetScale();
+		const Transform& transform = GetOwner()->GetRenderTransform();
+		const VECTOR& pos = transform.GetPosition();
+		const VECTOR& rot = transform.GetRotation();
+		const VECTOR& scale = transform.GetScale();
 		DrawRotaGraph3((int)pos.x, (int)pos.y, m_CenterX, m_CenterY, (double)scale.x, (double)scale.y, (double)rot.z, m_Handle,true);
 	}
 }

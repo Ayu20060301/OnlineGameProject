@@ -1,10 +1,6 @@
 #pragma once
-#include "DxLib.h"
-#include "NetworkCommonParam.h"
-#include <vector>
 
 class InputString;
-
 
 class Client
 {
@@ -22,6 +18,7 @@ public:
 	bool CheckReceive();
 	void ReceiveData(void* buffer, unsigned int size);
 	void Disconnect();
+	bool IsConnected() const { return m_State == ONLINE; }
 
 	//í êMÇÃèÛë‘
 	enum State
@@ -32,8 +29,7 @@ public:
 	};
 
 	State GetState() const { return m_State; }
-	int GetServerHandle() const { return m_ServerHandle; }
-
+	
 private:
 	void UpdateWaiting();
 	void StepOnline();

@@ -28,19 +28,6 @@ void Client::Step()
 
 void Client::Draw()
 {
-	if (m_State == OFFLINE)
-	{
-		DrawFormatString(0, 0, GetColor(255, 255, 255), "オフライン");
-	}
-	else if (m_State == WAIT)
-	{
-		DrawFormatString(0, 0, GetColor(255, 255, 255), "接続中。。。");
-	}
-	else if (m_State == ONLINE)
-	{
-		DrawFormatString(0, 0, GetColor(255, 255, 255), "オンライン");
-	}
-
 	DrawString(0, 880, "クライアント側", GetColor(255, 255, 255));
 }
 
@@ -58,13 +45,13 @@ void Client::Fin()
 void Client::Connect()
 {
 	IPDATA ip;
-	ip.d1 = 192;
-	ip.d2 = 168;
-	ip.d3 = 0;
-	ip.d4 = 54;
+	ip.d1 = 10;
+	ip.d2 = 0;
+	ip.d3 = 80;
+	ip.d4 = 123;
 
 	//指定したIPアドレスの端末に接続
-	m_ServerHandle = ConnectNetWork(ip, PORT_NUMBER);
+	m_ServerHandle = ConnectNetWork(ip, Network::PORT_NUMBER);
 
 	//ハンドルが-1なら接続できてない
 	if (m_ServerHandle == -1)

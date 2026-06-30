@@ -5,14 +5,16 @@
 // NetworkCommonParam.hはクライアント/サーバー共通のパラメータ
 // 必ず双方で同じ状態にする必要がある
 
-// ポート番号は49152～65535が好ましい
-#define PORT_NUMBER 50000
-
-//プレイヤー最大人数
-#define NETWORK_PLAYER_MAX 4
 
 namespace Network
 {
+
+	//ポート番号
+	constexpr int PORT_NUMBER = 50000;
+
+	//プレイヤー最大人数
+	constexpr int NETWORK_PLAYER_MAX = 4;
+
 	//通信できるユーザー名のMAXサイズ(全角5文字まで)
 	constexpr int NETWORK_USER_NAME_MAX = 10;
 
@@ -26,6 +28,7 @@ namespace Network
 	constexpr int NETWORK_MESSAGE_BUFFER_MAX = NETWORK_MESSAGE_MAX + 1;
 
 
+
 	//パケットの種類
 	enum class PacketType : uint8_t
 	{
@@ -36,7 +39,8 @@ namespace Network
 		ROT,
 		SCALE,
 		TRANSFORM,
-		ALL_TRANSFORM
+		ALL_TRANSFORM,
+		DIE
 	};
 
 	//全通信に使用するパケットデータ
@@ -46,11 +50,18 @@ namespace Network
 		uint16_t size; //データサイズ(符号なし16ビット)
 	};
 
-	//プレイヤーログインデータ
-	struct LoginData
+	//ログインデータ(リクエスト)
+	struct RequestLoginData
+	{
+
+	};
+
+	//ログインデータ(レスポンス)
+	struct ResponseLoginData
 	{
 		int selfID;
 		int playerID[NETWORK_PLAYER_MAX];
+		VECTOR spawnPos;
 	};
 
 	//他プレイヤー参加データ
@@ -72,11 +83,40 @@ namespace Network
 		VECTOR pos;
 	};
 
+
+	//プレイヤーの回転データ
+	struct RotData
+	{
+		int playerID;
+		VECTOR rot;
+	};
+
+	//プレイヤーの拡縮データ
+	struct ScaleData
+	{
+		int playerID;
+		VECTOR scale;
+	};
+
+	struct RequestTransformData
+	{
+		int playerID;
+		VECTOR pos;
+		VECTOR rot;
+		VECTOR scale;
+	};
+
 	//全プレイヤーのトランスフォームデータ
-	struct AllTransformData
+	struct ResponseTransformData
 	{
 		VECTOR pos[NETWORK_PLAYER_MAX];
 		VECTOR rot[NETWORK_PLAYER_MAX];
 		VECTOR scale[NETWORK_PLAYER_MAX];
+	};
+
+	//プレイヤーの死亡データ
+	struct DieData
+	{
+		int playerID;
 	};
 }

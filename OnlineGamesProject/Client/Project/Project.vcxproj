@@ -139,14 +139,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Component\ComponentBase.cpp" />
     <ClCompile Include="Source\Component\Controller2D.cpp" />
     <ClCompile Include="Source\Component\Splite.cpp" />
     <ClCompile Include="Source\Component\Transform.cpp" />
+    <ClCompile Include="Source\GameApp\GameApp.cpp" />
+    <ClCompile Include="Source\GameObject\GameObject.cpp" />
     <ClCompile Include="Source\Input\Input.cpp" />
     <ClCompile Include="Source\Input\InputString.cpp" />
     <ClCompile Include="Source\Main.cpp" />
     <ClCompile Include="Source\MyMath\MyMath.cpp" />
     <ClCompile Include="Source\Network\Client.cpp" />
+    <ClCompile Include="Source\Network\ClientAPI.cpp" />
     <ClCompile Include="Source\Player\NetworkPlayer.cpp" />
     <ClCompile Include="Source\Player\Player.cpp" />
     <ClCompile Include="Source\Player\PlayerManager.cpp" />
@@ -157,14 +161,18 @@
     <ClCompile Include="Source\Scene\TitleScene.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\Component\ComponentBase.h" />
     <ClInclude Include="Source\Component\Controller2D.h" />
     <ClInclude Include="Source\Component\Splite.h" />
     <ClInclude Include="Source\Component\Transform.h" />
+    <ClInclude Include="Source\GameApp\GameApp.h" />
+    <ClInclude Include="Source\GameObject\GameObject.h" />
     <ClInclude Include="Source\Input\Input.h" />
     <ClInclude Include="Source\Input\InputString.h" />
     <ClInclude Include="Source\Memory\Memory.h" />
     <ClInclude Include="Source\MyMath\MyMath.h" />
     <ClInclude Include="Source\Network\Client.h" />
+    <ClInclude Include="Source\Network\ClientAPI.h" />
     <ClInclude Include="Source\Network\NetworkCommonParam.h" />
     <ClInclude Include="Source\Network\NetworkUtility.h" />
     <ClInclude Include="Source\Player\NetworkPlayer.h" />

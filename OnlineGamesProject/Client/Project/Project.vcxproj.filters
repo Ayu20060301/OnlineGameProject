@@ -28,6 +28,12 @@
     <Filter Include="Source\Player">
       <UniqueIdentifier>{5d161aa1-973a-4888-9dee-fb322ee49d2f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\GameObject">
+      <UniqueIdentifier>{0d013a19-a039-4aab-8f17-6e1b1f467071}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\GameApp">
+      <UniqueIdentifier>{3ac119d9-869f-4186-beb1-1e98fd914282}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Main.cpp">
@@ -77,6 +83,18 @@
     </ClCompile>
     <ClCompile Include="Source\Scene\TitleScene.cpp">
       <Filter>Source\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Network\ClientAPI.cpp">
+      <Filter>Source\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Component\ComponentBase.cpp">
+      <Filter>Source\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\GameObject\GameObject.cpp">
+      <Filter>Source\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\GameApp\GameApp.cpp">
+      <Filter>Source\GameApp</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -139,6 +157,18 @@
     </ClInclude>
     <ClInclude Include="Source\Scene\TitleScene.h">
       <Filter>Source\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Network\ClientAPI.h">
+      <Filter>Source\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Component\ComponentBase.h">
+      <Filter>Source\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GameObject\GameObject.h">
+      <Filter>Source\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GameApp\GameApp.h">
+      <Filter>Source\GameApp</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
