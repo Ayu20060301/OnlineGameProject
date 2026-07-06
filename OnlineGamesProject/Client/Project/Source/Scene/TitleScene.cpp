@@ -3,6 +3,7 @@
 #include "../Input/Input.h"
 #include "../Network/ClientAPI.h"
 #include "SceneManager.h"
+#include "../GameApp/GameApp.h"
 
 
 TitleScene::TitleScene()

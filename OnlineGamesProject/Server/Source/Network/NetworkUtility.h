@@ -6,24 +6,24 @@
 
 namespace Network
 {
-	inline std::vector<uint8_t> MakePosData(const PosData& data)
+	template<typename T>
+	std::vector<uint8_t> MakePacket(PacketType type, const T& data)
 	{
-		//通信データサイズ
-		size_t dataSize = sizeof(PacketHeader) + sizeof(PosData);
+		// 通信データサイズ
+		size_t dataSize = sizeof(PacketHeader) + sizeof(T);
 
-		//パケット　＋　データを格納するバッファー
+		// パケット ＋ データを格納するバッファー
 		std::vector<uint8_t> buffer(dataSize);
 
-		//パケット作成
+		// パケット作成
 		PacketHeader header = {};
-		header.type = PacketType::POS;
-		header.size = sizeof(PosData);
+		header.type = type;
+		header.size = sizeof(T);
 
-		//パケットをバッファーに入れる
+		// パケットをバッファーに入れる
 		memcpy_s(buffer.data(), buffer.size(), &header, sizeof(PacketHeader));
-
-		//パケットの後ろにデータを入れる
-		memcpy_s(buffer.data() + sizeof(PacketHeader), buffer.size() - sizeof(PacketHeader), &data, sizeof(PosData));
+		// パケットの後ろにデータを入れる
+		memcpy_s(buffer.data() + sizeof(PacketHeader), buffer.size() - sizeof(PacketHeader), &data, sizeof(T));
 
 		return buffer;
 	}

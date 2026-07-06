@@ -7,6 +7,33 @@
     <Filter Include="Source\Network">
       <UniqueIdentifier>{36ceae57-e397-42e2-ad36-c3a024ce5a55}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Singleton">
+      <UniqueIdentifier>{19711ef2-1160-4fea-ae41-df962b8ca772}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Player">
+      <UniqueIdentifier>{a8333ab0-4d1c-4a94-9d1d-1f7053065eaf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Memory">
+      <UniqueIdentifier>{be8659fc-5fb7-4e32-a321-31bb0e67de3a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\MyMath">
+      <UniqueIdentifier>{1b6b381d-6849-4eca-8c45-3fc37b925faf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Component">
+      <UniqueIdentifier>{899bf4dc-a899-4836-9c0a-37d1f2776ab0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Component\Transform">
+      <UniqueIdentifier>{db8fd204-c5b1-4875-aef2-87d824b45ee8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\GameObject">
+      <UniqueIdentifier>{d9867d8d-0ed1-4cd9-a30a-a451e4c6738b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Component\Renderer">
+      <UniqueIdentifier>{8369e0f0-4499-4b64-89b8-bdb89b41caf4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Component\Controller">
+      <UniqueIdentifier>{195c35b0-f939-4a4d-9f53-b8899fdc2426}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Main.cpp">
@@ -14,6 +41,33 @@
     </ClCompile>
     <ClCompile Include="Source\Network\Server.cpp">
       <Filter>Source\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Player\PlayerManager.cpp">
+      <Filter>Source\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Player\Player.cpp">
+      <Filter>Source\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\MyMath\MyMath.cpp">
+      <Filter>Source\MyMath</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Network\ServerHandler.cpp">
+      <Filter>Source\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Component\ComponentBase.cpp">
+      <Filter>Source\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Component\Transform\Transform.cpp">
+      <Filter>Source\Component\Transform</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\GameObject\GameObject.cpp">
+      <Filter>Source\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Component\Renderer\Splite.cpp">
+      <Filter>Source\Component\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Component\Controller\Controller2D.cpp">
+      <Filter>Source\Component\Controller</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -25,6 +79,39 @@
     </ClInclude>
     <ClInclude Include="Source\Network\NetworkUtility.h">
       <Filter>Source\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Singleton\Singleton.h">
+      <Filter>Source\Singleton</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Player\PlayerManager.h">
+      <Filter>Source\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Player\Player.h">
+      <Filter>Source\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Memory\Memory.h">
+      <Filter>Source\Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\MyMath\MyMath.h">
+      <Filter>Source\MyMath</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Network\ServerHandler.h">
+      <Filter>Source\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Component\ComponentBase.h">
+      <Filter>Source\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Component\Transform\Transform.h">
+      <Filter>Source\Component\Transform</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GameObject\GameObject.h">
+      <Filter>Source\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Component\Renderer\Splite.h">
+      <Filter>Source\Component\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Component\Controller\Controller2D.h">
+      <Filter>Source\Component\Controller</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -8,6 +8,14 @@ constexpr float POS_THRESHOLD = 1.0f;
 constexpr float SCALE_THRESHOLD = 0.005f;
 constexpr float ROT_THRESHOLD = 0.005f;
 
+NetworkPlayer::NetworkPlayer(int id, bool isSelf) : Player()
+, m_IsSelf(isSelf)
+, m_ID(id)
+{
+	//サーバー座標を使用する
+	m_UserServerTransform = true;
+}
+
 NetworkPlayer::NetworkPlayer(const Client* client, int id, bool isSelf) : Player()
 ,m_IsSelf(isSelf)
 ,m_ID(id)

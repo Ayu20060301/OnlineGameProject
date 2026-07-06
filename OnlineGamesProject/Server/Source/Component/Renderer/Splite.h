@@ -1,12 +1,12 @@
 #pragma once
-#include "Transform.h"
-#include "../Component/ComponentBase.h"
+
+#include "../ComponentBase.h"
 
 class Splite : public ComponentBase
 {
 public:
 	Splite();
-	~Splite();
+	virtual ~Splite();
 
 	void Load(const char* filePath);
 	void Draw();

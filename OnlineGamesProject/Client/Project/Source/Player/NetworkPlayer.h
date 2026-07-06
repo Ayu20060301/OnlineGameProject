@@ -7,6 +7,7 @@ class Client;
 class NetworkPlayer : public Player
 {
 public:
+	NetworkPlayer(int id, bool isSelf);
 	NetworkPlayer(const Client* client, int id, bool isSelf);
 	virtual ~NetworkPlayer();
 

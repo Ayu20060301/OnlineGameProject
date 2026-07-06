@@ -1,8 +1,8 @@
 #pragma once
+#include <memory>
 
 //---’èŠú“I‚È•”•ª‚ğÈ—ª‚Å‚«‚éƒNƒ‰ƒX---
 
-#include <memory>
 template <typename T>
 class Singleton
 {

@@ -1,14 +1,13 @@
 #pragma once
 #include "DxLib.h"
-#include "ComponentBase.h"
+#include "../ComponentBase.h"
 
 class Transform : public ComponentBase
 {
 public:
 	Transform();
-	~Transform() = default;
+	virtual ~Transform() = default;
 
-public:
 	void SetPosition(const VECTOR& pos) { m_Pos = pos; }
 	void SetRotation(const VECTOR& rot) { m_Rot = rot; }
 	void SetScale(const VECTOR& scale) { m_Scale = scale; }

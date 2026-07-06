@@ -5,10 +5,8 @@
 // NetworkCommonParam.hはクライアント/サーバー共通のパラメータ
 // 必ず双方で同じ状態にする必要がある
 
-
 namespace Network
 {
-
 	//ポート番号
 	constexpr int PORT_NUMBER = 50000;
 
@@ -27,17 +25,12 @@ namespace Network
 	//文字列の長さは文字数+終端文字
 	constexpr int NETWORK_MESSAGE_BUFFER_MAX = NETWORK_MESSAGE_MAX + 1;
 
-
-
 	//パケットの種類
 	enum class PacketType : uint8_t
 	{
 		LOGIN,
 		JOIN,
 		LOGOUT,
-		POS,
-		ROT,
-		SCALE,
 		TRANSFORM,
 		ALL_TRANSFORM,
 		DIE
@@ -53,7 +46,7 @@ namespace Network
 	//ログインデータ(リクエスト)
 	struct RequestLoginData
 	{
-
+		char userName[NETWORK_USER_NAME_BUFFER_MAX];
 	};
 
 	//ログインデータ(レスポンス)
