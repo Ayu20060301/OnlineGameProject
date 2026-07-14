@@ -34,6 +34,9 @@
     <Filter Include="Source\Component\Controller">
       <UniqueIdentifier>{195c35b0-f939-4a4d-9f53-b8899fdc2426}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Component\Collision">
+      <UniqueIdentifier>{78f1a268-d892-4ae0-9e82-e46cb9cb68e0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Main.cpp">
@@ -68,6 +71,15 @@
     </ClCompile>
     <ClCompile Include="Source\Component\Controller\Controller2D.cpp">
       <Filter>Source\Component\Controller</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Component\Collision\AABB.cpp">
+      <Filter>Source\Component\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Component\Collision\CollisionManager.cpp">
+      <Filter>Source\Component\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Component\Collision\ColliderComponent.cpp">
+      <Filter>Source\Component\Collision</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -112,6 +124,18 @@
     </ClInclude>
     <ClInclude Include="Source\Component\Controller\Controller2D.h">
       <Filter>Source\Component\Controller</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Component\Collision\AABB.h">
+      <Filter>Source\Component\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Component\Collision\CollisionManager.h">
+      <Filter>Source\Component\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Component\Collision\CollisionParameter.h">
+      <Filter>Source\Component\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Component\Collision\ColliderComponent.h">
+      <Filter>Source\Component\Collision</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

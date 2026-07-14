@@ -20,6 +20,7 @@ public:
 
 	int GetPlayerCount() const { return static_cast<int>(m_Players.size()); }
 	std::vector<SharedPtr<Player>> GetPlayers() const { return m_Players; }
+	Player* GetPlayer(int id) const;
 
 private:
 	std::vector<SharedPtr<Player>> m_Players;
