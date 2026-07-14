@@ -34,6 +34,9 @@
     <Filter Include="Source\GameApp">
       <UniqueIdentifier>{3ac119d9-869f-4186-beb1-1e98fd914282}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Component\Collision">
+      <UniqueIdentifier>{d975a895-b42f-4f58-b36c-5bd5aa20c31e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Main.cpp">
@@ -95,6 +98,15 @@
     </ClCompile>
     <ClCompile Include="Source\GameApp\GameApp.cpp">
       <Filter>Source\GameApp</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Component\Collision\AABB.cpp">
+      <Filter>Source\Component\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Component\Collision\ColliderComponent.cpp">
+      <Filter>Source\Component\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Component\Collision\CollisionManager.cpp">
+      <Filter>Source\Component\Collision</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -169,6 +181,18 @@
     </ClInclude>
     <ClInclude Include="Source\GameApp\GameApp.h">
       <Filter>Source\GameApp</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Component\Collision\AABB.h">
+      <Filter>Source\Component\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Component\Collision\ColliderComponent.h">
+      <Filter>Source\Component\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Component\Collision\CollisionManager.h">
+      <Filter>Source\Component\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Component\Collision\CollisionParameter.h">
+      <Filter>Source\Component\Collision</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

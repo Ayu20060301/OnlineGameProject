@@ -139,6 +139,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Component\Collision\AABB.cpp" />
+    <ClCompile Include="Source\Component\Collision\ColliderComponent.cpp" />
+    <ClCompile Include="Source\Component\Collision\CollisionManager.cpp" />
     <ClCompile Include="Source\Component\ComponentBase.cpp" />
     <ClCompile Include="Source\Component\Controller2D.cpp" />
     <ClCompile Include="Source\Component\Splite.cpp" />
@@ -161,6 +164,10 @@
     <ClCompile Include="Source\Scene\TitleScene.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\Component\Collision\AABB.h" />
+    <ClInclude Include="Source\Component\Collision\ColliderComponent.h" />
+    <ClInclude Include="Source\Component\Collision\CollisionManager.h" />
+    <ClInclude Include="Source\Component\Collision\CollisionParameter.h" />
     <ClInclude Include="Source\Component\ComponentBase.h" />
     <ClInclude Include="Source\Component\Controller2D.h" />
     <ClInclude Include="Source\Component\Splite.h" />

@@ -2,6 +2,7 @@
 #include "Splite.h"
 #include "../../GameObject/GameObject.h"
 
+
 Splite::Splite() : ComponentBase()
 , m_Handle(0)
 , m_Width(0)

@@ -4,12 +4,9 @@
 #include "../../GameObject/GameObject.h"
 #include "DxLib.h"
 
-
-/// <summary>
-/// •`‰æ
-/// </summary>
 void CollisionManager::Draw()
 {
+
 	//“o˜^‚³‚ê‚Ä‚¢‚éƒRƒ‰ƒCƒ_[‚ğ•`‰æ
 	for (auto col : m_Colliders)
 	{
@@ -29,8 +26,7 @@ void CollisionManager::Register(ColliderComponent* col)
 	//‘½d“o˜^‚Ì–h~
 	auto it = std::find(m_Colliders.begin(), m_Colliders.end(), col);
 
-	//Šù‚É“o˜^Ï‚İ‚È‚ç‰½‚à‚µ‚È‚¢
-	if (it != m_Colliders.end()) return;
+	if (it != m_Colliders.end()) return; //Šù‚É“o˜^Ï‚İ‚È‚ç‚È‚É‚à‚µ‚È‚¢
 
 	m_Colliders.push_back(col);
 }
@@ -44,17 +40,13 @@ void CollisionManager::Unregister(ColliderComponent* col)
 	//nullptrƒK[ƒh
 	if (!col) return;
 
-	//Œ©‚Â‚¯‚Äíœ
+	//Œ©‚Â‚¯‚Ä‰ğœ
 	auto it = std::find(m_Colliders.begin(), m_Colliders.end(), col);
-
 	if (it != m_Colliders.end())
 	{
 		m_Colliders.erase(it);
 	}
-
 }
-
-
 
 /// <summary>
 /// “–‚½‚è”»’è
@@ -63,7 +55,7 @@ void CollisionManager::CheckCollision()
 {
 	//‘SƒRƒ‰ƒCƒ_[‘“–‚½‚è
 	const size_t size = m_Colliders.size();
-	for (int i = 0; i < size; i++)
+	for (int i = 0; i < size; ++i)
 	{
 		ColliderComponent* a = m_Colliders[i];
 		if (!a->IsActive()) continue;
@@ -72,6 +64,7 @@ void CollisionManager::CheckCollision()
 		{
 			ColliderComponent* b = m_Colliders[j];
 			if (!b->IsActive()) continue;
+
 			CollisionResult result = a->CheckCollide(*b);
 
 			//“–‚½‚Á‚½‚ç€–S
