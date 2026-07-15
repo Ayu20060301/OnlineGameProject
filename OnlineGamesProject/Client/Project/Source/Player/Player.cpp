@@ -1,5 +1,4 @@
 #include "Player.h"
-#include "../Component/Transform.h"
 #include "../Component/Splite.h"
 #include "../Component/Controller2D.h"
 #include "../MyMath/MyMath.h"

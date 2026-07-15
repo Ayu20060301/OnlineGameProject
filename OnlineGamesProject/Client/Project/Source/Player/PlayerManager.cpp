@@ -97,7 +97,8 @@ void PlayerManager::Join(Network::JoinData data)
 {
 	//参加プレイヤーを生成
 	NetworkPlayer& player = CreateNetworkPlayer(data.playerID, false);
-	//player.SetPosition(data.spawnPos);
+	player.SetPosition(data.spawnPos);
+	player.SetServerPosition(data.spawnPos);
 }
 
 /// <summary>

@@ -2,8 +2,8 @@
 #include "../GameObject/GameObject.h"
 
 ComponentBase::ComponentBase()
-	: m_Owner(nullptr)
-	, m_IsActive(true)
+: m_Owner(nullptr)
+, m_IsActive(true)
 {
 }
 

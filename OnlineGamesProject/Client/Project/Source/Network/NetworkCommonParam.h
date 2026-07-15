@@ -61,6 +61,7 @@ namespace Network
 	struct JoinData
 	{
 		int playerID;
+		VECTOR spawnPos;
 	};
 
 	//プレイヤーログアウトデータ

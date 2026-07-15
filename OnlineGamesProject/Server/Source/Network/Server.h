@@ -4,6 +4,9 @@
 #include <string>
 #include "NetworkCommonParam.h"
 
+/// <summary>
+/// クライアントデータ
+/// </summary>
 struct ClientData
 {
 	int handle;
@@ -30,5 +33,4 @@ private:
 	void ReceiveData();	// ユーザーデータを除外
 	void SyncTransform(int handle);  //同期用に座標設定
 	void CheckCollision();
-
 };
