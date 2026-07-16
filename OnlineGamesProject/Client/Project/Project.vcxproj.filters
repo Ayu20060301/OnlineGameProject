@@ -37,6 +37,21 @@
     <Filter Include="Source\Component\Collision">
       <UniqueIdentifier>{d975a895-b42f-4f58-b36c-5bd5aa20c31e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Judge">
+      <UniqueIdentifier>{dfd908e1-df99-4eec-bfe2-20d6681941a0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Bullet">
+      <UniqueIdentifier>{20579548-1df9-4a89-b29c-ae14db3e512f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\MyRandom">
+      <UniqueIdentifier>{401758af-716a-4172-ac1c-15cf0f702730}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\FPS">
+      <UniqueIdentifier>{73d6baa6-e445-4072-a8f8-34357f795778}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\GameSetting">
+      <UniqueIdentifier>{521df45a-3b37-4654-8ea2-87bf514270fc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Main.cpp">
@@ -99,14 +114,38 @@
     <ClCompile Include="Source\GameApp\GameApp.cpp">
       <Filter>Source\GameApp</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Component\Collision\AABB.cpp">
-      <Filter>Source\Component\Collision</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Component\Collision\ColliderComponent.cpp">
       <Filter>Source\Component\Collision</Filter>
     </ClCompile>
     <ClCompile Include="Source\Component\Collision\CollisionManager.cpp">
       <Filter>Source\Component\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Judge\Judge.cpp">
+      <Filter>Source\Judge</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Bullet\BulletBase.cpp">
+      <Filter>Source\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Bullet\BulletManager.cpp">
+      <Filter>Source\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Bullet\StraightBullet.cpp">
+      <Filter>Source\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Component\Collision\CollisionSphere.cpp">
+      <Filter>Source\Component\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Component\Collision\CollisionBase.cpp">
+      <Filter>Source\Component\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Component\Collision\CollisionAABB.cpp">
+      <Filter>Source\Component\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\MyRandom\MyRandom.cpp">
+      <Filter>Source\MyRandom</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\FPS\FPS.cpp">
+      <Filter>Source\FPS</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -182,9 +221,6 @@
     <ClInclude Include="Source\GameApp\GameApp.h">
       <Filter>Source\GameApp</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Component\Collision\AABB.h">
-      <Filter>Source\Component\Collision</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Component\Collision\ColliderComponent.h">
       <Filter>Source\Component\Collision</Filter>
     </ClInclude>
@@ -193,6 +229,42 @@
     </ClInclude>
     <ClInclude Include="Source\Component\Collision\CollisionParameter.h">
       <Filter>Source\Component\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Judge\Judge.h">
+      <Filter>Source\Judge</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Bullet\BulletBase.h">
+      <Filter>Source\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Bullet\BulletManager.h">
+      <Filter>Source\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Bullet\BulletParameter.h">
+      <Filter>Source\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Bullet\StraightBullet.h">
+      <Filter>Source\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Component\Collision\CollisionSphere.h">
+      <Filter>Source\Component\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Component\Collision\CollisionBase.h">
+      <Filter>Source\Component\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Component\Collision\CollisionAABB.h">
+      <Filter>Source\Component\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Player\PlayerParameter.h">
+      <Filter>Source\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\MyRandom\MyRandom.h">
+      <Filter>Source\MyRandom</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\FPS\FPS.h">
+      <Filter>Source\FPS</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GameSetting\GameSetting.h">
+      <Filter>Source\GameSetting</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -1,24 +1,47 @@
 #pragma once
 
+
+#include "CollisionParameter.h"
+#include "CollisionBase.h"
 #include "../../Singleton/Singleton.h"
 #include <vector>
 
+// Box.hをインクルードしなくて済むように前方定義
+class CollisionBase;
+class CollisionAABB;
+class CollisionSphere;
 
-class ColliderComponent;
+#define COLLISION_MAX 16
 
 class CollisionManager : public Singleton<CollisionManager>
 {
 public:
-	CollisionManager() = default;
-	virtual ~CollisionManager() = default;
+	CollisionManager();
+	~CollisionManager();
 
-	void Draw();
+public:
+	void Draw();	// 描画
+	void Fin();		// 終了
 
-	void Register(ColliderComponent* col);
-	void Unregister(ColliderComponent* col);
-
-	void CheckCollision();
+public:
+	// 関数を呼ぶときに型指定するテンプレート
+	CollisionAABB* CreateAABB();
+	CollisionSphere* CreateSphere();
 
 private:
-	std::vector<ColliderComponent*> m_Colliders;
+	CollisionBase* CreateCollision(int id);
+
+public:
+	// 当たり判定のチェック
+	void CheckCollision();
+	void CheckPlayerAndBlock();
+	void CheckPlayerAndBullet();
+	void CheckPlayerAndItem();
+	void CheckBlockAndBullet();
+
+private:
+	// CollisionManagerインスタンス
+	static CollisionManager* m_Instance;
+	// 当たり判定管理用配列
+	std::vector<CollisionBase*> m_Collisions;
 };

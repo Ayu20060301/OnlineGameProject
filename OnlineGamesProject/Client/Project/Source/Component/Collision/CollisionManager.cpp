@@ -1,79 +1,52 @@
 #include "CollisionManager.h"
-#include "CollisionParameter.h"
-#include "ColliderComponent.h"
-#include "../../GameObject/GameObject.h"
-#include "DxLib.h"
+
+CollisionManager::CollisionManager()
+{
+}
+
+CollisionManager::~CollisionManager()
+{
+}
 
 void CollisionManager::Draw()
 {
-
-	//登録されているコライダーを描画
-	for (auto col : m_Colliders)
-	{
-		col->Draw();
-	}
 }
 
-/// <summary>
-/// コライダーをマネージャーに登録
-/// </summary>
-/// <param name="col">登録するコライダー</param>
-void CollisionManager::Register(ColliderComponent* col)
+void CollisionManager::Fin()
 {
-	//nullptrガード
-	if (!col) return;
-
-	//多重登録の防止
-	auto it = std::find(m_Colliders.begin(), m_Colliders.end(), col);
-
-	if (it != m_Colliders.end()) return; //既に登録済みならなにもしない
-
-	m_Colliders.push_back(col);
 }
 
-/// <summary>
-/// 登録されたコライダーを解除
-/// </summary>
-/// <param name="col">解除したいコライダー</param>
-void CollisionManager::Unregister(ColliderComponent* col)
+CollisionAABB* CollisionManager::CreateAABB()
 {
-	//nullptrガード
-	if (!col) return;
-
-	//見つけて解除
-	auto it = std::find(m_Colliders.begin(), m_Colliders.end(), col);
-	if (it != m_Colliders.end())
-	{
-		m_Colliders.erase(it);
-	}
+	return nullptr;
 }
 
-/// <summary>
-/// 当たり判定
-/// </summary>
+CollisionSphere* CollisionManager::CreateSphere()
+{
+	return nullptr;
+}
+
+CollisionBase* CollisionManager::CreateCollision(int id)
+{
+	return nullptr;
+}
+
 void CollisionManager::CheckCollision()
 {
-	//全コライダー総当たり
-	const size_t size = m_Colliders.size();
-	for (int i = 0; i < size; ++i)
-	{
-		ColliderComponent* a = m_Colliders[i];
-		if (!a->IsActive()) continue;
+}
 
-		for (int j = i + 1; j < size; ++j)
-		{
-			ColliderComponent* b = m_Colliders[j];
-			if (!b->IsActive()) continue;
+void CollisionManager::CheckPlayerAndBlock()
+{
+}
 
-			CollisionResult result = a->CheckCollide(*b);
+void CollisionManager::CheckPlayerAndBullet()
+{
+}
 
-			//当たったら死亡
-			if (result.isHit)
-			{
-				//衝突処理
-				a->GetOwner()->OverlapGameObject(*b->GetOwner());
-				b->GetOwner()->OverlapGameObject(*a->GetOwner());
-			}
-		}
-	}
+void CollisionManager::CheckPlayerAndItem()
+{
+}
+
+void CollisionManager::CheckBlockAndBullet()
+{
 }
