@@ -40,9 +40,6 @@
     <Filter Include="Source\Judge">
       <UniqueIdentifier>{dfd908e1-df99-4eec-bfe2-20d6681941a0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Bullet">
-      <UniqueIdentifier>{20579548-1df9-4a89-b29c-ae14db3e512f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source\MyRandom">
       <UniqueIdentifier>{401758af-716a-4172-ac1c-15cf0f702730}</UniqueIdentifier>
     </Filter>
@@ -51,6 +48,12 @@
     </Filter>
     <Filter Include="Source\GameSetting">
       <UniqueIdentifier>{521df45a-3b37-4654-8ea2-87bf514270fc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Stage">
+      <UniqueIdentifier>{7aff3e3e-b0f7-42a7-995c-3b9b72ebcf4c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Block">
+      <UniqueIdentifier>{3c4aa953-cd4e-4eaa-a557-49e29ab614f9}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -123,15 +126,6 @@
     <ClCompile Include="Source\Judge\Judge.cpp">
       <Filter>Source\Judge</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Bullet\BulletBase.cpp">
-      <Filter>Source\Bullet</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Bullet\BulletManager.cpp">
-      <Filter>Source\Bullet</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Bullet\StraightBullet.cpp">
-      <Filter>Source\Bullet</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Component\Collision\CollisionSphere.cpp">
       <Filter>Source\Component\Collision</Filter>
     </ClCompile>
@@ -146,6 +140,21 @@
     </ClCompile>
     <ClCompile Include="Source\FPS\FPS.cpp">
       <Filter>Source\FPS</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Stage\Stage.cpp">
+      <Filter>Source\Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Stage\StageManager.cpp">
+      <Filter>Source\Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Block\Block.cpp">
+      <Filter>Source\Block</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Block\BlockManager.cpp">
+      <Filter>Source\Block</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Player\PlayerBase.cpp">
+      <Filter>Source\Player</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -233,18 +242,6 @@
     <ClInclude Include="Source\Judge\Judge.h">
       <Filter>Source\Judge</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Bullet\BulletBase.h">
-      <Filter>Source\Bullet</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Bullet\BulletManager.h">
-      <Filter>Source\Bullet</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Bullet\BulletParameter.h">
-      <Filter>Source\Bullet</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Bullet\StraightBullet.h">
-      <Filter>Source\Bullet</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Component\Collision\CollisionSphere.h">
       <Filter>Source\Component\Collision</Filter>
     </ClInclude>
@@ -265,6 +262,27 @@
     </ClInclude>
     <ClInclude Include="Source\GameSetting\GameSetting.h">
       <Filter>Source\GameSetting</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Stage\Stage.h">
+      <Filter>Source\Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Stage\StageManager.h">
+      <Filter>Source\Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Stage\StageParameter.h">
+      <Filter>Source\Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Block\Block.h">
+      <Filter>Source\Block</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Block\BlockManager.h">
+      <Filter>Source\Block</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Block\BlockParameter.h">
+      <Filter>Source\Block</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Player\PlayerBase.h">
+      <Filter>Source\Player</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
