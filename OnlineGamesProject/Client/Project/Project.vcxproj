@@ -141,6 +141,9 @@
   <ItemGroup>
     <ClCompile Include="Source\Block\Block.cpp" />
     <ClCompile Include="Source\Block\BlockManager.cpp" />
+    <ClCompile Include="Source\Bullet\BulletBase.cpp" />
+    <ClCompile Include="Source\Bullet\BulletManager.cpp" />
+    <ClCompile Include="Source\Bullet\StraightBullet.cpp" />
     <ClCompile Include="Source\Component\Collision\ColliderComponent.cpp" />
     <ClCompile Include="Source\Component\Collision\CollisionAABB.cpp" />
     <ClCompile Include="Source\Component\Collision\CollisionBase.cpp" />
@@ -150,11 +153,15 @@
     <ClCompile Include="Source\Component\Controller2D.cpp" />
     <ClCompile Include="Source\Component\Splite.cpp" />
     <ClCompile Include="Source\Component\Transform.cpp" />
+    <ClCompile Include="Source\Effect\SpriteAnimation.cpp" />
+    <ClCompile Include="Source\Effect\SpriteAnimationManager.cpp" />
     <ClCompile Include="Source\FPS\FPS.cpp" />
     <ClCompile Include="Source\GameApp\GameApp.cpp" />
     <ClCompile Include="Source\GameObject\GameObject.cpp" />
     <ClCompile Include="Source\Input\Input.cpp" />
     <ClCompile Include="Source\Input\InputString.cpp" />
+    <ClCompile Include="Source\Item\Item.cpp" />
+    <ClCompile Include="Source\Item\ItemManager.cpp" />
     <ClCompile Include="Source\Judge\Judge.cpp" />
     <ClCompile Include="Source\Main.cpp" />
     <ClCompile Include="Source\MyMath\MyMath.cpp" />
@@ -172,11 +179,19 @@
     <ClCompile Include="Source\Scene\TitleScene.cpp" />
     <ClCompile Include="Source\Stage\Stage.cpp" />
     <ClCompile Include="Source\Stage\StageManager.cpp" />
+    <ClCompile Include="Source\UI\UIBase.cpp" />
+    <ClCompile Include="Source\UI\UIGauge.cpp" />
+    <ClCompile Include="Source\UI\UIImage.cpp" />
+    <ClCompile Include="Source\UI\UIManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Block\Block.h" />
     <ClInclude Include="Source\Block\BlockManager.h" />
     <ClInclude Include="Source\Block\BlockParameter.h" />
+    <ClInclude Include="Source\Bullet\BulletBase.h" />
+    <ClInclude Include="Source\Bullet\BulletManager.h" />
+    <ClInclude Include="Source\Bullet\BulletParameter.h" />
+    <ClInclude Include="Source\Bullet\StraightBullet.h" />
     <ClInclude Include="Source\Component\Collision\ColliderComponent.h" />
     <ClInclude Include="Source\Component\Collision\CollisionAABB.h" />
     <ClInclude Include="Source\Component\Collision\CollisionBase.h" />
@@ -187,12 +202,18 @@
     <ClInclude Include="Source\Component\Controller2D.h" />
     <ClInclude Include="Source\Component\Splite.h" />
     <ClInclude Include="Source\Component\Transform.h" />
+    <ClInclude Include="Source\Effect\EffectParameter.h" />
+    <ClInclude Include="Source\Effect\SpriteAnimation.h" />
+    <ClInclude Include="Source\Effect\SpriteAnimationManager.h" />
     <ClInclude Include="Source\FPS\FPS.h" />
     <ClInclude Include="Source\GameApp\GameApp.h" />
     <ClInclude Include="Source\GameObject\GameObject.h" />
     <ClInclude Include="Source\GameSetting\GameSetting.h" />
     <ClInclude Include="Source\Input\Input.h" />
     <ClInclude Include="Source\Input\InputString.h" />
+    <ClInclude Include="Source\Item\Item.h" />
+    <ClInclude Include="Source\Item\ItemManager.h" />
+    <ClInclude Include="Source\Item\ItemParameter.h" />
     <ClInclude Include="Source\Judge\Judge.h" />
     <ClInclude Include="Source\Memory\Memory.h" />
     <ClInclude Include="Source\MyMath\MyMath.h" />
@@ -216,6 +237,11 @@
     <ClInclude Include="Source\Stage\Stage.h" />
     <ClInclude Include="Source\Stage\StageManager.h" />
     <ClInclude Include="Source\Stage\StageParameter.h" />
+    <ClInclude Include="Source\UI\UIBase.h" />
+    <ClInclude Include="Source\UI\UIGauge.h" />
+    <ClInclude Include="Source\UI\UIImage.h" />
+    <ClInclude Include="Source\UI\UIManager.h" />
+    <ClInclude Include="Source\UI\UIParameter.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

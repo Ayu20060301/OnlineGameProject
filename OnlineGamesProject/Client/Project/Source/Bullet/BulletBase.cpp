@@ -5,7 +5,7 @@
 #include "../Component/Collision/CollisionManager.h"
 #include "../Component/Collision/CollisionSphere.h"
 #include "../Component/Collision/CollisionAABB.h"
-//#include "../Effect/SpriteAnimationManager.h"
+#include "../Effect/SpriteAnimationManager.h"
 
 BulletBase::BulletBase()
 {

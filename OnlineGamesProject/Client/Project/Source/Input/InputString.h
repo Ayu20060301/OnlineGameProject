@@ -5,7 +5,6 @@
 //•¶š—ñ‚ÌÅ‘å”
 constexpr int STRING_SIZE = 256;
 
-
 class InputString
 {
 public:
