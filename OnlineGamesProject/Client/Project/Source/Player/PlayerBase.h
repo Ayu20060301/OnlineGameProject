@@ -1,3 +1,4 @@
+/*
 #pragma once
 
 #include "DxLib.h"
@@ -8,10 +9,7 @@
 class CollisionAABB;
 class CollisionSphere;
 class BulletBase;
-class Block;
-class Item;
-class UIImage;
-class UIGauge;
+
 
 class PlayerBase
 {
@@ -33,8 +31,6 @@ public:
 	bool IsActive() const { return m_IsActive; }
 	bool IsInvisible() const { return m_InvisibleTimer > 0; }
 	bool IsBulletInterval() const { return m_BulletInterval > 0; }
-	int GetHP() const { return m_HP; }
-	VECTOR GetPos() const { return m_Pos; }
 	CollisionAABB* GetCollisionAABB() const { return m_CollisionAABB; }
 	CollisionSphere* GetCollisionSphere() const { return m_CollisionSphere; }
 	float GetMoveSpeed() const { return m_MoveSpeed; }
@@ -44,10 +40,7 @@ public:
 	void SetPlayerNumber(int number) { m_PlayerNumber = number; }
 	void FireBullet();
 	void Dead();
-	void UpdateAnimation();
-	void HitBlock(Block* block);
-	void HitBullet();
-	void HitItem(Item* item);
+	
 protected:
 	void SetDirectionForMove();
 
@@ -86,3 +79,4 @@ protected:
 	bool m_IsUserServerTransform;
 	Transform m_ServerTransform;
 };
+*/

@@ -1,13 +1,13 @@
 #pragma once
 
-#include "PlayerBase.h"
+#include "Player.h"
 
 class Client;
 
 /// <summary>
 /// ネットワークプレイヤークラス
 /// </summary>
-class NetworkPlayer : public PlayerBase
+class NetworkPlayer : public Player
 {
 public:
 	NetworkPlayer(int id, bool isSelf);
@@ -25,5 +25,4 @@ public:
 private:
 	bool m_IsSelf;                //自分自身が操作するかどうか
 	int m_ID;                     //識別ID
-	VECTOR m_LastSentPos;          //前回送信した座標
 };

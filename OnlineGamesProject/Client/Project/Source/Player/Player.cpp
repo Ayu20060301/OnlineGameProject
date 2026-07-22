@@ -1,88 +1,98 @@
 #include "Player.h"
-#include "PlayerParameter.h"
-#include "../Input//Input.h"
+#include "../Component/Splite.h"
+#include "../Component/Controller2D.h"
 #include "../MyMath/MyMath.h"
-#include "../Bullet/BulletManager.h"
-#include "../Bullet/BulletParameter.h"
-#include "../Component/Collision/CollisionManager.h"
-#include "../Component/Collision/CollisionAABB.h"
-#include "../Component/Collision/CollisionSphere.h"
-#include "../Bullet/BulletBase.h"
-#include "../Stage/StageParameter.h"
-#include "../Block/Block.h"
 
-//コンストラクタ
-Player::Player()
+constexpr int PLAYER_CHANGE_ANIM_TIME = 5;
+constexpr int PLAYER_CHANGE_GRAPH_NUM = 4;
+
+Player::Player() : GameObject()
+, m_IsActive(true)
+, m_MoveSpeed(0.0f)
+, m_ScaleSpeed(0.0f)
+, m_RotSpeed(0.0f)
+, m_Splite(nullptr)
+, m_Controller(nullptr)
 {
 }
 
-//デストラクタ
-Player::~Player()
+Player::~Player() = default;
+
+void Player::Init()
 {
-	Fin();
+	m_MoveSpeed = 10.0f;
+	m_ScaleSpeed = 0.01f;
+	m_RotSpeed = 0.01f;
+	m_Splite = AddComponent<Splite>();
+	m_Controller = AddComponent<Controller2D>();
 }
 
-//ステップ
+void Player::Load()
+{
+	m_Splite->Load("Data/Play/Player/Player1.png");
+}
+
+void Player::Start()
+{
+	SetPosition(VGet(100.0f, 100.0f, 0.0f));
+}
+
 void Player::Step()
 {
 	if (!m_IsActive) return;
 
-	PlayerBase::Step();
+	VECTOR pos = m_Transform.GetPosition();
+	VECTOR scale = m_Transform.GetScale();
+	VECTOR rot = m_Transform.GetRotation();
 
-	//移動入力
-	InputMove();
+	// 移動入力
+	pos += m_Controller->Move() * m_MoveSpeed;
 
-	//移動量から向き設定
-	SetDirectionForMove();
 
-	//バレット入力
-	InputBullet();
+	m_Transform.SetPosition(pos);
+	m_Transform.SetScale(scale);
+	m_Transform.SetRotation(rot);
+}
+
+void Player::Update()
+{
+	if (!m_IsActive) return;
+}
+
+void Player::Draw()
+{
+	if (!m_IsActive) return;
+
+	if (m_Splite)
+	{
+		m_Splite->Draw();
+	}
 }
 
 /// <summary>
-/// 移動入力
+/// アニメーションの更新
 /// </summary>
-void Player::InputMove()
+void Player::UpdateAnimation()
 {
-	//硬直中は移動できない
-	if (m_Stiffness > 0) return;
-
-	m_Move = VGet(0.0f, 0.0f, 0.0f);
-
-	if (Input::IsInputKey(KEY_UP))
+	//移動していなければ0コマ目で停止
+	if (MyMath::VecLong(m_Controller->Move()) <= 0)
 	{
-		m_Move.y = -m_MoveSpeed;
-	}
-	if (Input::IsInputKey(KEY_DOWN))
-	{
-		m_Move.y = m_MoveSpeed;
-	}
-	if (Input::IsInputKey(KEY_LEFT))
-	{
-		m_Move.x = -m_MoveSpeed;
-	}
-	if (Input::IsInputKey(KEY_RIGHT))
-	{
-		m_Move.x = m_MoveSpeed;
+		m_AnimationTimer = 0;
+		m_AnimationIndex = 0;
+		return;
 	}
 
-	//移動ベクトルを移動速度の大きさにする
-	m_Move = MyMath::VecNormalize(m_Move);
-	m_Move = MyMath::VecScale(m_Move,m_MoveSpeed);
-
-	//移動
-	m_Pos = MyMath::VecAdd(m_Pos, m_Move);
-
+	if (m_AnimationTimer >= PLAYER_CHANGE_ANIM_TIME)
+	{
+		m_AnimationTimer = 0;
+		m_AnimationIndex++;
+	}
 }
 
 /// <summary>
-/// バレット入力
+/// 死亡処理
 /// </summary>
-void Player::InputBullet()
+void Player::Die()
 {
-	//Zキーで発射
-	if (Input::IsTriggerKey(KEY_Z))
-	{
-		PlayerBase::FireBullet();
-	}
+	m_IsActive = false;
 }

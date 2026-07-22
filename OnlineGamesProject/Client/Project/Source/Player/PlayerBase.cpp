@@ -1,3 +1,4 @@
+/*
 #include "PlayerBase.h"
 #include "PlayerManager.h"
 #include "PlayerParameter.h"
@@ -497,4 +498,4 @@ void PlayerBase::Damage(int damage)
 		const int ANIM_ID[] = { PLAYER1_DEAD,PLAYER2_DEAD,PLAYER3_DEAD,PLAYER4_DEAD };
 		SpriteAnimationManager::GetInstance()->Play(ANIM_ID[m_PlayerNumber], m_Pos, 20);
 	}
-}
+}*/

@@ -1,20 +1,39 @@
 #pragma once
 
 #include "DxLib.h"
-#include "PlayerBase.h"
+#include "../Memory/Memory.h"
+#include "../GameObject/GameObject.h"
 
+class Splite;
+class Controller2D;
 
 /// <summary>
 /// プレイヤークラス
 /// </summary>
-class Player : public PlayerBase
+class Player : public GameObject
 {
 public:
 	Player(); //コンストラクタ
-	~Player(); //デストラクタ
+	virtual ~Player(); //デストラクタ
 
-	void Step() override;  //ステップ
+	void Init();
+	void Load();
+	void Start();
+	virtual void Step();
+	virtual void Update();
+	virtual void Draw();
 
-	void InputMove(); //移動入力
-	void InputBullet(); //バレット入力
+	void UpdateAnimation(); //アニメーションの更新
+	void Die();
+
+protected:
+	int m_ID; 
+	int m_AnimationIndex = 0;
+	int m_AnimationTimer = 0;
+	bool m_IsActive;
+	float m_MoveSpeed;
+	float m_ScaleSpeed;
+	float m_RotSpeed;
+	Splite* m_Splite;
+	Controller2D* m_Controller;
 };
