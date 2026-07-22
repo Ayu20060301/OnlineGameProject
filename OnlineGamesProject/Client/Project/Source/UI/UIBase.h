@@ -17,7 +17,7 @@ public:
 	virtual UIBase* Clone() = 0;
 
 public:
-	bool IsHide() const {}
+	bool IsHide() const { return m_IsHide; }
 	VECTOR GetPos() const { return m_Pos; }
 	int GetWidth() const { return m_Width; }
 	int GetHeight() const { return m_Height; }

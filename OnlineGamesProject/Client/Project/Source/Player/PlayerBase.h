@@ -1,7 +1,7 @@
 #pragma once
 
 #include "DxLib.h"
-
+#include "../Component/Transform.h"
 
 //前方宣言
 
@@ -40,19 +40,14 @@ public:
 	float GetMoveSpeed() const { return m_MoveSpeed; }
 	float GetBulletChargeSpeed() const { m_BulletChargeSpeed; }
 	float GetBulletSpeed() const { m_BulletSpeed; }
-
 	void SetActive(bool active) { m_IsActive = active; }
 	void SetPlayerNumber(int number) { m_PlayerNumber = number; }
-
 	void FireBullet();
 	void Dead();
-
 	void UpdateAnimation();
-
 	void HitBlock(Block* block);
 	void HitBullet();
 	void HitItem(Item* item);
-
 protected:
 	void SetDirectionForMove();
 
@@ -85,4 +80,9 @@ protected:
 	CollisionSphere* m_CollisionSphere;
 	UIImage** m_UIHP;
 	UIGauge* m_BulletChargeGauge;
+	Transform m_Transform;
+
+	//以下ネットワーク用
+	bool m_IsUserServerTransform;
+	Transform m_ServerTransform;
 };

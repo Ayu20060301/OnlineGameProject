@@ -104,6 +104,9 @@ PlayerBase::PlayerBase()
 	m_CollisionSphere = nullptr;
 	m_BulletChargeGauge = nullptr;
 	m_UIHP = nullptr;
+	m_Transform = {};
+	m_IsUserServerTransform = false;
+	m_ServerTransform = {};
 }
 
 //デストラクタ

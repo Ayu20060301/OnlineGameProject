@@ -4,6 +4,7 @@
 #include "../Network/NetworkCommonParam.h"
 #include <list>
 
+
 class Player;
 class NetworkPlayer;
 class Client;
@@ -34,5 +35,7 @@ public:
 	void DiePlayer(int playerID);
 
 private:
+
+	//生成されたプレイヤーの参照
 	std::list<UniquePtr<Player>> m_Players;
 };

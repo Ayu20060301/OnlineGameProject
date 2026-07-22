@@ -6,19 +6,22 @@
 class CollisionAABB;
 class SpriteAnimation;
 
+/// <summary>
+/// アイテムクラス
+/// </summary>
 class Item
 {
 public:
-	Item();
-	~Item();
+	Item(); //コンストラクタ
+	~Item(); //デストラクタ
 
 public:
-	void Init();
-	void Load();
-	void Step();
-	void Update();
-	void Draw();
-	void Fin();
+	void Init(); //初期化
+	void Load(); //ロード
+	void Step(); //ステップ
+	void Update(); //更新
+	void Draw();  //描画
+	void Fin(); //終了
 	Item* Clone();
 
 	void Spawn();
