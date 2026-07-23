@@ -18,7 +18,7 @@ public:
 public:
 	bool IsActive() const { return m_IsActive; }
 
-	void SetActive(bool active) { m_IsActive = active; }
+	void SetActive(bool isActive) { m_IsActive = isActive; }
 
 private:
 	bool m_IsActive;

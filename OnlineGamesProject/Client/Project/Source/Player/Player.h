@@ -4,6 +4,7 @@
 #include "../Memory/Memory.h"
 #include "../GameObject/GameObject.h"
 
+//前方宣言
 class Splite;
 class Controller2D;
 
@@ -13,27 +14,25 @@ class Controller2D;
 class Player : public GameObject
 {
 public:
-	Player(); //コンストラクタ
-	virtual ~Player(); //デストラクタ
+	Player();
+	virtual ~Player();
 
 	void Init();
 	void Load();
 	void Start();
 	virtual void Step();
-	virtual void Update();
 	virtual void Draw();
 
-	void UpdateAnimation(); //アニメーションの更新
 	void Die();
 
+
 protected:
-	int m_ID; 
-	int m_AnimationIndex = 0;
-	int m_AnimationTimer = 0;
+
 	bool m_IsActive;
 	float m_MoveSpeed;
 	float m_ScaleSpeed;
 	float m_RotSpeed;
 	Splite* m_Splite;
 	Controller2D* m_Controller;
+
 };

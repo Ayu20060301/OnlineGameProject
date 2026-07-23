@@ -2,7 +2,7 @@
 #include "../Network/Client.h"
 #include "../MyMath/MyMath.h"
 #include "../Network/ClientAPI.h"
-#include "../GameApp/GameApp.h"
+
 
 //これだけ動いたらサーバーに送信する
 constexpr float POS_THRESHOLD = 1.0f;
@@ -18,13 +18,12 @@ NetworkPlayer::NetworkPlayer(int id, bool isSelf) : Player()
 
 }
 
-NetworkPlayer::NetworkPlayer(const Client* client, int id, bool isSelf) : PlayerBase()
+NetworkPlayer::NetworkPlayer(const Client* client, int id, bool isSelf) : Player()
 ,m_IsSelf(isSelf)
 ,m_ID(id)
 {
 	//サーバー座標を使用する
 	m_UserServerTransform = true;
-
 }
 
 NetworkPlayer::~NetworkPlayer() = default;
@@ -48,4 +47,11 @@ void NetworkPlayer::Step()
 	{
 		isMove = true;
 	}
+
+	// 動いたらトランスフォームを送信
+	if (isMove)
+	{
+		ClientAPI::RequestTransform(m_ID, m_Transform);
+	}
+	
 }

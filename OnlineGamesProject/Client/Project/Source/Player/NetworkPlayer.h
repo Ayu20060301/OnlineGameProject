@@ -21,6 +21,7 @@ public:
 	void SetServerPosition(const VECTOR& pos) { m_ServerTransform.SetPosition(pos); }
 	void SetServerRotation(const VECTOR& rot) { m_ServerTransform.SetRotation(rot); }
 	void SetServerScale(const VECTOR& scale) { m_ServerTransform.SetScale(scale); }
+	
 
 private:
 	bool m_IsSelf;                //©•ª©g‚ª‘€ì‚·‚é‚©‚Ç‚¤‚©

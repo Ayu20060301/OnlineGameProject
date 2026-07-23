@@ -113,7 +113,7 @@ void Server::ReceiveData()
 			{
 			    case PacketType::LOGIN:        ServerHandler::HandleLogin(nwHandle);    break;  //ログイン
 			    case PacketType::LOGOUT:       ServerHandler::HandleLogout(nwHandle);   break;  //ログアウト
-			    case PacketType::TRANSFORM:    ServerHandler::HandleLogin(nwHandle);    break;  //トランスフォーム
+			    case PacketType::TRANSFORM:    SyncTransform(nwHandle);    break;  //トランスフォーム
 			}
 		}
 	}

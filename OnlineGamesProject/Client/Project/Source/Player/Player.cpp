@@ -3,9 +3,9 @@
 #include "../Component/Controller2D.h"
 #include "../MyMath/MyMath.h"
 
-constexpr int PLAYER_CHANGE_ANIM_TIME = 5;
-constexpr int PLAYER_CHANGE_GRAPH_NUM = 4;
 
+
+//コンストラクタ
 Player::Player() : GameObject()
 , m_IsActive(true)
 , m_MoveSpeed(0.0f)
@@ -16,8 +16,10 @@ Player::Player() : GameObject()
 {
 }
 
+//デストラクタ
 Player::~Player() = default;
 
+//初期化
 void Player::Init()
 {
 	m_MoveSpeed = 10.0f;
@@ -27,16 +29,20 @@ void Player::Init()
 	m_Controller = AddComponent<Controller2D>();
 }
 
+//ロード
 void Player::Load()
 {
-	m_Splite->Load("Data/Play/Player/Player1.png");
+	m_Splite->Load("Data/Player/Player1.png");
 }
 
+//スタート
 void Player::Start()
 {
+	//初期ポジション
 	SetPosition(VGet(100.0f, 100.0f, 0.0f));
 }
 
+//ステップ
 void Player::Step()
 {
 	if (!m_IsActive) return;
@@ -45,20 +51,21 @@ void Player::Step()
 	VECTOR scale = m_Transform.GetScale();
 	VECTOR rot = m_Transform.GetRotation();
 
-	// 移動入力
+	//移動入力
 	pos += m_Controller->Move() * m_MoveSpeed;
 
+	//拡縮入力
+	scale += m_Controller->Scale() * m_ScaleSpeed;
 
+	//回転入力
+	rot += m_Controller->Rotate() * m_RotSpeed;
+ 
 	m_Transform.SetPosition(pos);
 	m_Transform.SetScale(scale);
 	m_Transform.SetRotation(rot);
 }
 
-void Player::Update()
-{
-	if (!m_IsActive) return;
-}
-
+//描画
 void Player::Draw()
 {
 	if (!m_IsActive) return;
@@ -69,29 +76,7 @@ void Player::Draw()
 	}
 }
 
-/// <summary>
-/// アニメーションの更新
-/// </summary>
-void Player::UpdateAnimation()
-{
-	//移動していなければ0コマ目で停止
-	if (MyMath::VecLong(m_Controller->Move()) <= 0)
-	{
-		m_AnimationTimer = 0;
-		m_AnimationIndex = 0;
-		return;
-	}
-
-	if (m_AnimationTimer >= PLAYER_CHANGE_ANIM_TIME)
-	{
-		m_AnimationTimer = 0;
-		m_AnimationIndex++;
-	}
-}
-
-/// <summary>
-/// 死亡処理
-/// </summary>
+//死亡処理
 void Player::Die()
 {
 	m_IsActive = false;

@@ -3,6 +3,8 @@
 #include "NetworkPlayer.h"
 #include "../Network/Client.h"
 
+using namespace Network;
+
 PlayerManager::PlayerManager()
 {
 }
@@ -83,10 +85,11 @@ void PlayerManager::Login(Network::ResponseLoginData data)
 
 		bool isSelf = id == data.selfID;
 		NetworkPlayer& player = CreateNetworkPlayer(id, isSelf);
-
+		
 		// スポーン位置に移動
 		player.SetPosition(data.spawnPos);
 		player.SetServerPosition(data.spawnPos);
+		
 	}
 }
 
@@ -98,8 +101,10 @@ void PlayerManager::Join(Network::JoinData data)
 {
 	//参加プレイヤーを生成
 	NetworkPlayer& player = CreateNetworkPlayer(data.playerID, false);
+	
 	player.SetPosition(data.spawnPos);
 	player.SetServerPosition(data.spawnPos);
+	
 }
 
 /// <summary>
@@ -128,9 +133,11 @@ void PlayerManager::SyncServerTransform(Network::ResponseTransformData data)
 	for (auto& player : m_Players)
 	{
 		NetworkPlayer* nwPlayer = static_cast<NetworkPlayer*>(player.get());
+		
 		nwPlayer->SetServerPosition(data.pos[i]);
 		nwPlayer->SetServerRotation(data.rot[i]);
 		nwPlayer->SetServerScale(data.scale[i]);
+		
 		i++;
 	}
 }
@@ -144,7 +151,7 @@ void PlayerManager::DiePlayer(int playerID)
 
 		if (nwPlayer->GetID() == playerID)
 		{
-			nwPlayer->Die();
+		    nwPlayer->Die();
 			break;
 		}
 	}
