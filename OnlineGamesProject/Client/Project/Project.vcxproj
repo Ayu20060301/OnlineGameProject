@@ -141,6 +141,9 @@
   <ItemGroup>
     <ClCompile Include="Source\Block\Block.cpp" />
     <ClCompile Include="Source\Block\BlockManager.cpp" />
+    <ClCompile Include="Source\Bullet\BulletBase.cpp" />
+    <ClCompile Include="Source\Bullet\BulletManager.cpp" />
+    <ClCompile Include="Source\Bullet\StraightBullet.cpp" />
     <ClCompile Include="Source\Component\Collision\ColliderComponent.cpp" />
     <ClCompile Include="Source\Component\Collision\CollisionAABB.cpp" />
     <ClCompile Include="Source\Component\Collision\CollisionBase.cpp" />
@@ -152,6 +155,7 @@
     <ClCompile Include="Source\Component\Transform.cpp" />
     <ClCompile Include="Source\Effect\SpriteAnimation.cpp" />
     <ClCompile Include="Source\Effect\SpriteAnimationManager.cpp" />
+    <ClCompile Include="Source\Fade\ScreenFade.cpp" />
     <ClCompile Include="Source\FPS\FPS.cpp" />
     <ClCompile Include="Source\GameApp\GameApp.cpp" />
     <ClCompile Include="Source\GameObject\GameObject.cpp" />
@@ -178,6 +182,10 @@
     <ClInclude Include="Source\Block\Block.h" />
     <ClInclude Include="Source\Block\BlockManager.h" />
     <ClInclude Include="Source\Block\BlockParameter.h" />
+    <ClInclude Include="Source\Bullet\BulletBase.h" />
+    <ClInclude Include="Source\Bullet\BulletManager.h" />
+    <ClInclude Include="Source\Bullet\BulletParameter.h" />
+    <ClInclude Include="Source\Bullet\StraightBullet.h" />
     <ClInclude Include="Source\Component\Collision\ColliderComponent.h" />
     <ClInclude Include="Source\Component\Collision\CollisionAABB.h" />
     <ClInclude Include="Source\Component\Collision\CollisionBase.h" />
@@ -191,6 +199,7 @@
     <ClInclude Include="Source\Effect\EffectParameter.h" />
     <ClInclude Include="Source\Effect\SpriteAnimation.h" />
     <ClInclude Include="Source\Effect\SpriteAnimationManager.h" />
+    <ClInclude Include="Source\Fade\ScreenFade.h" />
     <ClInclude Include="Source\FPS\FPS.h" />
     <ClInclude Include="Source\GameApp\GameApp.h" />
     <ClInclude Include="Source\GameObject\GameObject.h" />

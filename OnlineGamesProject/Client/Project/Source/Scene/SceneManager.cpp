@@ -2,12 +2,14 @@
 #include "TitleScene.h"
 #include "NetworkPlayScene.h"
 #include "PlayScene.h"
+#include "../Fade/ScreenFade.h"
 
 SceneManager::SceneManager()
 {
     m_Scenes = {};
     m_State = SCENE_STATE_NONE;
     m_NextScene = SCENE_TYPE_NONE;
+    m_FadeOutSpeed = 0.0f;
 
     for (int i = 0; i < SCENE_STATE_MAX; i++)
     {
@@ -33,7 +35,7 @@ void SceneManager::Init()
     ChangeScene(TITLE);
 }
 
-void SceneManager::Step()
+void SceneManager::Update()
 {
     //関数ポインタ配列であれば1行で状態ごとの関数を呼べる
     (this->*m_StateFunc[m_State])();
@@ -51,9 +53,24 @@ void SceneManager::Fin()
 /// <param name="fadeOutSpeed"></param>
 void SceneManager::ChangeScene(SceneType type, float fadeOutSpeed)
 {
+    //フェード中は切り替えられない
+    if (ScreenFade::IsFade()) return;
+
     //次のシーンを設定
     m_NextScene = type;
-    m_State = FIN;
+
+    //フェードアウトがあるか
+    m_FadeOutSpeed = fadeOutSpeed;
+    if (m_FadeOutSpeed > 0.0f)
+    {
+        //フェードアウトして待ちへ
+        ScreenFade::FadeOut(m_FadeOutSpeed);
+        m_State = FADE_WAIT;
+    }
+    else
+    {
+        m_State = FIN;
+    }
 }
 
 /// <summary>
@@ -116,6 +133,10 @@ void SceneManager::LoopScene()
         scene->Step();
         scene->Update();
         scene->Draw();
+
+        //画面フェードは一番手前
+        ScreenFade::Step();
+        ScreenFade::Draw();
     }
 }
 
@@ -130,6 +151,19 @@ void SceneManager::FinScene()
 
     //初期化状態に戻す
     m_State = INIT;
+}
+
+void SceneManager::FadeWait()
+{
+    //フェード待ち中もループはする
+    LoopScene();
+
+    //フェードが終わったか
+    if (!ScreenFade::IsFade())
+    {
+        //初期化状態に戻す
+        m_State = FIN;
+    }
 }
 
 /// <summary>

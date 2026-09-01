@@ -15,17 +15,24 @@ StageManager::~StageManager()
 
 void StageManager::Load()
 {
+	if (m_Stage == nullptr) return;
+
 	m_Stage->Load();
 }
 
 void StageManager::Draw()
 {
+	if (m_Stage == nullptr) return;
+
 	m_Stage->Draw();
 }
 
 void StageManager::Fin()
 {
+	if (m_Stage == nullptr) return;
+
 	m_Stage->Fin();
+	delete m_Stage;
 	m_Stage = nullptr;
 }
 
@@ -46,6 +53,8 @@ VECTOR StageManager::ConvertStagePosToWorldPos(VECTOR pos)
 	float stagePosX = stage->GetPosX();
 	float stagePosY = stage->GetPosY();
 	result = MyMath::VecAdd(pos, VGet(stagePosX, stagePosY, 0.0f));
+
+	return result;
 }
 
 void StageManager::CreateStage()

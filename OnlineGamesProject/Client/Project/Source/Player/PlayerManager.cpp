@@ -9,7 +9,15 @@ PlayerManager::PlayerManager()
 {
 }
 
-PlayerManager::~PlayerManager() = default;
+PlayerManager::~PlayerManager()
+{
+	Fin();
+}
+
+void PlayerManager::Init()
+{
+	
+}
 
 void PlayerManager::Load()
 {
@@ -35,11 +43,27 @@ void PlayerManager::Step()
 	}
 }
 
+void PlayerManager::Update()
+{
+	for (auto& player : m_Players)
+	{
+		player->Update();
+	}
+}
+
 void PlayerManager::Draw()
 {
 	for (auto& player : m_Players)
 	{
 		player->Draw();
+	}
+}
+
+void PlayerManager::Fin()
+{
+	for (auto& player : m_Players)
+	{
+		player->Fin();
 	}
 }
 

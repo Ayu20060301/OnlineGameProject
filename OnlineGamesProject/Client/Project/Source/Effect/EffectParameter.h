@@ -4,9 +4,6 @@
 enum SpriteAnimationType
 {
 	NONE = -1,
-	ITEM_SPEED_UP,
-	ITEM_RAPID_UP,
-	ITEM_BULLET_SPEED_UP,
 	PLAYER1_DEAD,
 	PLAYER2_DEAD,
 	PLAYER3_DEAD,
@@ -28,9 +25,6 @@ struct SpriteAnimationParam
 
 const SpriteAnimationParam SPRITE_ANIM_MASTER_PARAM[] =
 {
-	{ "Data/Play/Item/SpeedUp.png", 4, 40, 40 },
-	{ "Data/Play/Item/BulletRapidUp.png", 4, 40, 40 },
-	{ "Data/Play/Item/BulletSpeedUp.png", 4, 40, 40 },
 	{ "Data/Play/Player/Player1Dead.png", 4, 40, 40 },
 	{ "Data/Play/Player/Player2Dead.png", 4, 40, 40 },
 	{ "Data/Play/Player/Player3Dead.png", 4, 40, 40 },

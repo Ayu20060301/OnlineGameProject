@@ -18,11 +18,16 @@ public:
 	PlayerManager();
 	virtual ~PlayerManager();
 
-	void Load();
-	void Start();
-	void Step();
-	void Draw();
+public:
+	void Init(); //初期化
+	void Load(); //ロード
+	void Start(); //開始
+	void Step(); //ステップ
+	void Update(); //更新
+	void Draw(); //描画
+	void Fin(); //終了
 
+public:
 	//機能
 	Player& CreatePlayer();
 
@@ -33,6 +38,8 @@ public:
 	void Logout(Network::LogoutData data);
 	void SyncServerTransform(Network::ResponseTransformData data);
 	void DiePlayer(int playerID);
+
+
 
 private:
 

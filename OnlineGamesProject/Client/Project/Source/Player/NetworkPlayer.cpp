@@ -13,15 +13,20 @@ NetworkPlayer::NetworkPlayer(int id, bool isSelf) : Player()
 , m_IsSelf(isSelf)
 , m_ID(id)
 {
+	//1～4のIDを0～３のプレイヤー番号に変換
+	m_PlayerNumber = id - 1;
+
 	//サーバー座標を使用する
 	m_UserServerTransform = true;
-
 }
 
 NetworkPlayer::NetworkPlayer(const Client* client, int id, bool isSelf) : Player()
 ,m_IsSelf(isSelf)
 ,m_ID(id)
 {
+	//1～4のIDを0～３のプレイヤー番号に変換
+	m_PlayerNumber = id - 1;
+
 	//サーバー座標を使用する
 	m_UserServerTransform = true;
 }
@@ -32,6 +37,7 @@ void NetworkPlayer::Step()
 {
 	// 自分自身しかステップしない
 	if (!m_IsSelf) return;
+
 	// オフラインだったらステップしない
 	if (!ClientAPI::IsConnected()) return;
 
@@ -48,10 +54,23 @@ void NetworkPlayer::Step()
 		isMove = true;
 	}
 
+	// 回転したらサーバーに回転値を送信
+	dist = MyMath::GetDistance(m_Transform.GetRotation(), m_ServerTransform.GetRotation());
+	if (dist >= ROT_THRESHOLD)
+	{
+		isMove = true;
+	}
+
+	// 拡縮したらサーバーにスケールを送信
+	dist = MyMath::GetDistance(m_Transform.GetScale(), m_ServerTransform.GetScale());
+	if (dist >= SCALE_THRESHOLD)
+	{
+		isMove = true;
+	}
+
 	// 動いたらトランスフォームを送信
 	if (isMove)
 	{
 		ClientAPI::RequestTransform(m_ID, m_Transform);
 	}
-	
 }

@@ -11,7 +11,7 @@ class CollisionBase;
 class CollisionAABB;
 class CollisionSphere;
 
-#define COLLISION_MAX 16
+constexpr int COLLISION_MAX = 16;
 
 class CollisionManager : public Singleton<CollisionManager>
 {
@@ -34,10 +34,7 @@ private:
 public:
 	// 当たり判定のチェック
 	void CheckCollision();
-	void CheckPlayerAndBlock();
-	void CheckPlayerAndBullet();
-	void CheckPlayerAndItem();
-	void CheckBlockAndBullet();
+	
 
 private:
 	// CollisionManagerインスタンス

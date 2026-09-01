@@ -36,7 +36,7 @@ void GameApp::Exec()
 		Input::Update();
 
 		// シーン更新
-		SceneManager::GetInstance()->Step();
+		SceneManager::GetInstance()->Update();
 
 		// ネットワーク更新
 		ClientAPI::Step();

@@ -58,6 +58,12 @@
     <Filter Include="Source\Input">
       <UniqueIdentifier>{721ce007-6460-4248-84bd-2f51cd43570f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Fade">
+      <UniqueIdentifier>{d6c159b0-a1f7-4aea-8916-a075acba6a9d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Bullet">
+      <UniqueIdentifier>{05708d1c-9317-4333-8b06-91ae34fd65db}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Main.cpp">
@@ -161,6 +167,18 @@
     </ClCompile>
     <ClCompile Include="Source\Effect\SpriteAnimationManager.cpp">
       <Filter>Source\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Fade\ScreenFade.cpp">
+      <Filter>Source\Fade</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Bullet\BulletBase.cpp">
+      <Filter>Source\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Bullet\BulletManager.cpp">
+      <Filter>Source\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Bullet\StraightBullet.cpp">
+      <Filter>Source\Bullet</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -295,6 +313,21 @@
     </ClInclude>
     <ClInclude Include="Source\Effect\SpriteAnimationManager.h">
       <Filter>Source\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Fade\ScreenFade.h">
+      <Filter>Source\Fade</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Bullet\BulletBase.h">
+      <Filter>Source\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Bullet\BulletManager.h">
+      <Filter>Source\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Bullet\BulletParameter.h">
+      <Filter>Source\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Bullet\StraightBullet.h">
+      <Filter>Source\Bullet</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

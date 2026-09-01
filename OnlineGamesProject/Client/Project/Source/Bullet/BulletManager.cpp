@@ -13,7 +13,6 @@
 	{"Data/Play/Bullet/Bullet4.png", BULLET_CATEGORY_STRAIGHT, 180, 1, COLLISION_TAG_PLAYER4, BULLET_HIT_04, 3.0f, 20.0f, 40.0f, 40.0f},
  };
 
-
 BulletManager* BulletManager::m_Instance = nullptr;
 
 BulletManager::BulletManager()

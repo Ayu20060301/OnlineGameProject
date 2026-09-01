@@ -79,7 +79,6 @@ void Input::Update()
     {
         m_InputState |= KEY_X;
     }
-
 }
 
 void Input::Draw()

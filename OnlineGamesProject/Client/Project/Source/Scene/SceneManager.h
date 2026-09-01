@@ -13,7 +13,7 @@ public:
 
 public:
 	void Init();
-	void Step();
+	void Update();
 	void Fin();
 
 	void ChangeScene(SceneType type, float fadeOutSpeed = 0.0f);
@@ -25,7 +25,7 @@ private:
 	void StartScene();
     void LoopScene();
     void FinScene();
-
+	void FadeWait();
 
 	SceneBase* CreateScene(SceneType type);
 	void ClearScene();
@@ -42,4 +42,7 @@ private:
 
 	//状態ごとの関数を呼ぶ関数ポインタ配列
 	void (SceneManager::* m_StateFunc[SCENE_STATE_MAX])(void);
+
+	//フェードアウトの速度
+	float m_FadeOutSpeed;
 };
