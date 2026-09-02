@@ -12,18 +12,33 @@ SpriteAnimationManager::~SpriteAnimationManager()
 	Fin();
 }
 
+/// <summary>
+/// エフェクト画像をロード
+/// </summary>
 void SpriteAnimationManager::Load()
 {
-	//シーンごとに使う分だけロード
+	//既にロード済みなら二重ロードしない
+	if (m_Handles != nullptr) return;
+
+	//アニメーション種類の最大数
 	const int max = static_cast<int>(SpriteAnimationType::MAX);
-	int* nowPtr = m_Handles = new int[max];
+	
+	//ハンドル配列を確保
+	m_Handles = new int[max];
+	
+	//マスターデータ
 	const SpriteAnimationParam* param = SPRITE_ANIM_MASTER_PARAM;
-	for (int i = 0; i < max; i++, nowPtr++, param++)
+
+	//画像をロード
+	for (int i = 0; i < max; i++)
 	{
-		*nowPtr = LoadGraph(param->path);
+		m_Handles[i] = LoadGraph(param[i].path);
 	}
 }
 
+/// <summary>
+/// 毎フレームの更新
+/// </summary>
 void SpriteAnimationManager::Step()
 {
 	for (SpriteAnimation* anim : m_Animations)
@@ -32,6 +47,9 @@ void SpriteAnimationManager::Step()
 	}
 }
 
+/// <summary>
+/// 描画処理
+/// </summary>
 void SpriteAnimationManager::Draw()
 {
 	for (SpriteAnimation* anim : m_Animations)
@@ -40,25 +58,34 @@ void SpriteAnimationManager::Draw()
 	}
 }
 
+/// <summary>
+/// 終了処理
+/// </summary>
 void SpriteAnimationManager::Fin()
 {
-	const int max = static_cast<int>(SpriteAnimationType::MAX);
-	int* nowPtr = m_Handles;
-
-	for (int i = 0; i < max; i++, nowPtr++)
+	if (m_Handles != nullptr)
 	{
-		DeleteGraph(*nowPtr);
-	}
-	delete[] m_Handles;
+		const int max =
+			static_cast<int>(SpriteAnimationType::MAX);
 
-	for (SpriteAnimation* anim : m_Animations)
-	{
-		delete anim;
+
+		for (int i = 0; i < max; i++)
+		{
+			// 無効なハンドルは削除しない
+			if (m_Handles[i] != -1)
+			{
+				DeleteGraph(m_Handles[i]);
+			}
+		}
+
+
+		delete[] m_Handles;
+
+		m_Handles = nullptr;
 	}
-	m_Animations.clear();
-	m_Animations.shrink_to_fit();
 }
 
+//アニメーションを再生
 SpriteAnimation* SpriteAnimationManager::Play(int id, VECTOR pos, int interval, bool isLoop)
 {
 	//未使用があれば使いまわす

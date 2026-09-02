@@ -17,61 +17,60 @@ class Block;
 class Player : public GameObject
 {
 public:
-	Player();
-	virtual ~Player();
+	Player(); //コンストラクタ
+	virtual ~Player(); //デストラクタ
 
-	void Init();
-	void Load();
-	void Start();
-	virtual void Step();
-	virtual void Update();
-	virtual void Draw();
-	virtual void Fin();
+	void Init(); //初期化処理
+	void Load(); //ロード
+	void Start(); //スタート
+	virtual void Step(); //ステップ
+	virtual void Update(); //更新処理
+	virtual void Draw(); //描画処理
+	virtual void Fin(); //終了
 
 public:
+	//プレイヤーが生きているか
 	bool IsActive() const { return m_IsActive; }
+
+	//無敵状態か
 	bool IsInvisible() const { return m_InvisibleTimer > 0; }
-	bool IsBulletInterval() const { return m_BulletInterval > 0; }
-	VECTOR GetPos() const { return m_Pos; }
+	
+	//プレイヤーの座標を取得
+	VECTOR GetPos() const { return m_Transform.GetPosition(); }
+	
+	
 	CollisionAABB* GetCollisionAABB() { return m_CollisionAABB; }
 	CollisionSphere* GetCollisionSphere() const { return m_CollisionSphere; }
 	float GetMoveSpeed() const { return m_MoveSpeed; }
-	float GetBulletChargeSpeed() const { m_BulletChargeSpeed; }
-	float GetBulletSpeed() const { m_BulletSpeed; }
 
 	void SetActive(bool active) { m_IsActive = active; }
 	void SetPlayerNumber(int number) { m_PlayerNumber = number; }
 
-	void FireBullet(); //弾を発射させる処理
 	void Die();
 
 	//アニメーションの更新
 	void UpdateAnimation();
 
 protected:
+
+	//移動方向からプレイヤーの向きを決定
 	void SetDirectionForMove();
 
-	bool m_IsActive;
-	float m_MoveSpeed;
-	float m_ScaleSpeed;
-	float m_RotSpeed;
+	bool m_IsActive; //プレイヤーが生きているか
+	float m_MoveSpeed; //移動速度
+	
 	Splite* m_Splite;
-	Controller2D* m_Controller;
-	int m_Handle;
-	int m_PlayerNumber;
-	int m_InvisibleTimer;
-	int m_Direction;
-	int m_AnimationIndex;
-	int m_AnimationTimer;
-	int m_UseBulletID;
-	int m_Stiffness;
-	float m_BulletInterval;
-	float m_BulletIntervalTime;
-	float m_BulletChargeSpeed;
-	float m_BulletSpeed;
-	VECTOR m_Pos;
-	VECTOR m_OldPos;
-	VECTOR m_Move;
+	Controller2D* m_Controller; //2Dコントローラー
+	int m_Handle; //プレイヤー画像
+	int m_PlayerNumber; //プレイヤー番号
+	int m_InvisibleTimer; //無敵タイマー
+	int m_Direction; //プレイヤーの向き
+	int m_AnimationIndex; //現在のアニメーション番号
+	int m_AnimationTimer; //アニメーションタイマー
+	VECTOR m_OldPos; //移動前の座標
+	VECTOR m_Move; //1フレームの移動量
+
+	//当たり判定
 	CollisionAABB* m_CollisionAABB;
 	CollisionSphere* m_CollisionSphere;
 };

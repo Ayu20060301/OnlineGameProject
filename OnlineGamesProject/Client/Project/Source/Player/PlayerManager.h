@@ -39,8 +39,6 @@ public:
 	void SyncServerTransform(Network::ResponseTransformData data);
 	void DiePlayer(int playerID);
 
-
-
 private:
 
 	//生成されたプレイヤーの参照

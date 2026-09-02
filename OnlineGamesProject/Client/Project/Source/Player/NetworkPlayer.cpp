@@ -5,10 +5,11 @@
 
 
 //これだけ動いたらサーバーに送信する
-constexpr float POS_THRESHOLD = 1.0f;
-constexpr float SCALE_THRESHOLD = 0.005f;
-constexpr float ROT_THRESHOLD = 0.005f;
+constexpr float POS_THRESHOLD = 1.0f; //位置
+constexpr float SCALE_THRESHOLD = 0.005f; //スケール
+constexpr float ROT_THRESHOLD = 0.005f; //回転
 
+//コンストラクタ
 NetworkPlayer::NetworkPlayer(int id, bool isSelf) : Player()
 , m_IsSelf(isSelf)
 , m_ID(id)
@@ -17,8 +18,9 @@ NetworkPlayer::NetworkPlayer(int id, bool isSelf) : Player()
 	m_PlayerNumber = id - 1;
 
 	//サーバー座標を使用する
-	m_UserServerTransform = true;
+	m_UserServerTransform = !isSelf;
 }
+
 
 NetworkPlayer::NetworkPlayer(const Client* client, int id, bool isSelf) : Player()
 ,m_IsSelf(isSelf)
@@ -28,7 +30,7 @@ NetworkPlayer::NetworkPlayer(const Client* client, int id, bool isSelf) : Player
 	m_PlayerNumber = id - 1;
 
 	//サーバー座標を使用する
-	m_UserServerTransform = true;
+	m_UserServerTransform = !isSelf;
 }
 
 NetworkPlayer::~NetworkPlayer() = default;

@@ -7,7 +7,6 @@
 #include "../Player/Player.h"
 #include <vector>
 
-
 using namespace Network;
 
 Server::Server()
@@ -59,8 +58,10 @@ void Server::Update()
 
 void Server::Draw()
 {
+#ifdef _DEBUG
 	PlayerManager::GetInstance()->Draw();
 	CollisionManager::GetInstance()->Draw();
+#endif
 }
 
 void Server::Fin()

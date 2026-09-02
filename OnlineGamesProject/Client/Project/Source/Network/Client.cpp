@@ -45,10 +45,10 @@ void Client::Fin()
 void Client::Connect()
 {
 	IPDATA ip;
-	ip.d1 = 192;
-	ip.d2 = 168;
-	ip.d3 = 0;
-	ip.d4 = 54;
+	ip.d1 = 10;
+	ip.d2 = 0;
+	ip.d3 = 80;
+	ip.d4 = 123;
 
 	//指定したIPアドレスの端末に接続
 	m_ServerHandle = ConnectNetWork(ip, Network::PORT_NUMBER);

@@ -4,7 +4,6 @@
 #include "../Input/Input.h"
 #include "../Component/Collision/CollisionManager.h"
 #include "../Stage/StageManager.h"
-#include "../Bullet/BulletManager.h"
 #include "../Player/PlayerManager.h"
 #include "../Player/Player.h"
 #include "../Effect/SpriteAnimationManager.h"
@@ -24,9 +23,6 @@ void PlayScene::Init()
 	//コリジョンマネージャーの生成
 	CollisionManager::CreateInstance();
 
-	//バレットマネージャーの生成
-	BulletManager::CreateInstance();
-
 	//プレイヤーマネージャーを生成
 	PlayerManager::CreateInstance();
 	Player& player = PlayerManager::GetInstance()->CreatePlayer();
@@ -44,8 +40,6 @@ void PlayScene::Load()
 	//ステージをロード
 	StageManager::GetInstance()->Load();
 
-	//バレットをロード
-	BulletManager::GetInstance()->Load();
 
 	//プレイヤーをロード
 	PlayerManager::GetInstance()->Load();
@@ -65,8 +59,6 @@ void PlayScene::Start()
 void PlayScene::Step()
 {
 	PlayerManager::GetInstance()->Step();
-
-	BulletManager::GetInstance()->Step();
 
 	//当たり判定
 	CollisionManager::GetInstance()->CheckCollision();
@@ -88,23 +80,14 @@ void PlayScene::Draw()
 	SpriteAnimationManager::GetInstance()->Draw();
 	// プレイヤー描画
 	PlayerManager::GetInstance()->Draw();
-	// バレット描画
-	BulletManager::GetInstance()->Draw();
 	//当たり判定描画
 	CollisionManager::GetInstance()->Draw();
 }
 
 void PlayScene::Fin()
 {
-	// ステージマネージャー削除
-	StageManager::DeleteInstance();
-
-	// バレットマネージャー削除
-	BulletManager::DeleteInstance();
-	//コリジョンマネージャー削除
-	CollisionManager::DeleteInstance();
-	// プレイヤーマネージャー削除
 	PlayerManager::DeleteInstance();
-	// スプライトアニメーション削除
+	CollisionManager::DeleteInstance();
+	StageManager::DeleteInstance();
 	SpriteAnimationManager::DeleteInstance();
 }

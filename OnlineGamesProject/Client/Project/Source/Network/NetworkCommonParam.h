@@ -13,18 +13,6 @@ namespace Network
 	//プレイヤー最大人数
 	constexpr int NETWORK_PLAYER_MAX = 4;
 
-	//通信できるユーザー名のMAXサイズ(全角5文字まで)
-	constexpr int NETWORK_USER_NAME_MAX = 10;
-
-	//文字列の長さは文字数+終端文字
-	constexpr int NETWORK_USER_NAME_BUFFER_MAX = NETWORK_USER_NAME_MAX + 1;
-
-	//通信できる文字列のMAXサイズ
-	constexpr int NETWORK_MESSAGE_MAX = 40;
-
-	//文字列の長さは文字数+終端文字
-	constexpr int NETWORK_MESSAGE_BUFFER_MAX = NETWORK_MESSAGE_MAX + 1;
-
 	//パケットの種類
 	enum class PacketType : uint8_t
 	{
@@ -42,11 +30,11 @@ namespace Network
 		PacketType type; //種類
 		uint16_t size; //データサイズ(符号なし16ビット)
 	};
-
+	 
 	//ログインデータ(リクエスト)
 	struct RequestLoginData
 	{
-		char userName[NETWORK_USER_NAME_BUFFER_MAX];
+		//char userName[NETWORK_USER_NAME_BUFFER_MAX];
 	};
 
 	//ログインデータ(レスポンス)

@@ -139,11 +139,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Source\Block\Block.cpp" />
-    <ClCompile Include="Source\Block\BlockManager.cpp" />
-    <ClCompile Include="Source\Bullet\BulletBase.cpp" />
-    <ClCompile Include="Source\Bullet\BulletManager.cpp" />
-    <ClCompile Include="Source\Bullet\StraightBullet.cpp" />
     <ClCompile Include="Source\Component\Collision\ColliderComponent.cpp" />
     <ClCompile Include="Source\Component\Collision\CollisionAABB.cpp" />
     <ClCompile Include="Source\Component\Collision\CollisionBase.cpp" />
@@ -160,11 +155,8 @@
     <ClCompile Include="Source\GameApp\GameApp.cpp" />
     <ClCompile Include="Source\GameObject\GameObject.cpp" />
     <ClCompile Include="Source\Input\Input.cpp" />
-    <ClCompile Include="Source\Input\InputString.cpp" />
-    <ClCompile Include="Source\Judge\Judge.cpp" />
     <ClCompile Include="Source\Main.cpp" />
     <ClCompile Include="Source\MyMath\MyMath.cpp" />
-    <ClCompile Include="Source\MyRandom\MyRandom.cpp" />
     <ClCompile Include="Source\Network\Client.cpp" />
     <ClCompile Include="Source\Network\ClientAPI.cpp" />
     <ClCompile Include="Source\Player\NetworkPlayer.cpp" />
@@ -179,13 +171,6 @@
     <ClCompile Include="Source\Stage\StageManager.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Source\Block\Block.h" />
-    <ClInclude Include="Source\Block\BlockManager.h" />
-    <ClInclude Include="Source\Block\BlockParameter.h" />
-    <ClInclude Include="Source\Bullet\BulletBase.h" />
-    <ClInclude Include="Source\Bullet\BulletManager.h" />
-    <ClInclude Include="Source\Bullet\BulletParameter.h" />
-    <ClInclude Include="Source\Bullet\StraightBullet.h" />
     <ClInclude Include="Source\Component\Collision\ColliderComponent.h" />
     <ClInclude Include="Source\Component\Collision\CollisionAABB.h" />
     <ClInclude Include="Source\Component\Collision\CollisionBase.h" />
@@ -205,11 +190,8 @@
     <ClInclude Include="Source\GameObject\GameObject.h" />
     <ClInclude Include="Source\GameSetting\GameSetting.h" />
     <ClInclude Include="Source\Input\Input.h" />
-    <ClInclude Include="Source\Input\InputString.h" />
-    <ClInclude Include="Source\Judge\Judge.h" />
     <ClInclude Include="Source\Memory\Memory.h" />
     <ClInclude Include="Source\MyMath\MyMath.h" />
-    <ClInclude Include="Source\MyRandom\MyRandom.h" />
     <ClInclude Include="Source\Network\Client.h" />
     <ClInclude Include="Source\Network\ClientAPI.h" />
     <ClInclude Include="Source\Network\NetworkCommonParam.h" />

@@ -4,9 +4,6 @@
     <Filter Include="Source">
       <UniqueIdentifier>{063f4ceb-d950-4ab4-aed1-cc4d5f660b8e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Network">
-      <UniqueIdentifier>{ea7c322b-dd57-480f-8043-fb8e749c4c8a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source\Memory">
       <UniqueIdentifier>{1d633d58-d8f4-46c4-bea5-29a9e895ecc6}</UniqueIdentifier>
     </Filter>
@@ -34,12 +31,6 @@
     <Filter Include="Source\Component\Collision">
       <UniqueIdentifier>{d975a895-b42f-4f58-b36c-5bd5aa20c31e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Judge">
-      <UniqueIdentifier>{dfd908e1-df99-4eec-bfe2-20d6681941a0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\MyRandom">
-      <UniqueIdentifier>{401758af-716a-4172-ac1c-15cf0f702730}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source\FPS">
       <UniqueIdentifier>{73d6baa6-e445-4072-a8f8-34357f795778}</UniqueIdentifier>
     </Filter>
@@ -48,9 +39,6 @@
     </Filter>
     <Filter Include="Source\Stage">
       <UniqueIdentifier>{7aff3e3e-b0f7-42a7-995c-3b9b72ebcf4c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Block">
-      <UniqueIdentifier>{3c4aa953-cd4e-4eaa-a557-49e29ab614f9}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source\Effect">
       <UniqueIdentifier>{8f62b4f6-75d0-4dd6-af29-a77ec9afd953}</UniqueIdentifier>
@@ -61,21 +49,15 @@
     <Filter Include="Source\Fade">
       <UniqueIdentifier>{d6c159b0-a1f7-4aea-8916-a075acba6a9d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Bullet">
-      <UniqueIdentifier>{05708d1c-9317-4333-8b06-91ae34fd65db}</UniqueIdentifier>
+    <Filter Include="Source\NetWork">
+      <UniqueIdentifier>{e0f5dc02-c7f9-4418-9ce2-f250fb7d194a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Main.cpp">
       <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Network\Client.cpp">
-      <Filter>Source\Network</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Input\Input.cpp">
-      <Filter>Source\Input</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Input\InputString.cpp">
       <Filter>Source\Input</Filter>
     </ClCompile>
     <ClCompile Include="Source\MyMath\MyMath.cpp">
@@ -114,9 +96,6 @@
     <ClCompile Include="Source\Scene\TitleScene.cpp">
       <Filter>Source\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Network\ClientAPI.cpp">
-      <Filter>Source\Network</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Component\ComponentBase.cpp">
       <Filter>Source\Component</Filter>
     </ClCompile>
@@ -132,9 +111,6 @@
     <ClCompile Include="Source\Component\Collision\CollisionManager.cpp">
       <Filter>Source\Component\Collision</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Judge\Judge.cpp">
-      <Filter>Source\Judge</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Component\Collision\CollisionSphere.cpp">
       <Filter>Source\Component\Collision</Filter>
     </ClCompile>
@@ -143,9 +119,6 @@
     </ClCompile>
     <ClCompile Include="Source\Component\Collision\CollisionAABB.cpp">
       <Filter>Source\Component\Collision</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\MyRandom\MyRandom.cpp">
-      <Filter>Source\MyRandom</Filter>
     </ClCompile>
     <ClCompile Include="Source\FPS\FPS.cpp">
       <Filter>Source\FPS</Filter>
@@ -156,12 +129,6 @@
     <ClCompile Include="Source\Stage\StageManager.cpp">
       <Filter>Source\Stage</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Block\Block.cpp">
-      <Filter>Source\Block</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Block\BlockManager.cpp">
-      <Filter>Source\Block</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Effect\SpriteAnimation.cpp">
       <Filter>Source\Effect</Filter>
     </ClCompile>
@@ -171,27 +138,15 @@
     <ClCompile Include="Source\Fade\ScreenFade.cpp">
       <Filter>Source\Fade</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Bullet\BulletBase.cpp">
-      <Filter>Source\Bullet</Filter>
+    <ClCompile Include="Source\Network\Client.cpp">
+      <Filter>Source\NetWork</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Bullet\BulletManager.cpp">
-      <Filter>Source\Bullet</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Bullet\StraightBullet.cpp">
-      <Filter>Source\Bullet</Filter>
+    <ClCompile Include="Source\Network\ClientAPI.cpp">
+      <Filter>Source\NetWork</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Source\Network\NetworkCommonParam.h">
-      <Filter>Source\Network</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Network\Client.h">
-      <Filter>Source\Network</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Input\Input.h">
-      <Filter>Source\Input</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Input\InputString.h">
       <Filter>Source\Input</Filter>
     </ClInclude>
     <ClInclude Include="Source\Memory\Memory.h">
@@ -236,14 +191,8 @@
     <ClInclude Include="Source\Player\PlayerManager.h">
       <Filter>Source\Player</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Network\NetworkUtility.h">
-      <Filter>Source\Network</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Scene\TitleScene.h">
       <Filter>Source\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Network\ClientAPI.h">
-      <Filter>Source\Network</Filter>
     </ClInclude>
     <ClInclude Include="Source\Component\ComponentBase.h">
       <Filter>Source\Component</Filter>
@@ -263,9 +212,6 @@
     <ClInclude Include="Source\Component\Collision\CollisionParameter.h">
       <Filter>Source\Component\Collision</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Judge\Judge.h">
-      <Filter>Source\Judge</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Component\Collision\CollisionSphere.h">
       <Filter>Source\Component\Collision</Filter>
     </ClInclude>
@@ -277,9 +223,6 @@
     </ClInclude>
     <ClInclude Include="Source\Player\PlayerParameter.h">
       <Filter>Source\Player</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\MyRandom\MyRandom.h">
-      <Filter>Source\MyRandom</Filter>
     </ClInclude>
     <ClInclude Include="Source\FPS\FPS.h">
       <Filter>Source\FPS</Filter>
@@ -296,15 +239,6 @@
     <ClInclude Include="Source\Stage\StageParameter.h">
       <Filter>Source\Stage</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Block\Block.h">
-      <Filter>Source\Block</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Block\BlockManager.h">
-      <Filter>Source\Block</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Block\BlockParameter.h">
-      <Filter>Source\Block</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Effect\EffectParameter.h">
       <Filter>Source\Effect</Filter>
     </ClInclude>
@@ -317,17 +251,17 @@
     <ClInclude Include="Source\Fade\ScreenFade.h">
       <Filter>Source\Fade</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Bullet\BulletBase.h">
-      <Filter>Source\Bullet</Filter>
+    <ClInclude Include="Source\Network\Client.h">
+      <Filter>Source\NetWork</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Bullet\BulletManager.h">
-      <Filter>Source\Bullet</Filter>
+    <ClInclude Include="Source\Network\ClientAPI.h">
+      <Filter>Source\NetWork</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Bullet\BulletParameter.h">
-      <Filter>Source\Bullet</Filter>
+    <ClInclude Include="Source\Network\NetworkCommonParam.h">
+      <Filter>Source\NetWork</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Bullet\StraightBullet.h">
-      <Filter>Source\Bullet</Filter>
+    <ClInclude Include="Source\Network\NetworkUtility.h">
+      <Filter>Source\NetWork</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -4,6 +4,8 @@
 #include <string>
 #include "NetworkCommonParam.h"
 
+class Player;
+
 /// <summary>
 /// クライアントデータ
 /// </summary>
