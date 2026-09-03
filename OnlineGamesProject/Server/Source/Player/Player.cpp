@@ -7,8 +7,8 @@
 using namespace Network;
 
 //プレイヤーサイズ
-constexpr int PLAYER_WIDTH = 64;
-constexpr int PLAYER_HEIGHT = 64;
+constexpr int PLAYER_WIDTH = 40;
+constexpr int PLAYER_HEIGHT = 40;
 
 Player::Player() : GameObject()
 , m_ID(-1)

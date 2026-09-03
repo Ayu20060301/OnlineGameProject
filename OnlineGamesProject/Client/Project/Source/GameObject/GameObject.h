@@ -8,10 +8,11 @@
 #include "../Component/Controller/Controller2D.h"
 
 
+//オブジェクトの種類
 enum class GameObjectType
 {
 	NONE = -1,
-	PLAYER
+	PLAYER,
 };
 
 class GameObject

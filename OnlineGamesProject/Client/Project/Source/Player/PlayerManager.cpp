@@ -142,7 +142,6 @@ void PlayerManager::Join(Network::JoinData data)
 	
 	player.SetPosition(data.spawnPos);
 	player.SetServerPosition(data.spawnPos);
-	
 }
 
 /// <summary>

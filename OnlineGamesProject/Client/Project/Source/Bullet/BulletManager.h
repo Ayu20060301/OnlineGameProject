@@ -1,9 +1,9 @@
 #pragma once
 
-#include "DxLib.h"
-#include "BulletParameter.h"
 #include "../Singleton/Singleton.h"
-#include <vector>
+#include "../Memory/Memory.h"
+#include <list>
+#include <DxLib.h>
 
 class BulletBase;
 
@@ -11,30 +11,24 @@ class BulletManager : public Singleton<BulletManager>
 {
 public:
 	BulletManager();
-	~BulletManager();
+	virtual ~BulletManager();
 
 public:
+	void Init();
 	void Load();
+	void Start();
 	void Step();
+	void Update();
 	void Draw();
 	void Fin();
 
 public:
-	std::vector<BulletBase*> GetBullets() const { return m_Bullets; }
+	//弾生成
+	BulletBase& CreateStraightBullet(VECTOR pos,VECTOR velocity);
 
-	void SetupBullet(int id);
-	BulletBase* FireBullet(int id, VECTOR pos, VECTOR vec);
-	const BulletParameter* GetBulletParameter(int id);
-
-private:
-	BulletBase* CreateBullet(int id);
+	//弾を全削除
+	void Clear();
 
 private:
-	static BulletManager* m_Instance;
-
-	// 使用するバレットのクローン元
-	std::vector<BulletBase*> m_OriginalBullets;
-
-	// vectorのオブジェクトプールで管理してみる
-	std::vector<BulletBase*> m_Bullets;
+	std::list<UniquePtr<BulletBase>> m_Bullets;
 };

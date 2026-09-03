@@ -5,6 +5,8 @@
 #include "../Component/Collision/CollisionManager.h"
 #include "../Player/PlayerManager.h"
 #include "../Player/Player.h"
+#include "../Bullet/BulletManager.h"
+#include "../Bullet/Bullet.h"
 #include <vector>
 
 using namespace Network;
@@ -26,6 +28,9 @@ void Server::Init()
 
 	//当たり判定はサーバー側でする
 	CollisionManager::GetInstance()->CreateInstance();
+
+	//サーバー用バレット管理
+	BulletManager::CreateInstance();
 
 	//接続してくるのを待つ状態にする
 	int sucess = PreparationListenNetWork(PORT_NUMBER);
@@ -49,7 +54,7 @@ void Server::Update()
 	if (lostHandle != -1)
 	{
 		PlayerManager::GetInstance()->RemovePlayer(lostHandle);
-
+		BulletManager::GetInstance()->RemoveBullet(lostHandle);
 	}
 
 	//データ受信処理
@@ -61,6 +66,7 @@ void Server::Draw()
 #ifdef _DEBUG
 	PlayerManager::GetInstance()->Draw();
 	CollisionManager::GetInstance()->Draw();
+	BulletManager::GetInstance()->Draw();
 #endif
 }
 
@@ -71,6 +77,9 @@ void Server::Fin()
 
 	//当たり判定終了
 	CollisionManager::DeleteInstance();
+
+	//バレット終了
+	BulletManager::DeleteInstance();
 }
 
 

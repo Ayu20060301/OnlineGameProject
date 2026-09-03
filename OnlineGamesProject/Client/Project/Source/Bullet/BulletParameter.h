@@ -50,3 +50,12 @@ struct FireBulletData
 	float moveX;
 	float moveY;
 };
+
+//ƒoƒŒƒbƒg‚²‚Æ‚Ì‰æ‘œ
+const char* BULLET_GRAPHIC_PATH[] =
+{
+	"Data/Play/Bullet/Bullet1.png",
+	"Data/Play/Bullet/Bullet2.png",
+	"Data/Play/Bullet/Bullet3.png",
+	"Data/Play/Bullet/Bullet4.png",
+};

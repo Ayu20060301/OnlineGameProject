@@ -1,24 +1,10 @@
 #include "BulletManager.h"
+#include "BulletBase.h"
 #include "StraightBullet.h"
-#include "../Component/Collision/CollisionParameter.h"
-#include "../Effect/EffectParameter.h"
-
-
- // データ群はエクセルにしたい
- const BulletParameter BULLET_MASTER_DATA[]
- {
-	{"Data/Play/Bullet/Bullet1.png", BULLET_CATEGORY_STRAIGHT, 180, 1, COLLISION_TAG_PLAYER1, BULLET_HIT_01, 3.0f, 20.0f, 40.0f, 40.0f},
-	{"Data/Play/Bullet/Bullet2.png", BULLET_CATEGORY_STRAIGHT, 180, 1, COLLISION_TAG_PLAYER2, BULLET_HIT_02, 3.0f, 20.0f, 40.0f, 40.0f},
-	{"Data/Play/Bullet/Bullet3.png", BULLET_CATEGORY_STRAIGHT, 180, 1, COLLISION_TAG_PLAYER3, BULLET_HIT_03, 3.0f, 20.0f, 40.0f, 40.0f},
-	{"Data/Play/Bullet/Bullet4.png", BULLET_CATEGORY_STRAIGHT, 180, 1, COLLISION_TAG_PLAYER4, BULLET_HIT_04, 3.0f, 20.0f, 40.0f, 40.0f},
- };
-
-BulletManager* BulletManager::m_Instance = nullptr;
+#include <algorithm>
 
 BulletManager::BulletManager()
 {
-	m_OriginalBullets = {};
-	m_Bullets = {};
 }
 
 BulletManager::~BulletManager()
@@ -26,110 +12,95 @@ BulletManager::~BulletManager()
 	Fin();
 }
 
+void BulletManager::Init()
+{
+	for (auto& bullet : m_Bullets)
+	{
+		bullet->Init();
+	}
+}
+
 void BulletManager::Load()
 {
-	// クローン元のバレットをロード
-	for (BulletBase* bullet : m_OriginalBullets)
+	for (auto& bullet : m_Bullets)
 	{
 		bullet->Load();
 	}
 }
 
+void BulletManager::Start()
+{
+	for (auto& bullet : m_Bullets)
+	{
+		bullet->Start();
+	}
+}
+
 void BulletManager::Step()
 {
-	for (BulletBase* bullet : m_Bullets)
+	for (auto& bullet : m_Bullets)
 	{
-		if (bullet->IsActive())
+		bullet->Step();
+	}
+
+	//死んだ弾を削除
+	for (auto itr = m_Bullets.begin(); itr != m_Bullets.end();)
+	{
+		if (!(*itr)->IsActive())
 		{
-			bullet->Step();
+			(*itr)->Fin();
+			itr = m_Bullets.erase(itr);
 		}
+		else
+		{
+			itr++;
+		}
+	}
+}
+
+void BulletManager::Update()
+{
+	for (auto& bullet : m_Bullets)
+	{
+		bullet->Update();
 	}
 }
 
 void BulletManager::Draw()
 {
-	for (BulletBase* bullet : m_Bullets)
+	for (auto& bullet : m_Bullets)
 	{
-		if (bullet->IsActive())
-		{
-			bullet->Draw();
-		}
+		bullet->Draw();
 	}
-
-#ifdef _DEBUG
-	// m_Bulletsの個数
-	DrawFormatString(0, 100, GetColor(0, 0, 0), "m_Bulletsのサイズ：%d", m_Bullets.size());
-#endif
 }
 
 void BulletManager::Fin()
 {
-	for (BulletBase* bullet : m_OriginalBullets)
+	for (auto& bullet : m_Bullets)
 	{
-		delete bullet;
-	}
-	for (BulletBase* bullet : m_Bullets)
-	{
-		delete bullet;
+		bullet->Fin();
 	}
 
-	m_OriginalBullets.clear();
 	m_Bullets.clear();
 }
 
-void BulletManager::SetupBullet(int id)
+BulletBase& BulletManager::CreateStraightBullet(VECTOR pos, VECTOR velocity)
 {
-	BulletBase* bullet = nullptr;
-	BulletParameter param = BULLET_MASTER_DATA[id];
+	UniquePtr<StraightBullet> bullet = MakeUnique<StraightBullet>(pos, velocity);
 
-	switch (param.category)
-	{
-	case BULLET_CATEGORY_STRAIGHT: bullet = new StraightBullet; break;
-	}
+	bullet->Init();
+	bullet->Load();
+	bullet->Start();
 
-	bullet->Init(id);
+	m_Bullets.push_back(std::move(bullet));
 
-	m_OriginalBullets.push_back(bullet);
+	return *m_Bullets.back();
 }
 
-BulletBase* BulletManager::FireBullet(int id, VECTOR pos, VECTOR vec)
+void BulletManager::Clear()
 {
-	// 未使用で同じIDのバレットを探す
-	for (BulletBase* bullet : m_Bullets)
+	for (auto& bullet : m_Bullets)
 	{
-		if (id == bullet->GetID() && !bullet->IsActive())
-		{
-			// バレットを再利用する
-			bullet->Fire(pos, vec);
-			return bullet;
-		}
+		bullet->SetActive(false);
 	}
-
-	// 再利用できなければ新規追加
-	BulletBase* bullet = CreateBullet(id);
-	bullet->Fire(pos, vec);
-
-	// vectorに追加
-	m_Bullets.push_back(bullet);
-
-	return bullet;
-}
-
-const BulletParameter* BulletManager::GetBulletParameter(int id)
-{
-	return &BULLET_MASTER_DATA[id];
-}
-
-BulletBase* BulletManager::CreateBullet(int id)
-{
-	for (BulletBase* bullet : m_OriginalBullets)
-	{
-		if (id == bullet->GetID())
-		{
-			return bullet->Clone();
-		}
-	}
-
-	// 引数のバレットがセットアップされていない
-	return nullptr;
 }

@@ -1,6 +1,6 @@
 #pragma once
 #include "DxLib.h"
-#include "ComponentBase.h"
+#include "../ComponentBase.h"
 
 class Transform : public ComponentBase
 {

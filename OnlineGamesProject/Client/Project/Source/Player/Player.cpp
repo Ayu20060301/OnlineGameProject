@@ -1,10 +1,9 @@
 #include "Player.h"
 #include "PlayerParameter.h"
-#include "../Component/Splite.h"
-#include "../Component/Controller2D.h"
+#include "../Component/Renderer/Splite.h"
+#include "../Component/Controller/Controller2D.h"
 #include "../Component/Collision/CollisionManager.h"
 #include "../Component/Collision/CollisionAABB.h"
-#include "../Component/Collision/CollisionSphere.h"
 #include "../Block/Block.h"
 #include "../Stage/StageParameter.h"
 #include "../Stage/StageManager.h"
@@ -12,6 +11,8 @@
 #include "../MyMath/MyMath.h"
 #include "../Effect/SpriteAnimationManager.h"
 #include "../Input/Input.h"
+#include "../Bullet/BulletManager.h"
+#include "../Bullet/StraightBullet.h"
 
 //プレイヤーのサイズ
 constexpr int PLAYER_WIDTH = 40; 
@@ -22,11 +23,10 @@ constexpr int PLAYER_ANIM_GRAPH_NUM = 4; //アニメーション枚数
 constexpr int PLAYER_CHANGE_ANIM_TIME = 5; //アニメーション切り替え時間
 constexpr float PLAYER_CHANGE_DIR_MOVE_DISTANCE = 0.1f; 
 
-//プレイヤーの初期移動速度
-constexpr float DEFAULT_MOVE_SPEED = 3.0f;
-
 //無敵中の点滅間隔
 constexpr int PLAYER_INVISIBLE_BLINK_TIME = 4; //無敵点滅時間
+
+constexpr int FIRE_INTERVAL = 60; //発射間隔
 
 //プレイヤーごとの当たり判定タグ
 const CollisionTag COLLISION_TAG[] =
@@ -70,7 +70,7 @@ Player::Player() : GameObject()
 , m_OldPos(VGet(0.0f,0.0f,0.0f))
 , m_Move(VGet(0.0f,0.0f,0.0f))
 , m_CollisionAABB(nullptr)
-, m_CollisionSphere(nullptr)
+, m_FireTimer(0)
 {
 }
 
@@ -81,7 +81,7 @@ Player::~Player() = default;
 void Player::Init()
 {
 	//移動速度
-	m_MoveSpeed = 10.0f;
+	m_MoveSpeed = 3.0f;
 
 	//コンポーネントの追加
 	m_Splite = AddComponent<Splite>();
@@ -93,7 +93,7 @@ void Player::Init()
 void Player::Load()
 {
 	//プレイヤー番号に対応した画像をロード
-	m_Handle = LoadGraph(PLAYER_GRAPHIC_PATH[m_PlayerNumber]);
+    m_Handle = LoadGraph(PLAYER_GRAPHIC_PATH[m_PlayerNumber]);
 }
 
 
@@ -112,9 +112,6 @@ void Player::Start()
 	//移動量を初期化
 	m_Move = VGet(0.0f, 0.0f, 0.0f);
 
-	//初期座標
-	//m_Pos = MyMath::VecAdd(VGet(stagePosX, stagePosY, 0.0f), DEFAULT_POS[m_PlayerNumber]);
-
 	VECTOR startPos = VGet(100.0f, 100.0f, 0.0f);
 
 	m_Transform.SetPosition(startPos);
@@ -124,12 +121,8 @@ void Player::Start()
 	//向き
 	m_Direction = PLAYER_DIRECTION_DOWN;
 
-	//移動速度
-	m_MoveSpeed = DEFAULT_MOVE_SPEED;
-
 	//移動量を初期化
 	m_Move = VGet(0.0f, 0.0f, 0.0f);
-
 }
 
 //ステップ
@@ -137,6 +130,12 @@ void Player::Step()
 {
 	//プレイヤーが無効なら何もしない
 	if (!m_IsActive) return;
+
+	//弾の発射タイマーを減らす
+	if (m_FireTimer > 0)
+	{
+		m_FireTimer--;
+	}
 
 	//現在位置を移動前の位置として保存
 	m_OldPos = m_Transform.GetPosition();
@@ -178,6 +177,11 @@ void Player::Step()
 	{
 		//コントローラーが存在しない場合は移動しない
 		m_Move = VGet(0.0f, 0.0f, 0.0f);
+	}
+
+	if (Input::IsInputKey(KEY_Z))
+	{
+		FireBullet();
 	}
 
 	//無敵時間
@@ -250,11 +254,49 @@ void Player::Fin()
 	DeleteGraph(m_Handle);
 }
 
+/// <summary>
+/// 弾を発射させる
+/// </summary>
+void Player::FireBullet()
+{
+	if (!m_IsActive) return;
+
+	//インターバル中は発射しない
+	if (m_FireTimer > 0) return;
+
+	VECTOR pos = m_Transform.GetPosition();
+
+	VECTOR velocity = VGet(0.0f, 0.0f, 0.0f);
+
+	switch (m_Direction)
+	{
+	case PLAYER_DIRECTION_RIGHT:
+		velocity = VGet(8.0f, 0.0f, 0.0f);
+		break;
+
+	case PLAYER_DIRECTION_DOWN:
+		velocity = VGet(0.0f, 8.0f, 0.0f);
+		break;
+
+	case PLAYER_DIRECTION_LEFT:
+		velocity = VGet(-8.0f, 0.0f, 0.0f);
+		break;
+
+	case PLAYER_DIRECTION_UP:
+		velocity = VGet(0.0f, -8.0f, 0.0f);
+		break;
+	}
+
+	BulletManager::GetInstance()->CreateStraightBullet(pos,velocity);
+
+	//タイマーをリセット
+	m_FireTimer = FIRE_INTERVAL;
+}
+
 //死亡処理
 void Player::Die()
 {
 	m_IsActive = false;
-	m_CollisionAABB->SetActive(false);
 }
 
 /// <summary>

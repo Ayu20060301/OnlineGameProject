@@ -1,6 +1,6 @@
 #pragma once
 #include "DxLib.h"
-#include "ComponentBase.h"
+#include "../ComponentBase.h"
 
 class Controller2D : public ComponentBase
 {

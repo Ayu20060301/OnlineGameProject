@@ -1,50 +1,36 @@
 #pragma once
 
 #include "DxLib.h"
-#include "BulletParameter.h"
+#include "../GameObject/GameObject.h"
 
-class CollisionSphere;
-class CollisionAABB;
-
-class BulletBase
+class BulletBase : public GameObject
 {
 public:
 	BulletBase();
 	virtual ~BulletBase();
 
 public:
-	virtual void Init(int id);
+	virtual void Init();
 	virtual void Load();
-	virtual void Step();
+	virtual void Start();
+	virtual void Step() = 0;
+	virtual void Update();
 	virtual void Draw() = 0;
 	virtual void Fin();
-	virtual BulletBase* Clone() = 0;
-	virtual void Fire(VECTOR pos, VECTOR vec);
-
-	void Dead();
-
+	
 public:
-	bool IsActive() const { return m_Active; }
-	int GetID() const { return m_Id; }
-	int GetDamage() const { return m_Param->damage; }
-	VECTOR GetPos() const { return m_Pos; }
-	CollisionSphere* GetSphereCollision() const { return m_SphereCollision; }
-	CollisionAABB* GetAABBCollision() const { return m_AABBCollision; }
+	bool IsActive() { return m_IsActive; }
 
-	void HitPlayer();
-	void HitBlock();
+	void SetActive(bool isActive) { m_IsActive = isActive; }
 
-	void ScaleSpeed(float speed);
+	void SetPosition(VECTOR pos) { m_Transform.SetPosition(pos); }
+
+	VECTOR GetPos() const { return m_Transform.GetPosition(); }
 
 protected:
-	bool m_Active;
-	int m_Id;
+	bool m_IsActive;
+
+	VECTOR m_Velocity;
+
 	int m_Handle;
-	int m_Life;
-	VECTOR m_Pos;
-	VECTOR m_Move;
-	float m_Radius;
-	const BulletParameter* m_Param;
-	CollisionSphere* m_SphereCollision;
-	CollisionAABB* m_AABBCollision;
 };

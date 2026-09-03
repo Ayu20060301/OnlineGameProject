@@ -1,11 +1,7 @@
 #pragma once
 
-
-#pragma once
-
 #include "../../Singleton/Singleton.h"
 #include <vector>
-
 
 class ColliderComponent;
 

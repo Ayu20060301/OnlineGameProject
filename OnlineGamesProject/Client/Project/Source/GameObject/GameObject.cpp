@@ -4,6 +4,7 @@ GameObject::GameObject()
 : m_IsActive(true)
 , m_Type(GameObjectType::NONE)
 , m_Transform({})
+, m_Components({})
 , m_UserServerTransform(false)
 , m_ServerTransform({})
 {

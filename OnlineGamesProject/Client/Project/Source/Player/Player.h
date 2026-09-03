@@ -10,6 +10,7 @@ class Controller2D;
 class CollisionAABB;
 class CollisionSphere;
 class Block;
+class BulletManager;
 
 /// <summary>
 /// プレイヤークラス
@@ -28,6 +29,7 @@ public:
 	virtual void Draw(); //描画処理
 	virtual void Fin(); //終了
 
+	void FireBullet(); //弾を発射させる
 public:
 	//プレイヤーが生きているか
 	bool IsActive() const { return m_IsActive; }
@@ -40,7 +42,6 @@ public:
 	
 	
 	CollisionAABB* GetCollisionAABB() { return m_CollisionAABB; }
-	CollisionSphere* GetCollisionSphere() const { return m_CollisionSphere; }
 	float GetMoveSpeed() const { return m_MoveSpeed; }
 
 	void SetActive(bool active) { m_IsActive = active; }
@@ -58,7 +59,6 @@ protected:
 
 	bool m_IsActive; //プレイヤーが生きているか
 	float m_MoveSpeed; //移動速度
-	
 	Splite* m_Splite;
 	Controller2D* m_Controller; //2Dコントローラー
 	int m_Handle; //プレイヤー画像
@@ -69,8 +69,8 @@ protected:
 	int m_AnimationTimer; //アニメーションタイマー
 	VECTOR m_OldPos; //移動前の座標
 	VECTOR m_Move; //1フレームの移動量
+	int m_FireTimer;
 
 	//当たり判定
 	CollisionAABB* m_CollisionAABB;
-	CollisionSphere* m_CollisionSphere;
 };

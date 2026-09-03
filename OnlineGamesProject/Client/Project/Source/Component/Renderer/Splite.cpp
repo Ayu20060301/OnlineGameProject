@@ -1,6 +1,6 @@
 #include "DxLib.h"
 #include "Splite.h"
-#include "../GameObject/GameObject.h"
+#include "../../GameObject/GameObject.h"
 
 Splite::Splite() : ComponentBase()
 , m_Handle(0)

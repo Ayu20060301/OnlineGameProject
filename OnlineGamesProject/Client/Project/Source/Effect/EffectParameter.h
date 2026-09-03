@@ -3,7 +3,7 @@
 
 enum SpriteAnimationType
 {
-	NONE = -1,
+	//NONE = -1,
 	PLAYER1_DEAD,
 	PLAYER2_DEAD,
 	PLAYER3_DEAD,

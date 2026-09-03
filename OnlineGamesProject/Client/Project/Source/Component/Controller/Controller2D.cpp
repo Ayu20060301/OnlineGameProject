@@ -1,7 +1,7 @@
 #include "DxLib.h"
 #include "Controller2D.h"
-#include "../Input/Input.h"
-#include "../MyMath/MyMath.h"
+#include "../../Input/Input.h"
+#include "../../MyMath/MyMath.h"
 
 VECTOR Controller2D::Move()
 {

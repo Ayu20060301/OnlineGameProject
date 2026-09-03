@@ -1,6 +1,6 @@
 #include "NetworkPlayScene.h"
 #include "../Player/PlayerManager.h"
-#include "../Player/NetworkPlayer.h"
+#include "../GameApp/GameApp.h"
 #include "../Network/ClientAPI.h"
 
 NetworkPlayScene::~NetworkPlayScene()

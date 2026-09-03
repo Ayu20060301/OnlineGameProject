@@ -1,6 +1,6 @@
 #pragma once
-#include "Transform.h"
-#include "../Component/ComponentBase.h"
+#include "../Transform/Transform.h"
+#include "../../Component/ComponentBase.h"
 
 class Splite : public ComponentBase
 {
