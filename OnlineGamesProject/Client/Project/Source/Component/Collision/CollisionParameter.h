@@ -1,10 +1,13 @@
 #pragma once
 
-enum CollisionType
+//コライダーの種類
+enum ColliderType
 {
-	COLLISION_AABB,
-	COLLISION_SPHERE,
-	COLLISION_TYPE_NONE = -1
+	NONE,
+	AABB_2D,
+	AABB_3D,
+	CIRCLE,
+	SPHERE
 };
 
 
@@ -16,4 +19,16 @@ enum CollisionTag
 	COLLISION_TAG_PLAYER3,			// プレイヤー3
 	COLLISION_TAG_PLAYER4,			// プレイヤー4
 	COLLISION_TAG_NONE = -1
+};
+
+
+struct CollisionResult
+{
+	bool isHit = false;
+	float overlapX = 0.0f;
+	float overlapY = 0.0f;
+	float overlapZ = 0.0f;
+	float normalX = 0.0f;
+	float normalY = 0.0f;
+	float normalZ = 0.0f;
 };

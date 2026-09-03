@@ -1,26 +1,42 @@
 #pragma once
 
 #include "DxLib.h"
-#include "CollisionBase.h"
+#include "ColliderComponent.h"
 
-class CollisionAABB : public CollisionBase
+class AABB3D : public ColliderComponent
 {
 public:
-	CollisionAABB();
-	~CollisionAABB();
+	AABB3D();
+	virtual ~AABB3D() = default;
 
-public:
-	void Draw() override;			// ï`âÊ
+	void Draw();
 
-public:
-	void SetSize(VECTOR size) { m_Size = size; }
+	void SetCenter(const VECTOR& center) { m_Center = center; }
+	void SetSize(const VECTOR& size) { m_Size = size; }
 
-	VECTOR GetSize() { return m_Size; }
-
-public:
-	bool CheckAABB(CollisionAABB* other);
+	CollisionResult CheckCollide(const ColliderComponent& other) const override;
+	CollisionResult CheckCollideAABB(const AABB3D& other) const;
 
 private:
-	// ècâ°âúçsÇ´ïù
+	VECTOR m_Center;
+	VECTOR m_Size;
+};
+
+class AABB2D : public ColliderComponent
+{
+public:
+	AABB2D();
+	virtual ~AABB2D() = default;
+
+	void Draw();
+
+	void SetCenter(const VECTOR& center) { m_Center = center; }
+	void SetSize(const VECTOR& size) { m_Size = size; }
+
+	CollisionResult CheckCollide(const ColliderComponent& other) const override;
+	CollisionResult CheckCollideAABB(const AABB2D& other) const;
+
+private:
+	VECTOR m_Center;
 	VECTOR m_Size;
 };

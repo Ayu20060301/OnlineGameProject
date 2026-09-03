@@ -28,7 +28,7 @@ void Client::Step()
 
 void Client::Draw()
 {
-	DrawString(0, 880, "クライアント側", GetColor(255, 255, 255));
+	DrawString(0, 880,"クライアント側", GetColor(255, 255, 255));
 }
 
 void Client::Fin()

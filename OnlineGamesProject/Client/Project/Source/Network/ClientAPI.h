@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Client.h"
-#include "../Component/Transform.h"
+#include "../Component/Transform/Transform.h"
 
 namespace ClientAPI
 {

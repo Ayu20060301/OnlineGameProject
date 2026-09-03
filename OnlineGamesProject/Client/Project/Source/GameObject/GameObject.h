@@ -3,9 +3,9 @@
 #include <vector>
 #include "../Memory/Memory.h"
 #include "../Component/ComponentBase.h"
-#include "../Component/Transform.h"
-#include "../Component/Splite.h"
-#include "../Component//Controller2D.h"
+#include "../Component/Transform/Transform.h"
+#include "../Component/Renderer/Splite.h"
+#include "../Component/Controller/Controller2D.h"
 
 
 enum class GameObjectType
@@ -49,7 +49,6 @@ public:
 	}
 
 protected:
-
 	bool m_IsActive = true;
 
 	//オブジェクトタイプ
@@ -63,6 +62,5 @@ protected:
 	Transform m_ServerTransform;
 
 private:
-
 	std::vector<SharedPtr<ComponentBase>> m_Components;
 };

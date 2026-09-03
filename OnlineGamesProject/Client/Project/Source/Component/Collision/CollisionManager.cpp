@@ -1,95 +1,80 @@
 #include "CollisionManager.h"
-#include "CollisionBase.h"
-#include "CollisionAABB.h"
-#include "CollisionSphere.h"
-#include "../../Player/PlayerManager.h"
-#include "../../Block/BlockManager.h"
-
-
-//静的変数の初期化
-CollisionManager* CollisionManager::m_Instance = nullptr;
-
-/// <summary>
-/// コンストラクタ
-/// </summary>
-CollisionManager::CollisionManager()
-{
-}
-
-/// <summary>
-/// デストラクタ
-/// </summary>
-CollisionManager::~CollisionManager()
-{
-}
-
+#include "CollisionParameter.h"
+#include "ColliderComponent.h"
+#include "../../GameObject/GameObject.h"
+#include "DxLib.h"
 
 void CollisionManager::Draw()
 {
-	for (CollisionBase* collision : m_Collisions)
-	{
-		if (collision->IsActive())
-		{
-			collision->Draw();
-		}
-	}
+#ifdef _DEBUG
+    // 登録されているコライダーを描画
+    for (auto col : m_Colliders)
+    {
+        col->Draw();
+    }
+#endif
 }
 
-void CollisionManager::Fin()
+/// <summary>
+/// コライダーをマネージャーに登録
+/// </summary>
+/// <param name="col">登録するコライダー</param>
+void CollisionManager::Register(ColliderComponent* col)
 {
-	for (CollisionBase* collision : m_Collisions)
-	{
-		delete collision;
-	}
+    // nullptrガード
+    if (!col) return;
 
-	m_Collisions.clear();
+    // 多重登録の防止
+    auto it = std::find(m_Colliders.begin(), m_Colliders.end(), col);
+    if (it != m_Colliders.end())
+        return;  // すでに登録済みなら何もしない
+
+    m_Colliders.push_back(col);
 }
 
-CollisionAABB* CollisionManager::CreateAABB()
+/// <summary>
+/// 登録されたコライダーを解除
+/// </summary>
+/// <param name="col">解除したいコライダー</param>
+void CollisionManager::Unregister(ColliderComponent* col)
 {
-	return static_cast<CollisionAABB*>(CreateCollision(COLLISION_AABB));
+    // nullptrガード
+    if (!col) return;
+
+    // 見つけて削除
+    auto it = std::find(m_Colliders.begin(), m_Colliders.end(), col);
+    if (it != m_Colliders.end())
+    {
+        m_Colliders.erase(it);
+    }
 }
 
-CollisionSphere* CollisionManager::CreateSphere()
-{
-	return static_cast<CollisionSphere*>(CreateCollision(COLLISION_SPHERE));
-}
-
-CollisionBase* CollisionManager::CreateCollision(int id)
-{
-	// 同じIDかつ未使用のコリジョンを探す
-	for (CollisionBase* collision : m_Collisions)
-	{
-		// typeidを使うと型が同じかチェックできる
-		if (!collision->IsActive() && id == collision->GetID())
-		{
-			// 未使用のコリジョンを再利用する
-			collision->SetActive(true);
-			return collision;
-		}
-	}
-
-	// 再利用できなければ追加する
-	CollisionBase* collision = nullptr;
-	switch (id)
-	{
-	case COLLISION_AABB: collision = new CollisionAABB; break;
-	case COLLISION_SPHERE: collision = new CollisionSphere; break;
-	}
-
-	if (collision)
-	{
-		collision->SetActive(true);
-	}
-
-	// 管理配列に格納
-	m_Collisions.push_back(collision);
-
-	return collision;
-}
-
+/// <summary>
+/// 当たり判定
+/// </summary>
 void CollisionManager::CheckCollision()
 {
-//	CheckPlayerAndBlock();
-	
+    // 全コライダー総当たり
+    const size_t size = m_Colliders.size();
+    for (int i = 0; i < size; ++i)
+    {
+        ColliderComponent* a = m_Colliders[i];
+        if (!a->IsActive()) continue;
+
+        for (int j = i + 1; j < size; ++j)
+        {
+            ColliderComponent* b = m_Colliders[j];
+            if (!b->IsActive()) continue;
+
+            CollisionResult result = a->CheckCollide(*b);
+
+            // 当たったら死亡
+            if (result.isHit)
+            {
+                // 衝突処理
+                a->GetOwner()->OverlapGameObject(*b->GetOwner());
+                b->GetOwner()->OverlapGameObject(*a->GetOwner());
+            }
+        }
+    }
 }
