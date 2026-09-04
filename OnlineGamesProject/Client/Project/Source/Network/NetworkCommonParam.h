@@ -13,6 +13,9 @@ namespace Network
 	//プレイヤー最大人数
 	constexpr int NETWORK_PLAYER_MAX = 4;
 
+	//バレット最大種類数
+	constexpr int NETWORK_BULLET_MAX = 4;
+
 	//パケットの種類
 	enum class PacketType : uint8_t
 	{
@@ -21,6 +24,16 @@ namespace Network
 		LOGOUT,
 		TRANSFORM,
 		ALL_TRANSFORM,
+
+		//----------
+		//バレット関係
+		//-----------
+
+		BULLET_CREATE,
+		BULLET_DIE,
+
+		//-----------
+
 		DIE
 	};
 
@@ -100,5 +113,34 @@ namespace Network
 	struct DieData
 	{
 		int playerID;
+	};
+
+	//弾生成用データ
+	struct BulletCreateData
+	{
+		int bulletID;
+		int playerID;  //発射したプレイヤー
+		VECTOR pos;
+		VECTOR velocity; 
+	};
+
+	struct RequestBulletTransformData
+	{
+		int bulletID;
+		VECTOR pos;
+	};
+
+	//全バレットのトランスフォームデータ
+	struct ResponseBulletTransformData
+	{
+		VECTOR pos[NETWORK_BULLET_MAX];
+		VECTOR velocity[NETWORK_BULLET_MAX];
+	};
+
+
+	//バレット死亡データ
+	struct BulletDieData
+	{
+		int bulletID;
 	};
 }

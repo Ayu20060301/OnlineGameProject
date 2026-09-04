@@ -13,11 +13,14 @@ public:
 	virtual void Init();
 	virtual void Load();
 	virtual void Start();
-	virtual void Step() = 0;
+	virtual void Step();
 	virtual void Update();
-	virtual void Draw() = 0;
+	virtual void Draw();
 	virtual void Fin();
 	
+	//ネットワーク弾かどうか
+	virtual bool IsNetworkBullet() const { return false; }
+
 public:
 	bool IsActive() { return m_IsActive; }
 
