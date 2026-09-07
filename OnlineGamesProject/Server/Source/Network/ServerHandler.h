@@ -11,5 +11,6 @@ namespace ServerHandler
 	void OnJoined(int nwHandle, int joinPlayerID);
 	void OnDead(int deadPlayerID);
 
+	//プレイヤーのトランスフォームデータ
 	void SyncTransform();
 }

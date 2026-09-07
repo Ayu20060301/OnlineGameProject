@@ -6,7 +6,7 @@
 #include <DxLib.h>
 #include "../Network/NetworkCommonParam.h"
 
-class BulletBase;
+class Bullet;
 class NetworkBullet;
 class Client;
 
@@ -26,11 +26,12 @@ public:
 	void Fin();
 
 public:
-	//弾生成
-	BulletBase& CreateStraightBullet(VECTOR pos,VECTOR velocity);
 
-	//ネットワーク弾
-	NetworkBullet& CreateNetworkBullet(int id, int ownerID, VECTOR pos, VECTOR velocity);
+	void FireBullet(VECTOR playerPos);
+
+	//弾の生成
+	Bullet& CreateBullet();
+
 
 	//ネットワーク関係
 	void SyncServerTransform(Network::ResponseBulletTransformData data);
@@ -40,8 +41,5 @@ public:
 	void Clear();
 
 private:
-	//IDからネットワーク弾を検索
-	NetworkBullet* FindNetworkBullet(int bulletID);
-private:
-	std::list<UniquePtr<BulletBase>> m_Bullets;
+	std::list<UniquePtr<Bullet>> m_Bullets;
 };

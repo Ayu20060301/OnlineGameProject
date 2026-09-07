@@ -31,14 +31,8 @@
     <Filter Include="Source\Component\Collision">
       <UniqueIdentifier>{d975a895-b42f-4f58-b36c-5bd5aa20c31e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\FPS">
-      <UniqueIdentifier>{73d6baa6-e445-4072-a8f8-34357f795778}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source\GameSetting">
       <UniqueIdentifier>{521df45a-3b37-4654-8ea2-87bf514270fc}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Stage">
-      <UniqueIdentifier>{7aff3e3e-b0f7-42a7-995c-3b9b72ebcf4c}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source\Effect">
       <UniqueIdentifier>{8f62b4f6-75d0-4dd6-af29-a77ec9afd953}</UniqueIdentifier>
@@ -63,6 +57,9 @@
     </Filter>
     <Filter Include="Source\Bullet">
       <UniqueIdentifier>{6abbb565-db98-4ef4-91e7-a954f7a054c0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Wall">
+      <UniqueIdentifier>{595bc706-fdbe-47d6-8a44-6e2e72bf238f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -117,15 +114,6 @@
     <ClCompile Include="Source\Component\Collision\CollisionAABB.cpp">
       <Filter>Source\Component\Collision</Filter>
     </ClCompile>
-    <ClCompile Include="Source\FPS\FPS.cpp">
-      <Filter>Source\FPS</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Stage\Stage.cpp">
-      <Filter>Source\Stage</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Stage\StageManager.cpp">
-      <Filter>Source\Stage</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Effect\SpriteAnimation.cpp">
       <Filter>Source\Effect</Filter>
     </ClCompile>
@@ -160,6 +148,18 @@
       <Filter>Source\Bullet</Filter>
     </ClCompile>
     <ClCompile Include="Source\Bullet\NetworkBullet.cpp">
+      <Filter>Source\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Wall\WallManager.cpp">
+      <Filter>Source\Wall</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Wall\Wall.cpp">
+      <Filter>Source\Wall</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Wall\NetworkWall.cpp">
+      <Filter>Source\Wall</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Bullet\Bullet.cpp">
       <Filter>Source\Bullet</Filter>
     </ClCompile>
   </ItemGroup>
@@ -227,20 +227,8 @@
     <ClInclude Include="Source\Player\PlayerParameter.h">
       <Filter>Source\Player</Filter>
     </ClInclude>
-    <ClInclude Include="Source\FPS\FPS.h">
-      <Filter>Source\FPS</Filter>
-    </ClInclude>
     <ClInclude Include="Source\GameSetting\GameSetting.h">
       <Filter>Source\GameSetting</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Stage\Stage.h">
-      <Filter>Source\Stage</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Stage\StageManager.h">
-      <Filter>Source\Stage</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Stage\StageParameter.h">
-      <Filter>Source\Stage</Filter>
     </ClInclude>
     <ClInclude Include="Source\Effect\EffectParameter.h">
       <Filter>Source\Effect</Filter>
@@ -288,6 +276,18 @@
       <Filter>Source\Bullet</Filter>
     </ClInclude>
     <ClInclude Include="Source\Bullet\NetworkBullet.h">
+      <Filter>Source\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Wall\WallManager.h">
+      <Filter>Source\Wall</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Wall\Wall.h">
+      <Filter>Source\Wall</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Wall\NetworkWall.h">
+      <Filter>Source\Wall</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Bullet\Bullet.h">
       <Filter>Source\Bullet</Filter>
     </ClInclude>
   </ItemGroup>

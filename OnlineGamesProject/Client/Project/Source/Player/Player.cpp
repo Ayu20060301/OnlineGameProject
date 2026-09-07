@@ -4,55 +4,18 @@
 #include "../Component/Controller/Controller2D.h"
 #include "../Component/Collision/CollisionManager.h"
 #include "../Component/Collision/CollisionAABB.h"
-#include "../Block/Block.h"
-#include "../Stage/StageParameter.h"
-#include "../Stage/StageManager.h"
-#include "../Stage/Stage.h"
 #include "../MyMath/MyMath.h"
 #include "../Effect/SpriteAnimationManager.h"
 #include "../Input/Input.h"
 #include "../Bullet/BulletManager.h"
-#include "../Bullet/StraightBullet.h"
+#include "../Bullet/Bullet.h"
 
-//プレイヤーのサイズ
-constexpr int PLAYER_WIDTH = 40; 
-constexpr int PLAYER_HEIGHT = 40; 
-
-//プレイヤーアニメーション
-constexpr int PLAYER_ANIM_GRAPH_NUM = 4; //アニメーション枚数
-constexpr int PLAYER_CHANGE_ANIM_TIME = 5; //アニメーション切り替え時間
-constexpr float PLAYER_CHANGE_DIR_MOVE_DISTANCE = 0.1f; 
-
-//無敵中の点滅間隔
-constexpr int PLAYER_INVISIBLE_BLINK_TIME = 4; //無敵点滅時間
-
-constexpr int FIRE_INTERVAL = 60; //発射間隔
-
-//プレイヤーごとの当たり判定タグ
-const CollisionTag COLLISION_TAG[] =
-{
-	COLLISION_TAG_PLAYER1,
-	COLLISION_TAG_PLAYER2,
-	COLLISION_TAG_PLAYER3,
-	COLLISION_TAG_PLAYER4,
-};
 
 //プレイヤーごとの画像
 const char* PLAYER_GRAPHIC_PATH[] =
 {
 	"Data/Play/Player/Player1.png",
-	"Data/Play/Player/Player2.png",
-	"Data/Play/Player/Player3.png",
-	"Data/Play/Player/Player4.png",
-};
-
-//プレイヤーごとの初期位置
-const VECTOR DEFAULT_POS[] =
-{
-	{40.0f,40.0f,0.0f},
-	{560.0f,40.0f,0.0f},
-	{40.0f,320.0f,0.0f},
-	{560.0f,320.0f,0.0f},
+	"Data/Play/Player/Player2.png"
 };
 
 //コンストラクタ
@@ -81,7 +44,7 @@ Player::~Player() = default;
 void Player::Init()
 {
 	//移動速度
-	m_MoveSpeed = 3.0f;
+	m_MoveSpeed = 10.0f;
 
 	//コンポーネントの追加
 	m_Splite = AddComponent<Splite>();
@@ -119,7 +82,7 @@ void Player::Start()
 	m_ServerTransform.SetPosition(startPos);
 
 	//向き
-	m_Direction = PLAYER_DIRECTION_DOWN;
+	m_Direction = PLAYER_DIRECTION_RIGHT;
 
 	//移動量を初期化
 	m_Move = VGet(0.0f, 0.0f, 0.0f);
@@ -144,6 +107,9 @@ void Player::Step()
 	if (m_Controller != nullptr)
 	{
 		VECTOR moveInput = m_Controller->Move();
+
+		//x方向の移動を禁止
+		moveInput.x = 0.0f;
 
 		//移動量を計算
 		m_Move = VScale(moveInput, m_MoveSpeed);
@@ -179,17 +145,14 @@ void Player::Step()
 		m_Move = VGet(0.0f, 0.0f, 0.0f);
 	}
 
-	if (Input::IsInputKey(KEY_Z))
+	
+	if (Input::IsTriggerKey(KEY_Z))
 	{
-		FireBullet();
+		BulletManager::GetInstance()->FireBullet(GetPos());
 	}
-
+	
 	//無敵時間
 	if (m_InvisibleTimer > 0) m_InvisibleTimer--;
-
-	//移動方向からプレイヤーの向きを設定
-	SetDirectionForMove();
-
 }
 
 /// <summary>
@@ -254,45 +217,6 @@ void Player::Fin()
 	DeleteGraph(m_Handle);
 }
 
-/// <summary>
-/// 弾を発射させる
-/// </summary>
-void Player::FireBullet()
-{
-	if (!m_IsActive) return;
-
-	//インターバル中は発射しない
-	if (m_FireTimer > 0) return;
-
-	VECTOR pos = m_Transform.GetPosition();
-
-	VECTOR velocity = VGet(0.0f, 0.0f, 0.0f);
-
-	switch (m_Direction)
-	{
-	case PLAYER_DIRECTION_RIGHT:
-		velocity = VGet(8.0f, 0.0f, 0.0f);
-		break;
-
-	case PLAYER_DIRECTION_DOWN:
-		velocity = VGet(0.0f, 8.0f, 0.0f);
-		break;
-
-	case PLAYER_DIRECTION_LEFT:
-		velocity = VGet(-8.0f, 0.0f, 0.0f);
-		break;
-
-	case PLAYER_DIRECTION_UP:
-		velocity = VGet(0.0f, -8.0f, 0.0f);
-		break;
-	}
-
-	BulletManager::GetInstance()->CreateStraightBullet(pos,velocity);
-
-	//タイマーをリセット
-	m_FireTimer = FIRE_INTERVAL;
-}
-
 //死亡処理
 void Player::Die()
 {
@@ -323,44 +247,4 @@ void Player::UpdateAnimation()
 		}
 	}
 	m_AnimationTimer++;
-}
-
-/// <summary>
-/// 移動方向からプレイヤーの向きを決定
-/// </summary>
-void Player::SetDirectionForMove()
-{
-	//移動前の座標から向きを決定
-	VECTOR moveVec = MyMath::VecCreate(m_OldPos, m_Transform.GetPosition());
-
-	//移動量が少なすぎたら向きを変えない
-	if (MyMath::VecLong(moveVec) < PLAYER_CHANGE_DIR_MOVE_DISTANCE) return;
-
-	//XとY大きい方を優先
-	if (MyMath::Absolute(moveVec.x) > MyMath::Absolute(moveVec.y))
-	{
-		//右
-		if (moveVec.x > 0.0f)
-		{
-			m_Direction = PLAYER_DIRECTION_RIGHT;
-		}
-		//左
-		else
-		{
-			m_Direction = PLAYER_DIRECTION_LEFT;
-		}
-	}
-	else
-	{
-		//下
-		if(moveVec.y > 0.0f)
-		{
-			m_Direction = PLAYER_DIRECTION_DOWN;
-		}
-		//上
-		else
-		{
-			m_Direction = PLAYER_DIRECTION_UP;
-		}
-	}
 }

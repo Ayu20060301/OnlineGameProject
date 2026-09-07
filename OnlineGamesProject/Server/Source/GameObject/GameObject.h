@@ -11,6 +11,7 @@ enum class GameObjectType
 {
 	NONE = -1,
 	PLAYER, //プレイヤー
+	WALL,   //壁
 	BULLET //バレット
 };
 

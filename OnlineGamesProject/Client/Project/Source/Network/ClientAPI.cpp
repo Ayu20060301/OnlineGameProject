@@ -1,6 +1,7 @@
 #include "ClientAPI.h"
 #include "NetworkUtility.h"
 #include "../Player/PlayerManager.h"
+#include "../Wall/WallManager.h"
 
 Client g_Client;
 
@@ -33,6 +34,7 @@ void ClientAPI::Step()
             case Network::PacketType::LOGOUT:            OnReceiveLogout();         break;
             case Network::PacketType::ALL_TRANSFORM:     OnReceiveAllTransform();   break;
             case Network::PacketType::DIE:               OnReceiveDead();           break;
+            case Network::PacketType::WALL_TRANSFORM:    OnReceiveWallTransform();   break;
         }
     }
 }
@@ -125,6 +127,16 @@ void ClientAPI::OnReceiveDead()
 
     //死亡させる
     PlayerManager::GetInstance()->DiePlayer(data.playerID);
+}
+
+void ClientAPI::OnReceiveWallTransform()
+{
+    //壁のトランスフォームを受信
+    Network::WallTransformData data = {};
+    g_Client.ReceiveData(reinterpret_cast<char*>(&data), sizeof(data));
+
+    //壁の座標を同期
+    WallManager::GetInstance()->SyncServerTransform(data);
 }
 
 void ClientAPI::Fin()

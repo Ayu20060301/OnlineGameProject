@@ -1,4 +1,5 @@
 ﻿#include "DxLib.h"
+#include "GameSetting/GameSetting.h"
 #include "Network/Server.h"
 
 // サーバー用グローバル変数
@@ -11,7 +12,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_  HINSTANCE hPrevInstance, 
 	ChangeWindowMode(TRUE);
 
 	// 画面解像度の設定
-	SetGraphMode(1600, 900, 32);
+	SetGraphMode(SCREEN_WIDTH,SCREEN_HEIGHT, SCREEN_COLOR_DEPTH);
 
 	// 多重起動を許可する
 	SetDoubleStartValidFlag(TRUE);

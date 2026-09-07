@@ -1,5 +1,6 @@
 #include "NetworkPlayScene.h"
 #include "../Player/PlayerManager.h"
+#include "../Wall/WallManager.h"
 #include "../GameApp/GameApp.h"
 #include "../Network/ClientAPI.h"
 
@@ -15,6 +16,9 @@ void NetworkPlayScene::Init()
 
 	//プレイヤー管理生成
 	PlayerManager::CreateInstance();
+
+	//ウォール管理生成
+	WallManager::CreateInstance();
 }
 
 void NetworkPlayScene::Load()

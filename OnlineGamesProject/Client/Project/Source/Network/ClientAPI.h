@@ -24,5 +24,7 @@ namespace ClientAPI
 	void OnReceiveAllTransform();
 	void OnReceiveDead();
 
+	void OnReceiveWallTransform();
+
 	void Fin();
 }

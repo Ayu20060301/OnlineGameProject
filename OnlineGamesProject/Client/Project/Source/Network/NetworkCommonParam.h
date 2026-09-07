@@ -11,10 +11,10 @@ namespace Network
 	constexpr int PORT_NUMBER = 50000;
 
 	//プレイヤー最大人数
-	constexpr int NETWORK_PLAYER_MAX = 4;
+	constexpr int NETWORK_PLAYER_MAX = 2;
 
 	//バレット最大種類数
-	constexpr int NETWORK_BULLET_MAX = 4;
+	constexpr int NETWORK_BULLET_MAX = 2;
 
 	//パケットの種類
 	enum class PacketType : uint8_t
@@ -32,7 +32,10 @@ namespace Network
 		BULLET_CREATE,
 		BULLET_DIE,
 
-		//-----------
+
+		//壁のトランスフォーム
+		WALL_TRANSFORM,
+
 
 		DIE
 	};
@@ -142,5 +145,11 @@ namespace Network
 	struct BulletDieData
 	{
 		int bulletID;
+	};
+
+	//壁のトランスフォームデータ
+	struct WallTransformData
+	{
+		VECTOR pos;
 	};
 }

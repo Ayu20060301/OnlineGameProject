@@ -1,6 +1,5 @@
 #include "BulletManager.h"
-#include "BulletBase.h"
-#include "StraightBullet.h"
+#include "Bullet.h"
 #include "NetworkBullet.h"
 #include "../Network/Client.h"
 #include <algorithm>
@@ -86,85 +85,42 @@ void BulletManager::Fin()
 	m_Bullets.clear();
 }
 
-BulletBase& BulletManager::CreateStraightBullet(VECTOR pos, VECTOR velocity)
+void BulletManager::FireBullet(VECTOR playerPos)
 {
-	UniquePtr<StraightBullet> bullet = MakeUnique<StraightBullet>(pos, velocity);
+	// 新しい弾を生成
+	Bullet& bullet = CreateBullet();
 
-	bullet->Init();
-	bullet->Load();
-	bullet->Start();
-
-	m_Bullets.push_back(std::move(bullet));
-
-	return *m_Bullets.back();
+	// プレイヤーの位置から発射
+	bullet.FireBullet(playerPos);
 }
 
-/// <summary>
-/// ネットワーク弾の生成
-/// </summary>
-/// <param name="id">発射したバレットのID</param>
-/// <param name="ownerID">発射した弾のプレイヤーID</param>
-/// <param name="pos">発射する座標</param>
-/// <param name="velocity">発射する向き</param>
-/// <returns></returns>
-NetworkBullet& BulletManager::CreateNetworkBullet(int id, int ownerID, VECTOR pos, VECTOR velocity)
+Bullet& BulletManager::CreateBullet()
 {
-	UniquePtr<NetworkBullet> bullet = MakeUnique<NetworkBullet>(id, ownerID);
-
+	//生成して初期化
+	UniquePtr<Bullet> bullet = MakeUnique<Bullet>();
 	bullet->Init();
+
+	//ロード
 	bullet->Load();
+
+	//スタート
 	bullet->Start();
 
-	//現在位置
-	bullet->SetPosition(pos);
-
-	//サーバー情報
-	bullet->SetServerPosition(pos);
-	bullet->SetServerVelocity(velocity);
-
+	//リストに追加
 	m_Bullets.push_back(std::move(bullet));
 
-	return *static_cast<NetworkBullet*>(m_Bullets.back().get());
+	return *(m_Bullets.back().get());
 }
 
 void BulletManager::SyncServerTransform(Network::ResponseBulletTransformData data)
 {
-	//全バレットのトランスフォームをサーバーから受信する
-	int i = 0;
-	for (auto& bullet : m_Bullets)
-	{
-
-		//NetworkBulletではない弾は無視
-		if (!bullet->IsNetworkBullet()) continue;
-
-		NetworkBullet* nwBullet = static_cast<NetworkBullet*>(bullet.get());
-
-
-		nwBullet->SetServerPosition(data.pos[i]);
-		nwBullet->SetServerVelocity(data.velocity[i]);
-
-		i++;
-	}
 }
 
-/// <summary>
-/// 弾を死亡させる
-/// </summary>
-/// <param name="bulletID">発射した弾のID</param>
 void BulletManager::DieBullet(int bulletID)
 {
-	//IDが一致したバレットを死亡させる
-	for (auto itr = m_Bullets.begin(); itr != m_Bullets.end(); itr++)
-	{
-		NetworkBullet* nwBullet = static_cast<NetworkBullet*>((*itr).get());
-
-		if (nwBullet->GetID() == bulletID)
-		{
-			//nwBullet->Die();
-			break;
-		}
-	}
 }
+
+
 
 void BulletManager::Clear()
 {
@@ -174,16 +130,3 @@ void BulletManager::Clear()
 	}
 }
 
-NetworkBullet* BulletManager::FindNetworkBullet(int bulletID)
-{
-	for (auto& bullet : m_Bullets)
-	{
-		if(!bullet->IsNetworkBullet()) continue;
-
-		NetworkBullet* nwBullet = static_cast<NetworkBullet*>(bullet.get());
-
-		if (nwBullet->GetID() == bulletID) return nwBullet;
-	}
-
-	return nullptr;
-}

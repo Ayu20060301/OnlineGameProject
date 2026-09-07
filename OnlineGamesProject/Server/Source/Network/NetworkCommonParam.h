@@ -10,7 +10,7 @@ namespace Network
 	// ポート番号
 	constexpr int PORT_NUMBER = 50000;
 	// プレイヤー最大人数
-	constexpr int PLAYER_MAX = 4;
+	constexpr int PLAYER_MAX = 2;
 
 	// パケットの種類（符号なし8ビットで扱う）
 	enum class PacketType : uint8_t
@@ -20,7 +20,11 @@ namespace Network
 		LOGOUT,
 		TRANSFORM,
 		ALL_TRANSFORM,
-		DIE
+		DIE,
+
+		//壁のトランスフォーム
+		WALL_TRANSFORM
+
 	};
 
 	// 全通信に使用するパケットデータ
@@ -98,5 +102,11 @@ namespace Network
 	struct DieData
 	{
 		int playerID;
+	};
+
+	//壁のトランスフォーム
+	struct WallTransformData
+	{
+		VECTOR pos;
 	};
 }

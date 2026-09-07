@@ -1,4 +1,5 @@
 #include "DxLIb.h"
+#include "../GameSetting/GameSetting.h"
 #include "TitleScene.h"
 #include "../Input/Input.h"
 #include "../Network/ClientAPI.h"
@@ -51,8 +52,8 @@ void TitleScene::Update()
 
 void TitleScene::Draw()
 {
-	DrawFormatString(0, 0, GetColor(255, 255, 255), "Zキーでオンラインプレイ");
-	DrawFormatString(0, 20, GetColor(255, 255, 255), "Xキーでオフラインプレイ");
+	DrawFormatString(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, GetColor(255, 255, 255), "Zキーでオンラインプレイ");
+	DrawFormatString(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 + 40, GetColor(255, 255, 255), "Xキーでオフラインプレイ");
 }
 
 void TitleScene::Fin()

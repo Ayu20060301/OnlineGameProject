@@ -2,6 +2,8 @@
 #include "NetworkUtility.h"
 #include "../Player/PlayerManager.h"
 #include "../Player/Player.h"
+#include "../Wall/WallManager.h"
+#include "../Wall/Wall.h"
 
 using namespace Network;
 
@@ -33,6 +35,14 @@ void ServerHandler::HandleLogin(int nwHandle)
     //ログインするクライアントに送信する
     auto buffer = MakePacket<ResponseLoginData>(PacketType::LOGIN, response);
     NetWorkSend(nwHandle, reinterpret_cast<char*>(buffer.data()), (int)buffer.size());
+
+   //壁がまだ存在しなければ生成
+    auto walls = WallManager::GetInstance()->GetWalls();
+
+    if (walls.empty())
+    {
+        WallManager::GetInstance()->CreateWall();
+    }
 }
 
 void ServerHandler::HandleLogout(int nwHandle)
@@ -137,3 +147,4 @@ void ServerHandler::SyncTransform()
         NetWorkSend(player->GetNetworkHandle(), reinterpret_cast<char*>(buffer.data()), (int)buffer.size());
     }
 }
+

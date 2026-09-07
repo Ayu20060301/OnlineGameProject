@@ -12,6 +12,19 @@ class CollisionSphere;
 class Block;
 class BulletManager;
 
+
+//プレイヤーのサイズ
+constexpr int PLAYER_WIDTH = 40;
+constexpr int PLAYER_HEIGHT = 40;
+
+//プレイヤーアニメーション
+constexpr int PLAYER_ANIM_GRAPH_NUM = 4; //アニメーション枚数
+constexpr int PLAYER_CHANGE_ANIM_TIME = 5; //アニメーション切り替え時間
+constexpr float PLAYER_CHANGE_DIR_MOVE_DISTANCE = 0.1f;
+
+//無敵中の点滅間隔
+constexpr int PLAYER_INVISIBLE_BLINK_TIME = 4; //無敵点滅時間
+
 /// <summary>
 /// プレイヤークラス
 /// </summary>
@@ -28,8 +41,6 @@ public:
 	virtual void Update(); //更新処理
 	virtual void Draw(); //描画処理
 	virtual void Fin(); //終了
-
-	void FireBullet(); //弾を発射させる
 public:
 	//プレイヤーが生きているか
 	bool IsActive() const { return m_IsActive; }
@@ -53,9 +64,6 @@ public:
 	void UpdateAnimation();
 
 protected:
-
-	//移動方向からプレイヤーの向きを決定
-	void SetDirectionForMove();
 
 	bool m_IsActive; //プレイヤーが生きているか
 	float m_MoveSpeed; //移動速度
