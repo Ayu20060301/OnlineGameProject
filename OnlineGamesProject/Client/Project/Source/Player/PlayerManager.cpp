@@ -2,6 +2,7 @@
 #include "Player.h"
 #include "NetworkPlayer.h"
 #include "../Network/Client.h"
+#include "../Bullet/NetworkBullet.h"
 
 using namespace Network;
 
@@ -108,6 +109,7 @@ NetworkPlayer& PlayerManager::CreateNetworkPlayer(int id, bool isSelf)
 
 	return *static_cast<NetworkPlayer*>(m_Players.back().get());
 }
+
 
 /// <summary>
 /// ƒƒOƒCƒ“ˆ—

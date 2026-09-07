@@ -46,6 +46,6 @@ private:
 	bool m_IsActive;
 	VECTOR m_Velocity;
 	int m_Handle;
-	int m_PlayerNumber; //‘Î‰‚·‚éƒvƒŒƒCƒ„[”Ô†
+	int m_PlayerNumber;
 	int m_FireTimer;
 };

@@ -1,33 +1,31 @@
 #pragma once
 
-#include "BulletBase.h"
+#include "Bullet.h"
 
 class Client;
 
-class NetworkBullet : public BulletBase
+class NetworkBullet : public Bullet
 {
 public:
-	NetworkBullet(int id, int ownerID);
+	NetworkBullet(int id, bool isSelf);
+
+	//Clientを受け取るバージョン
+	NetworkBullet(Client* client,int id, bool isSelf);
+
 	virtual ~NetworkBullet();
 
 	void Step() override;
 
-	//ネットワーク弾かどうか
-	bool IsNetworkBullet() const override { return true; }
-
-	int GetID() const { return m_ID; } //弾のIDを取得
-	int GetOwnerID() const { return m_OwnerID; } //発射した弾のプレイヤーのIDを取得
+	int GetID() const { return m_ID; } //プレイヤーIDを取得
 
 	//サーバー座標を設定
 	void SetServerPosition(const VECTOR& pos) { m_ServerTransform.SetPosition(pos); }
 
-	//サーバー速度を設定
-	void SetServerVelocity(const VECTOR& velocity) { m_ServerVelocity = velocity; }
+	void SetServerTransform(const VECTOR& pos, const VECTOR& velocity) { m_ServerPosition = pos; m_ServerVelocity = velocity; }
 
 private:
-	int m_ID; //弾のID
-	int m_OwnerID; //この球を発射したプレイヤーのID
-
-	//サーバーから発射したプレイヤーのID
-	VECTOR m_ServerVelocity;
+	bool m_IsSelf; //自分自身が操作するかどうか
+	int m_ID;     //識別ID
+	VECTOR m_ServerPosition;//サーバーから受信した座標
+	VECTOR m_ServerVelocity; //サーバーから受信した速度
 };

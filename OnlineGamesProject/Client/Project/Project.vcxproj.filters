@@ -138,13 +138,7 @@
     <ClCompile Include="Source\Component\Renderer\Splite.cpp">
       <Filter>Source\Component\Renderer</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Bullet\BulletBase.cpp">
-      <Filter>Source\Bullet</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Bullet\BulletManager.cpp">
-      <Filter>Source\Bullet</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Bullet\StraightBullet.cpp">
       <Filter>Source\Bullet</Filter>
     </ClCompile>
     <ClCompile Include="Source\Bullet\NetworkBullet.cpp">
@@ -263,16 +257,7 @@
     <ClInclude Include="Source\Component\Renderer\Splite.h">
       <Filter>Source\Component\Renderer</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Bullet\BulletBase.h">
-      <Filter>Source\Bullet</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Bullet\BulletManager.h">
-      <Filter>Source\Bullet</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Bullet\BulletParameter.h">
-      <Filter>Source\Bullet</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Bullet\StraightBullet.h">
       <Filter>Source\Bullet</Filter>
     </ClInclude>
     <ClInclude Include="Source\Bullet\NetworkBullet.h">

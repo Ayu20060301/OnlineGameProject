@@ -140,10 +140,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Source\Bullet\Bullet.cpp" />
-    <ClCompile Include="Source\Bullet\BulletBase.cpp" />
     <ClCompile Include="Source\Bullet\BulletManager.cpp" />
     <ClCompile Include="Source\Bullet\NetworkBullet.cpp" />
-    <ClCompile Include="Source\Bullet\StraightBullet.cpp" />
     <ClCompile Include="Source\Component\Collision\ColliderComponent.cpp" />
     <ClCompile Include="Source\Component\Collision\CollisionAABB.cpp" />
     <ClCompile Include="Source\Component\Collision\CollisionManager.cpp" />
@@ -175,11 +173,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Bullet\Bullet.h" />
-    <ClInclude Include="Source\Bullet\BulletBase.h" />
     <ClInclude Include="Source\Bullet\BulletManager.h" />
-    <ClInclude Include="Source\Bullet\BulletParameter.h" />
     <ClInclude Include="Source\Bullet\NetworkBullet.h" />
-    <ClInclude Include="Source\Bullet\StraightBullet.h" />
     <ClInclude Include="Source\Component\Collision\ColliderComponent.h" />
     <ClInclude Include="Source\Component\Collision\CollisionAABB.h" />
     <ClInclude Include="Source\Component\Collision\CollisionManager.h" />
