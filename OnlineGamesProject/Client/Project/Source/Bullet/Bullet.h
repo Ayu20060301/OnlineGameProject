@@ -41,6 +41,9 @@ public:
 
 	VECTOR GetPos() const { return m_Transform.GetPosition(); }
 
+
+	void SetPlayerNumber(int playerNumber) { m_PlayerNumber = playerNumber; };
+
 private:
 	float m_MoveSpeed;
 	bool m_IsActive;

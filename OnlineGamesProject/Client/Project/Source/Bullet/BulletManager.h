@@ -27,16 +27,13 @@ public:
 public:
 
 	//弾を発射させる
-	void FireBullet(VECTOR playerPos);
+	void FireBullet(VECTOR playerPos, int playerNumber);
 
 	//弾の生成
 	Bullet& CreateBullet();
 
 	//ネットワーク関係
 	NetworkBullet& CreateNetworkBullet(int id, bool m_IsSelf);
-	void Login(Network::ResponseLoginData data);
-	void Join(Network::JoinData data);
-	void Logout(Network::LogoutData data);
 	void SyncServerTransform(Network::ResponseBulletTransformData data);
 	void DieBullet(int bulletID);
 

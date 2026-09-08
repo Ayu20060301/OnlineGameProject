@@ -1,5 +1,6 @@
 #include "Player.h"
 #include "PlayerParameter.h"
+#include "../GameSetting/GameSetting.h"
 #include "../Component/Renderer/Splite.h"
 #include "../Component/Controller/Controller2D.h"
 #include "../Component/Collision/CollisionManager.h"
@@ -75,14 +76,29 @@ void Player::Start()
 	//移動量を初期化
 	m_Move = VGet(0.0f, 0.0f, 0.0f);
 
-	VECTOR startPos = VGet(100.0f, 100.0f, 0.0f);
+	//プレイヤーごとに初期位置を変更
+	VECTOR startPos;
+
+	if (m_PlayerNumber == 0)
+	{
+		//1P
+		startPos = VGet(100.0f, 100.0f, 0.0f);
+
+		//右向き
+		m_Direction = PLAYER_DIRECTION_RIGHT;
+	}
+	else
+	{
+		//2P
+		startPos = VGet(1600.0f - PLAYER_WIDTH - 100.0f, 100.0f, 0.0f);
+
+		//左向き
+		m_Direction = PLAYER_DIRECTION_LEFT;
+	}
 
 	m_Transform.SetPosition(startPos);
 
 	m_ServerTransform.SetPosition(startPos);
-
-	//向き
-	m_Direction = PLAYER_DIRECTION_RIGHT;
 
 	//移動量を初期化
 	m_Move = VGet(0.0f, 0.0f, 0.0f);
@@ -148,7 +164,7 @@ void Player::Step()
 	
 	if (Input::IsTriggerKey(KEY_Z))
 	{
-		BulletManager::GetInstance()->FireBullet(GetPos());
+		BulletManager::GetInstance()->FireBullet(GetPos(),m_PlayerNumber);
 	}
 	
 	//無敵時間

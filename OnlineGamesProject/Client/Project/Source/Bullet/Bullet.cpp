@@ -6,8 +6,8 @@
 //バレットごとの画像
 const char* BULLET_GRAPHIC_PATH[] =
 {
-	"Data/Play/Bullet/Bullet1.png",
-	"Data/Play/Bullet/Bullet2.png",
+	"Data/Play/Bullet/Bullet1.png", //1Pのバレット
+	"Data/Play/Bullet/Bullet2.png", //2Pのバレット
 };
 
 Bullet::Bullet() : GameObject()
@@ -16,6 +16,7 @@ Bullet::Bullet() : GameObject()
 , m_Velocity{}
 , m_Handle(-1)
 , m_FireTimer(0)
+, m_PlayerNumber(0)
 {
 
 }
@@ -30,8 +31,7 @@ void Bullet::Init()
 
 void Bullet::Load()
 {
-	//m_Handle = LoadGraph(BULLET_GRAPHIC_PATH[m_PlayerNumber]);
-	m_Handle = LoadGraph("Data/Play/Bullet/Bullet1.png");
+	m_Handle = LoadGraph(BULLET_GRAPHIC_PATH[m_PlayerNumber]);
 }
 
 void Bullet::Start()
@@ -110,9 +110,17 @@ void Bullet::FireBullet(VECTOR playerPos)
 	//発射位置を設定
 	m_Transform.SetPosition(pos);
 
-
-	//右方向へ移動
-	m_Velocity = VGet(m_MoveSpeed, 0.0f, 0.0f);
+	//プレイヤーによって弾の方向を変更
+	if (m_PlayerNumber == 0)
+	{
+		//1P→右
+		m_Velocity = VGet(m_MoveSpeed, 0.0f, 0.0f);
+	}
+	else
+	{
+		//2P→左
+		m_Velocity = VGet(-m_MoveSpeed, 0.0f, 0.0f);
+	}
 
 	//タイマーをリセット
 	m_FireTimer = FIRE_INTERVAL;

@@ -85,10 +85,13 @@ void BulletManager::Fin()
 	m_Bullets.clear();
 }
 
-void BulletManager::FireBullet(VECTOR playerPos)
+void BulletManager::FireBullet(VECTOR playerPos,int playerNumber)
 {
 	// 新しい弾を生成
 	Bullet& bullet = CreateBullet();
+
+	//プレイヤー番号を設定
+	bullet.SetPlayerNumber(playerNumber);
 
 	// プレイヤーの位置から発射
 	bullet.FireBullet(playerPos);
@@ -100,10 +103,8 @@ Bullet& BulletManager::CreateBullet()
 	UniquePtr<Bullet> bullet = MakeUnique<Bullet>();
 	bullet->Init();
 
-	//ロード
 	bullet->Load();
 
-	//スタート
 	bullet->Start();
 
 	//リストに追加
@@ -112,8 +113,30 @@ Bullet& BulletManager::CreateBullet()
 	return *(m_Bullets.back().get());
 }
 
+NetworkBullet& BulletManager::CreateNetworkBullet(int id, bool isSelf)
+{
+	//ネットワークバレットを生成
+	UniquePtr<NetworkBullet> bullet = MakeUnique<NetworkBullet>(id, isSelf);
+
+	//初期化
+	bullet->Init();
+
+	//画像のロード
+	bullet->Load();
+
+	//開始処理
+	bullet->Start();
+
+	//Bulletリストに追加
+	m_Bullets.push_back(std::move(bullet));
+
+	return *static_cast<NetworkBullet*>(m_Bullets.back().get());
+}
+
+
 void BulletManager::SyncServerTransform(Network::ResponseBulletTransformData data)
 {
+
 }
 
 void BulletManager::DieBullet(int bulletID)
