@@ -3,6 +3,7 @@
 #include "PlayScene.h"
 #include "../Memory/Memory.h"
 
+class Client;
 
 class NetworkPlayScene : public PlayScene
 {

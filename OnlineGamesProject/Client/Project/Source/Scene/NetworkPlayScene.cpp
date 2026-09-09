@@ -1,5 +1,6 @@
 #include "NetworkPlayScene.h"
 #include "../Player/PlayerManager.h"
+#include "../Bullet/BulletManager.h"
 #include "../Wall/WallManager.h"
 #include "../GameApp/GameApp.h"
 #include "../Network/ClientAPI.h"

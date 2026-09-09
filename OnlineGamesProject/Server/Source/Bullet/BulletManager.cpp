@@ -4,6 +4,15 @@
 BulletManager::BulletManager()
 {
 	m_Bullets = {};
+	m_NextBulletID = 0;
+}
+
+void BulletManager::Init()
+{
+}
+
+void BulletManager::Update()
+{
 }
 
 void BulletManager::Draw()
@@ -20,19 +29,24 @@ Bullet& BulletManager::CreateBullet()
 	//バレットを作成して動的配列に追加
 	m_Bullets.push_back(MakeUnique<Bullet>());
 
-	//生成したバレットの参照を返す
-	return *m_Bullets.back().get();
+	Bullet& bullet = *m_Bullets.back().get();
+
+	bullet.SetID(m_NextBulletID++);
+
+	return bullet;
 }
 
 void BulletManager::RemoveBullet(int handle)
 {
-	//指定したバレットを削除
-	for (auto itr = m_Bullets.begin(); itr != m_Bullets.end(); ++itr)
+	for (auto itr = m_Bullets.begin();itr != m_Bullets.end();)
 	{
 		if ((*itr)->GetNetworkHandle() == handle)
 		{
-			m_Bullets.erase(itr);
-			break;
+			itr = m_Bullets.erase(itr);
+		}
+		else
+		{
+			++itr;
 		}
 	}
 }

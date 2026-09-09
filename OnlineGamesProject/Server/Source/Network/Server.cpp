@@ -31,14 +31,10 @@ void Server::Init()
 	//壁管理
     WallManager::CreateInstance();
    
-
 	//当たり判定はサーバー側でする
 	CollisionManager::CreateInstance();
 	CollisionManager::GetInstance()->CheckCollision();
 	
-	//サーバー用バレット管理
-	BulletManager::CreateInstance();
-
 	//接続してくるのを待つ状態にする
 	int sucess = PreparationListenNetWork(PORT_NUMBER);
 }
@@ -61,7 +57,6 @@ void Server::Update()
 	if (lostHandle != -1)
 	{
 		PlayerManager::GetInstance()->RemovePlayer(lostHandle);
-		BulletManager::GetInstance()->RemoveBullet(lostHandle);
 
 		//ログアウトしたら壁を削除
 		if (PlayerManager::GetInstance()->GetPlayers().empty())
@@ -87,7 +82,6 @@ void Server::Draw()
 	PlayerManager::GetInstance()->Draw();
 	WallManager::GetInstance()->Draw();
 	CollisionManager::GetInstance()->Draw();
-	BulletManager::GetInstance()->Draw();
 #endif
 }
 
@@ -101,9 +95,6 @@ void Server::Fin()
 
 	//当たり判定終了
 	CollisionManager::DeleteInstance();
-
-	//バレット終了
-	BulletManager::DeleteInstance();
 }
 
 

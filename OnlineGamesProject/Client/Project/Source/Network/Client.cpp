@@ -27,20 +27,6 @@ void Client::Step()
 
 void Client::Draw()
 {
-
-	if (m_State == OFFLINE)
-	{
-		DrawFormatString(0, 0, GetColor(255, 255, 255), "オフライン");
-	}
-	else if (m_State == WAIT)
-	{
-		DrawFormatString(0, 0, GetColor(255, 255, 255), "接続中");
-	}
-	else if (m_State == ONLINE)
-	{
-		DrawFormatString(0, 0, GetColor(255, 255, 255), "オンライン");
-	}
-
 	DrawString(0, 880,"クライアント側", GetColor(255, 255, 255));
 }
 

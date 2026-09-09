@@ -8,6 +8,10 @@ Splite::Splite() : ComponentBase()
 , m_Height(0)
 , m_CenterX(0)
 , m_CenterY(0)
+, m_RectX(0)
+, m_RectY(0)
+, m_RectWidth(0)
+, m_RectHeight(0)
 {
 }
 
@@ -20,12 +24,19 @@ void Splite::Load(const char* filePath)
 {
 	m_Handle = LoadGraph(filePath);
 
+
+	//画像読み込み失敗
+	if (m_Handle == -1)
+	{
+		return;
+	}
+
 	//画像サイズや中心位置設定
 	GetGraphSize(m_Handle, &m_Width, &m_Height);
 	m_CenterX = m_Width / 2;
 	m_CenterY = m_Height / 2;
-
 }
+
 
 void Splite::Draw()
 {

@@ -7,7 +7,7 @@ class Client;
 class NetworkBullet : public Bullet
 {
 public:
-	NetworkBullet(int id, bool isSelf);
+	NetworkBullet(int id, bool isSelf,VECTOR pos,VECTOR velocity);
 
 	//Clientを受け取るバージョン
 	NetworkBullet(Client* client,int id, bool isSelf);
@@ -17,6 +17,8 @@ public:
 	void Step() override;
 
 	int GetID() const { return m_ID; } //プレイヤーIDを取得
+
+	bool IsNetworkBullet() const override { return true; }
 
 	//サーバー座標を設定
 	void SetServerPosition(const VECTOR& pos) { m_ServerTransform.SetPosition(pos); }

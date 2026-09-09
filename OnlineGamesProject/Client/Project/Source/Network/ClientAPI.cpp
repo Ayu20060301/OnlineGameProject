@@ -1,6 +1,7 @@
 #include "ClientAPI.h"
 #include "NetworkUtility.h"
 #include "../Player/PlayerManager.h"
+#include "../Bullet/BulletManager.h"
 #include "../Wall/WallManager.h"
 
 Client g_Client;
@@ -29,12 +30,15 @@ void ClientAPI::Step()
 
         switch (header.type)
         {
-            case Network::PacketType::LOGIN:             OnReceiveLogin();          break;
-            case Network::PacketType::JOIN:              OnReceiveJoin();           break;
-            case Network::PacketType::LOGOUT:            OnReceiveLogout();         break;
-            case Network::PacketType::ALL_TRANSFORM:     OnReceiveAllTransform();   break;
-            case Network::PacketType::DIE:               OnReceiveDead();           break;
-            case Network::PacketType::WALL_TRANSFORM:    OnReceiveWallTransform();   break;
+            case Network::PacketType::LOGIN:             OnReceiveLogin();            break;
+            case Network::PacketType::JOIN:              OnReceiveJoin();             break;
+            case Network::PacketType::LOGOUT:            OnReceiveLogout();           break;
+            case Network::PacketType::ALL_TRANSFORM:     OnReceiveAllTransform();     break;
+            case Network::PacketType::DIE:               OnReceiveDead();             break;
+            case Network::PacketType::BULLET_SPAWN:      OnReceiveBulletSpawn();      break;
+            case Network::PacketType::BULLET_TRANSFORM:  OnReceiveBulletTransform();  break;
+            case Network::PacketType::BULLET_DESTROY:    OnReceiveBulletDestroy();    break;
+            case Network::PacketType::WALL_TRANSFORM:    OnReceiveWallTransform();    break;
         }
     }
 }
@@ -127,6 +131,35 @@ void ClientAPI::OnReceiveDead()
 
     //Ž€–S‚³‚¹‚é
     PlayerManager::GetInstance()->DiePlayer(data.playerID);
+}
+
+void ClientAPI::OnReceiveBulletSpawn()
+{
+    Network::BulletSpawnData data = {};
+
+    g_Client.ReceiveData(reinterpret_cast<char*>(&data),sizeof(data));
+
+    bool isSelf = (data.playerID == PlayerManager::GetInstance()->GetSelfID());
+
+    BulletManager::GetInstance()->CreateNetworkBullet(data.bulletID,isSelf,data.pos,data.velocity);
+}
+
+void ClientAPI::OnReceiveBulletTransform()
+{
+    Network::BulletTransformData data = {};
+
+    g_Client.ReceiveData(reinterpret_cast<char*>(&data), sizeof(data));
+
+    BulletManager::GetInstance()->SyncServerBullet(data);
+}
+
+void ClientAPI::OnReceiveBulletDestroy()
+{
+    Network::BulletDestroyData data = {};
+
+    g_Client.ReceiveData(reinterpret_cast<char*>(&data), sizeof(data));
+
+    BulletManager::GetInstance()->DestroyNetworkBullet(data.bulletID);
 }
 
 void ClientAPI::OnReceiveWallTransform()

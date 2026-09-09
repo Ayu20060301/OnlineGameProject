@@ -20,6 +20,18 @@ Bullet::Bullet() : GameObject()
 
 void Bullet::Init(int nwHandle)
 {
+	m_NWHandle = nwHandle;
+
+	//IPƒAƒhƒŒƒXİ’è
+	GetNetWorkIP(m_NWHandle, &m_IPAddress);
+
+	//“–‚½‚è”»’è‚ğİ’è
+	AABB2D* aabb = AddComponent<AABB2D>();
+	aabb->SetCenter(VGet(0.0f, 0.0f, 0.0f));
+	aabb->SetSize(VGet(BULLET_WIDTH, BULLET_HEIGHT, 0.0f));
+
+
+
 }
 
 void Bullet::Draw()

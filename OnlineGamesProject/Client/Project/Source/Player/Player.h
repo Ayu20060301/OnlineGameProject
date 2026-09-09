@@ -78,7 +78,10 @@ protected:
 	VECTOR m_OldPos; //移動前の座標
 	VECTOR m_Move; //1フレームの移動量
 	int m_FireTimer;
-
 	//当たり判定
 	CollisionAABB* m_CollisionAABB;
+
+	//以下ネットワーク用
+	bool m_UserServerTransform;
+	Transform m_ServerTransform;
 };

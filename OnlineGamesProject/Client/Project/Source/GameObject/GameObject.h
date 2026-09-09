@@ -13,6 +13,7 @@ enum class GameObjectType
 {
 	NONE = -1,
 	PLAYER,
+	BULLET,
 };
 
 class GameObject

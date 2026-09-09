@@ -56,8 +56,7 @@ void Player::Init()
 //ロード
 void Player::Load()
 {
-	//プレイヤー番号に対応した画像をロード
-    m_Handle = LoadGraph(PLAYER_GRAPHIC_PATH[m_PlayerNumber]);
+	m_Splite->Load("Data/Play/Player/Player.png");
 }
 
 
@@ -164,7 +163,7 @@ void Player::Step()
 	
 	if (Input::IsTriggerKey(KEY_Z))
 	{
-		BulletManager::GetInstance()->FireBullet(GetPos(),m_PlayerNumber);
+		//BulletManager::GetInstance()->FireBullet(GetPos(),m_PlayerNumber);
 	}
 	
 	//無敵時間
@@ -190,41 +189,8 @@ void Player::Draw()
 {
 	//プレイヤーが無効なら何もしない
 	if (!m_IsActive) return;
+	m_Splite->Draw();
 
-	const Transform& renderTransform = GetRenderTransform();
-
-	const VECTOR& pos = renderTransform.GetPosition();
-
-	//無敵中の点滅
-	if (IsInvisible())
-	{
-		//一定フレームだけ描画しない
-		if ((m_InvisibleTimer / PLAYER_INVISIBLE_BLINK_TIME) % 2 == 0)
-		{
-			return;
-		}
-	}
-
-	//プレイヤーの描画
-	DrawRectGraph(
-		static_cast<int>(pos.x),
-		static_cast<int>(pos.y),
-		m_AnimationIndex * PLAYER_WIDTH,
-		m_Direction * PLAYER_HEIGHT,
-		PLAYER_WIDTH,
-		PLAYER_HEIGHT,
-		m_Handle,
-		true
-	);
-
-	//プレイヤー番号を表示
-	DrawFormatString(
-		static_cast<int>(pos.x) + 10,
-		static_cast<int>(pos.y) - 20,
-		GetColor(255, 255, 255),
-		"%dP",
-		m_PlayerNumber + 1
-	);
 }
 
 void Player::Fin()

@@ -16,4 +16,6 @@ public:
 	virtual void Update()override;
 	virtual void Draw()override;
 	virtual void Fin()override;
+private:
+	int m_BulletTimer;
 };

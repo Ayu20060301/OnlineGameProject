@@ -4,7 +4,6 @@
 #include "../Input/Input.h"
 #include "../Network/ClientAPI.h"
 #include "SceneManager.h"
-#include "../GameApp/GameApp.h"
 
 
 TitleScene::TitleScene()
@@ -52,8 +51,8 @@ void TitleScene::Update()
 
 void TitleScene::Draw()
 {
-	DrawFormatString(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, GetColor(255, 255, 255), "Zキーでオンラインプレイ");
-	DrawFormatString(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 + 40, GetColor(255, 255, 255), "Xキーでオフラインプレイ");
+	DrawFormatString(0,0, GetColor(255, 255, 255), "Zキーでオンラインプレイ");
+	DrawFormatString(0,30,GetColor(255, 255, 255), "Xキーでオフラインプレイ");
 }
 
 void TitleScene::Fin()

@@ -3,7 +3,7 @@
 #include "../Network/ClientAPI.h"
 #include "../MyMath/MyMath.h"
 
-NetworkBullet::NetworkBullet(int id, bool isSelf) : Bullet()
+NetworkBullet::NetworkBullet(int id, bool isSelf,VECTOR pos,VECTOR velocity) : Bullet()
 ,m_IsSelf(isSelf)
 ,m_ID(id)
 ,m_ServerPosition(VGet(0.0f,0.0f,0.0f))

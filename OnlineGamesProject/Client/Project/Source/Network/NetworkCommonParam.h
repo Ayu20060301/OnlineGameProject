@@ -22,12 +22,10 @@ namespace Network
 		TRANSFORM,
 		ALL_TRANSFORM,
 
-		//----------
-		//バレット関係
-		//-----------
-
-		BULLET_CREATE,
-		BULLET_DIE,
+		//弾
+		BULLET_SPAWN,
+		BULLET_TRANSFORM,
+		BULLET_DESTROY,
 
 
 		//壁のトランスフォーム
@@ -115,37 +113,29 @@ namespace Network
 		int playerID;
 	};
 
-	
-	//弾生成用データ
-	struct BulletCreateData
+	//弾生成データ
+	struct BulletSpawnData
 	{
 		int bulletID;
-		int playerID;  //発射したプレイヤー
+		int playerID;
 		VECTOR pos;
-		VECTOR velocity; 
+		VECTOR velocity;
 	};
 
-	struct RequestBulletTransformData
+
+	//弾トランスフォームデータ
+	struct BulletTransformData
 	{
 		int bulletID;
 		VECTOR pos;
 		VECTOR velocity;
 	};
 
-	//全バレットのトランスフォームデータ
-	struct ResponseBulletTransformData
-	{
-		int bulletID;
-		VECTOR pos; 
-		VECTOR velocity;
-	};
-
-	//バレット死亡データ
-	struct BulletDieData
+	//弾削除データ
+	struct BulletDestroyData
 	{
 		int bulletID;
 	};
-	
 
 	//壁のトランスフォームデータ
 	struct WallTransformData

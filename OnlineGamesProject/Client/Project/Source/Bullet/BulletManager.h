@@ -26,16 +26,23 @@ public:
 
 public:
 
-	//弾を発射させる
-	void FireBullet(VECTOR playerPos, int playerNumber);
+	
+
 
 	//弾の生成
 	Bullet& CreateBullet();
 
+	//中央からランダム方向へ弾を大量発射
+	void CreateRandomBullets(int count);
+
 	//ネットワーク関係
-	NetworkBullet& CreateNetworkBullet(int id, bool m_IsSelf);
-	void SyncServerTransform(Network::ResponseBulletTransformData data);
-	void DieBullet(int bulletID);
+	NetworkBullet& CreateNetworkBullet(int id, bool m_IsSelf,VECTOR pos,VECTOR velocity);
+
+	//ネットワーク弾の同期
+	void SyncServerBullet(const Network::BulletTransformData& data);
+
+	//ネットワーク弾の削除
+	void DestroyNetworkBullet(int id);
 
 	//弾を全削除
 	void Clear();

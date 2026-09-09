@@ -22,6 +22,11 @@ namespace Network
 		ALL_TRANSFORM,
 		DIE,
 
+		//弾
+		BULLET_SPAWN,
+		BULLET_TRANSFORM,
+		BULLET_DESTROY,
+
 		//壁のトランスフォーム
 		WALL_TRANSFORM
 
@@ -102,6 +107,29 @@ namespace Network
 	struct DieData
 	{
 		int playerID;
+	};
+
+	//弾生成データ
+	struct BulletSpawnData
+	{
+		int bulletID;
+		int playerID;
+		VECTOR pos;
+		VECTOR velocity;
+	};
+
+	//弾トランスフォームデータ
+	struct BulletTransformData
+	{
+		int bulletID;
+		VECTOR pos;
+		VECTOR velocity;
+	};
+
+	//弾削除データ
+	struct BulletDestroyData
+	{
+		int bulletID;
 	};
 
 	//壁のトランスフォーム

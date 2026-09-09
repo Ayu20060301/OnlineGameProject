@@ -42,8 +42,10 @@ void Player::Init(int nwHandle)
 
 void Player::Draw()
 {
+#ifdef _DEBUG
 	VECTOR pos = GetPosition();
 	DrawFormatString(0, (m_ID - 1) * 20, GetColor(255, 255, 255), "ID:%d POS:[%.2f, %.2f, %.2f]", m_ID, pos.x, pos.y, pos.z);
+#endif
 }
 
 void Player::OverlapGameObject(GameObject& other)

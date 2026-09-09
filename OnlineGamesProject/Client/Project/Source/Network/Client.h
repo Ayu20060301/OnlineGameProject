@@ -1,7 +1,5 @@
 #pragma once
 
-class InputString;
-
 class Client
 {
 public:
@@ -29,7 +27,7 @@ public:
 	};
 
 	State GetState() const { return m_State; }
-	
+	int GetServerHandle() const { return m_ServerHandle; }
 private:
 	void UpdateWaiting();
 	void StepOnline();

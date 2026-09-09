@@ -23,7 +23,9 @@ namespace ClientAPI
 	void OnReceiveLogout();
 	void OnReceiveAllTransform();
 	void OnReceiveDead();
-
+	void OnReceiveBulletSpawn();
+	void OnReceiveBulletTransform();
+	void OnReceiveBulletDestroy();
 	void OnReceiveWallTransform();
 
 	void Fin();

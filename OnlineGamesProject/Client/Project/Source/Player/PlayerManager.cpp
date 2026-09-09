@@ -6,7 +6,8 @@
 
 using namespace Network;
 
-PlayerManager::PlayerManager()
+PlayerManager::PlayerManager() : Singleton()
+, m_SelfID(-1)
 {
 }
 
@@ -117,6 +118,7 @@ NetworkPlayer& PlayerManager::CreateNetworkPlayer(int id, bool isSelf)
 /// <param name="data">ログインデータ</param>
 void PlayerManager::Login(Network::ResponseLoginData data)
 {
+	m_SelfID = data.selfID;
 	// 既に参加済みのプレイヤーも含め生成
 	for (int i = 0; i < Network::NETWORK_PLAYER_MAX; i++)
 	{

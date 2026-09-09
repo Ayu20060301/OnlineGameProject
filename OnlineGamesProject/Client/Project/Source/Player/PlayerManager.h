@@ -39,8 +39,13 @@ public:
 	void SyncServerTransform(Network::ResponseTransformData data);
 	void DiePlayer(int playerID);
 
+	int GetSelfID() const { return m_SelfID; }
+
 private:
 
 	//生成されたプレイヤーの参照
 	std::list<UniquePtr<Player>> m_Players;
+
+	int m_SelfID;
+
 };

@@ -9,6 +9,7 @@
 
 PlayScene::PlayScene()
 {
+	m_BulletTimer = 0;
 }
 
 PlayScene::~PlayScene()
@@ -20,14 +21,14 @@ void PlayScene::Init()
 {
 	//プレイヤーマネージャーを生成
 	PlayerManager::CreateInstance();
-	Player& player = PlayerManager::GetInstance()->CreatePlayer();
+	PlayerManager::GetInstance()->CreatePlayer();
 
 	//ウォールマネージャーを生成
 	WallManager::CreateInstance();
-	Wall& wall = WallManager::GetInstance()->CreateWall();
+	WallManager::GetInstance()->CreateWall();
 
+	//バレットマネージャーを生成
 	BulletManager::CreateInstance();
-	Bullet& bullet = BulletManager::GetInstance()->CreateBullet();
 }
 
 void PlayScene::Load()
@@ -38,7 +39,6 @@ void PlayScene::Load()
 	//ウォールをロード
 	WallManager::GetInstance()->Load();
 
-	//バレットをロード
 	BulletManager::GetInstance()->Load();
 }
 
@@ -50,7 +50,6 @@ void PlayScene::Start()
 	//ウォール開始
 	WallManager::GetInstance()->Start();
 
-	//バレット開始
 	BulletManager::GetInstance()->Start();
 }
 
@@ -59,6 +58,16 @@ void PlayScene::Step()
 	PlayerManager::GetInstance()->Step();
 
 	WallManager::GetInstance()->Step();
+
+	++m_BulletTimer;
+
+	if (m_BulletTimer >= 10)
+	{
+		m_BulletTimer = 0;
+
+		//1発だけ生成
+		BulletManager::GetInstance()->CreateRandomBullets(1);
+	}
 
 	BulletManager::GetInstance()->Step();
 }
@@ -71,7 +80,6 @@ void PlayScene::Update()
 	//ウォール更新
 	WallManager::GetInstance()->Update();
 
-	//バレット更新
 	BulletManager::GetInstance()->Update();
 }
 
@@ -83,7 +91,6 @@ void PlayScene::Draw()
 	//ウォール描画
 	WallManager::GetInstance()->Draw();
 
-	//バレット描画
 	BulletManager::GetInstance()->Draw();
 }
 

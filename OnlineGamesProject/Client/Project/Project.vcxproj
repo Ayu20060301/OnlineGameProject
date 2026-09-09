@@ -151,7 +151,6 @@
     <ClCompile Include="Source\Component\Transform\Transform.cpp" />
     <ClCompile Include="Source\Effect\SpriteAnimation.cpp" />
     <ClCompile Include="Source\Effect\SpriteAnimationManager.cpp" />
-    <ClCompile Include="Source\Fade\ScreenFade.cpp" />
     <ClCompile Include="Source\GameApp\GameApp.cpp" />
     <ClCompile Include="Source\GameObject\GameObject.cpp" />
     <ClCompile Include="Source\Input\Input.cpp" />
@@ -186,7 +185,6 @@
     <ClInclude Include="Source\Effect\EffectParameter.h" />
     <ClInclude Include="Source\Effect\SpriteAnimation.h" />
     <ClInclude Include="Source\Effect\SpriteAnimationManager.h" />
-    <ClInclude Include="Source\Fade\ScreenFade.h" />
     <ClInclude Include="Source\GameApp\GameApp.h" />
     <ClInclude Include="Source\GameObject\GameObject.h" />
     <ClInclude Include="Source\GameSetting\GameSetting.h" />

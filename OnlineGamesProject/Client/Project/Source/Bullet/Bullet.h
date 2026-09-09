@@ -5,6 +5,7 @@
 #include "../Memory/Memory.h"
 #include "../GameObject/GameObject.h"
 
+class Splite;
 
 //バレットサイズ
 constexpr int BULLET_WIDTH = 20;
@@ -30,7 +31,6 @@ public:
 	virtual void Draw();
 	virtual void Fin();
 
-	void FireBullet(VECTOR playerPos); //弾を発射させる処理
 
 public:
 	bool IsActive() { return m_IsActive; }
@@ -41,14 +41,16 @@ public:
 
 	VECTOR GetPos() const { return m_Transform.GetPosition(); }
 
+	virtual bool IsNetworkBullet() const { return false; }
 
 	void SetPlayerNumber(int playerNumber) { m_PlayerNumber = playerNumber; };
 
+	void SetVelocity(VECTOR velocity) { m_Velocity = velocity; }
+
 private:
-	float m_MoveSpeed;
 	bool m_IsActive;
 	VECTOR m_Velocity;
-	int m_Handle;
 	int m_PlayerNumber;
 	int m_FireTimer;
+	Splite* m_Splite;
 };

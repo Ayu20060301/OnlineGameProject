@@ -40,9 +40,6 @@
     <Filter Include="Source\Input">
       <UniqueIdentifier>{721ce007-6460-4248-84bd-2f51cd43570f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Fade">
-      <UniqueIdentifier>{d6c159b0-a1f7-4aea-8916-a075acba6a9d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source\NetWork">
       <UniqueIdentifier>{e0f5dc02-c7f9-4418-9ce2-f250fb7d194a}</UniqueIdentifier>
     </Filter>
@@ -119,9 +116,6 @@
     </ClCompile>
     <ClCompile Include="Source\Effect\SpriteAnimationManager.cpp">
       <Filter>Source\Effect</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Fade\ScreenFade.cpp">
-      <Filter>Source\Fade</Filter>
     </ClCompile>
     <ClCompile Include="Source\Network\Client.cpp">
       <Filter>Source\NetWork</Filter>
@@ -232,9 +226,6 @@
     </ClInclude>
     <ClInclude Include="Source\Effect\SpriteAnimationManager.h">
       <Filter>Source\Effect</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Fade\ScreenFade.h">
-      <Filter>Source\Fade</Filter>
     </ClInclude>
     <ClInclude Include="Source\Network\Client.h">
       <Filter>Source\NetWork</Filter>
