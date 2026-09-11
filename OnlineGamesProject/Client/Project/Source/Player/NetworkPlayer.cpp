@@ -14,9 +14,6 @@ NetworkPlayer::NetworkPlayer(int id, bool isSelf) : Player()
 , m_IsSelf(isSelf)
 , m_ID(id)
 {
-	//1～4のIDを0～３のプレイヤー番号に変換
-	m_PlayerNumber = id - 1;
-
 	//サーバー座標を使用する
 	m_UserServerTransform = !isSelf;
 }
@@ -26,8 +23,6 @@ NetworkPlayer::NetworkPlayer(const Client* client, int id, bool isSelf) : Player
 ,m_IsSelf(isSelf)
 ,m_ID(id)
 {
-	//1～4のIDを0～３のプレイヤー番号に変換
-	m_PlayerNumber = id - 1;
 
 	//サーバー座標を使用する
 	m_UserServerTransform = !isSelf;

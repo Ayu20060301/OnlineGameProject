@@ -166,9 +166,6 @@
     <ClCompile Include="Source\Scene\SceneBase.cpp" />
     <ClCompile Include="Source\Scene\SceneManager.cpp" />
     <ClCompile Include="Source\Scene\TitleScene.cpp" />
-    <ClCompile Include="Source\Wall\NetworkWall.cpp" />
-    <ClCompile Include="Source\Wall\Wall.cpp" />
-    <ClCompile Include="Source\Wall\WallManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Bullet\Bullet.h" />
@@ -206,9 +203,6 @@
     <ClInclude Include="Source\Scene\SceneParameter.h" />
     <ClInclude Include="Source\Scene\TitleScene.h" />
     <ClInclude Include="Source\Singleton\Singleton.h" />
-    <ClInclude Include="Source\Wall\NetworkWall.h" />
-    <ClInclude Include="Source\Wall\Wall.h" />
-    <ClInclude Include="Source\Wall\WallManager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

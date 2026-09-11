@@ -5,8 +5,6 @@
 #include "../Component/Collision/CollisionManager.h"
 #include "../Player/PlayerManager.h"
 #include "../Player/Player.h"
-#include "../Wall/WallManager.h"
-#include "../Wall/Wall.h"
 #include "../Bullet/BulletManager.h"
 #include "../Bullet/Bullet.h"
 #include <vector>
@@ -27,10 +25,10 @@ void Server::Init()
 {
 	//サーバー用プレイヤー管理
 	PlayerManager::CreateInstance();
-
-	//壁管理
-    WallManager::CreateInstance();
    
+	//サーバー用弾管理
+	BulletManager::CreateInstance();
+	
 	//当たり判定はサーバー側でする
 	CollisionManager::CreateInstance();
 	CollisionManager::GetInstance()->CheckCollision();
@@ -57,20 +55,15 @@ void Server::Update()
 	if (lostHandle != -1)
 	{
 		PlayerManager::GetInstance()->RemovePlayer(lostHandle);
-
-		//ログアウトしたら壁を削除
-		if (PlayerManager::GetInstance()->GetPlayers().empty())
-		{
-			WallManager::GetInstance()->ClearWalls();
-		}
-
 	}
 
 	//データ受信処理
 	ReceiveData();
 
-	//サーバー側で壁を動かす
-	WallManager::GetInstance()->Step();
+	//サーバー側で弾を動かす
+	BulletManager::GetInstance()->Update();
+
+	//ServerHandler::SyncBulletTransform();
 
 	//サーバーで当たり判定
 	CheckCollision();
@@ -80,7 +73,7 @@ void Server::Draw()
 {
 #ifdef _DEBUG
 	PlayerManager::GetInstance()->Draw();
-	WallManager::GetInstance()->Draw();
+	BulletManager::GetInstance()->Draw();
 	CollisionManager::GetInstance()->Draw();
 #endif
 }
@@ -91,7 +84,7 @@ void Server::Fin()
 	PlayerManager::DeleteInstance();
 
 	//壁終了
-	WallManager::DeleteInstance();
+	BulletManager::DeleteInstance();
 
 	//当たり判定終了
 	CollisionManager::DeleteInstance();

@@ -4,7 +4,6 @@
 BulletManager::BulletManager()
 {
 	m_Bullets = {};
-	m_NextBulletID = 0;
 }
 
 void BulletManager::Init()
@@ -13,6 +12,11 @@ void BulletManager::Init()
 
 void BulletManager::Update()
 {
+	//全弾更新
+	for (auto& bullet : m_Bullets)
+	{
+		bullet->Update();
+	}
 }
 
 void BulletManager::Draw()
@@ -26,40 +30,20 @@ void BulletManager::Draw()
 
 Bullet& BulletManager::CreateBullet()
 {
-	//バレットを作成して動的配列に追加
+	//弾を生成して追加
 	m_Bullets.push_back(MakeUnique<Bullet>());
 
 	Bullet& bullet = *m_Bullets.back().get();
 
-	bullet.SetID(m_NextBulletID++);
+	bullet.Init();
 
 	return bullet;
 }
 
-void BulletManager::RemoveBullet(int handle)
+void BulletManager::RemoveBullet(int index)
 {
-	for (auto itr = m_Bullets.begin();itr != m_Bullets.end();)
-	{
-		if ((*itr)->GetNetworkHandle() == handle)
-		{
-			itr = m_Bullets.erase(itr);
-		}
-		else
-		{
-			++itr;
-		}
-	}
+	if (index < 0 || index >= static_cast<int>(m_Bullets.size())) return;
+
+	m_Bullets.erase(m_Bullets.begin() + index);
 }
 
-Bullet* BulletManager::GetBullet(int id) const
-{
-	for (const auto& player : m_Bullets)
-	{
-		if (player->GetID() == id)
-		{
-			return player.get();
-		}
-	}
-
-	return nullptr;
-}

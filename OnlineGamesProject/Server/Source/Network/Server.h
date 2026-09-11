@@ -5,6 +5,7 @@
 #include "NetworkCommonParam.h"
 
 class Player;
+class Bullet;
 
 /// <summary>
 /// クライアントデータ

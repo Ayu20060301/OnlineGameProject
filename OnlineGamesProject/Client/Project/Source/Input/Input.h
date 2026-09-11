@@ -22,6 +22,7 @@ enum InputKey
 	KEY_Q      = (1 << 13),
 	KEY_E      = (1 << 14),
 	KEY_X      = (1 << 15),
+	KEY_RETURN = (1 << 16),
 };
 
 /// <summary>

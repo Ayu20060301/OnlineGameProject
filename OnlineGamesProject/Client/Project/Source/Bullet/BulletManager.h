@@ -36,13 +36,13 @@ public:
 	void CreateRandomBullets(int count);
 
 	//ネットワーク関係
-	NetworkBullet& CreateNetworkBullet(int id, bool m_IsSelf,VECTOR pos,VECTOR velocity);
+	NetworkBullet& CreateNetworkBullet(VECTOR pos,VECTOR velocity);
+
+	void Login(Network::ResponseLoginData data);
+	void Logout(Network::LogoutData data);
 
 	//ネットワーク弾の同期
-	void SyncServerBullet(const Network::BulletTransformData& data);
-
-	//ネットワーク弾の削除
-	void DestroyNetworkBullet(int id);
+	void SyncServerBullet(const Network::AllBulletTransformData& data);
 
 	//弾を全削除
 	void Clear();

@@ -20,12 +20,9 @@ public:
 	Bullet& CreateBullet(); //’e‚Ì¶¬
 	void RemoveBullet(int handle); //’e‚Ìíœ
 
-	int GetBulletCount() const { return static_cast<int>(m_Bullets.size()); }
+	int GetBulletCount() const { return static_cast<int>(m_Bullets.size()); } //’e‚Ì”
 	std::vector<SharedPtr<Bullet>> GetBullets() const { return m_Bullets; } //‘S’eæ“¾
-	Bullet* GetBullet(int id) const;  //’e‚Ìæ“¾
-
 private:
 	std::vector<SharedPtr<Bullet>> m_Bullets;
 
-	int m_NextBulletID; //ƒT[ƒo[‚ª”­s‚·‚é’e‚ÌID
 };

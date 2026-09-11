@@ -137,7 +137,7 @@ void BulletManager::CreateRandomBullets(int count)
 		angle *= PI / 180.0f;
 
 		//弾速
-		const float speed = 16.0f;
+		const float speed = 18.0f;
 
 		//速度ベクトルを作る
 		VECTOR velocity =VGet(cosf(angle) * speed,sinf(angle) * speed,0.0f);
@@ -146,70 +146,63 @@ void BulletManager::CreateRandomBullets(int count)
 	}
 }
 
-NetworkBullet& BulletManager::CreateNetworkBullet(int id, bool isSelf,VECTOR pos,VECTOR velocity)
+NetworkBullet& BulletManager::CreateNetworkBullet(VECTOR pos,VECTOR velocity)
 {
-	//ネットワークバレットを生成
-	UniquePtr<NetworkBullet> bullet = MakeUnique<NetworkBullet>(id, isSelf,pos,velocity);
+	UniquePtr<NetworkBullet> bullet = MakeUnique<NetworkBullet>(pos, velocity);
 
-	//初期化
 	bullet->Init();
-
-	//画像のロード
 	bullet->Load();
-
-	//開始処理
 	bullet->Start();
 
-	//Bulletリストに追加
+	// 初期位置・速度を設定
+	bullet->SetPosition(pos);
+	bullet->SetVelocity(velocity);
+
 	m_Bullets.push_back(std::move(bullet));
 
 	return *static_cast<NetworkBullet*>(m_Bullets.back().get());
 }
 
-void BulletManager::SyncServerBullet(const Network::BulletTransformData& data)
+void BulletManager::Login(Network::ResponseLoginData data)
 {
-	for (auto& bullet : m_Bullets)
-	{
-		if (!bullet->IsNetworkBullet()) continue;
-
-		NetworkBullet* nwBullet = static_cast<NetworkBullet*>(bullet.get());
-
-		if (nwBullet == nullptr) continue;
-
-		if (nwBullet->GetID() == data.bulletID)
-		{
-			nwBullet->SetServerTransform(data.pos, data.velocity);
-
-			return;
-		}
-	}
+	Clear();
 }
 
-void BulletManager::DestroyNetworkBullet(int id)
+void BulletManager::Logout(Network::LogoutData data)
 {
-	for (auto itr = m_Bullets.begin(); itr != m_Bullets.end(); ++itr)
-	{
-		NetworkBullet* nwBullet = static_cast<NetworkBullet*>(itr->get());
-
-		//NetworkBulletでなければ
-		if (nwBullet == nullptr) continue;
-
-		//IDが一致したら削除
-		if (nwBullet->GetID() == id)
-		{
-			nwBullet->Fin();
-			m_Bullets.erase(itr);
-			return;
-		}
-	}
+	Clear();
 }
 
+void BulletManager::SyncServerBullet(const Network::AllBulletTransformData& data)
+{
+	// 既存のネットワーク弾を削除
+	for (auto itr = m_Bullets.begin();
+		itr != m_Bullets.end();)
+	{
+		if ((*itr)->IsNetworkBullet())
+		{
+			(*itr)->Fin();
+			itr = m_Bullets.erase(itr);
+		}
+		else
+		{
+			++itr;
+		}
+	}
+
+	// サーバーに存在する弾を生成
+	for (int i = 0; i < data.count; ++i)
+	{
+		CreateNetworkBullet(data.bullets[i].pos,data.bullets[i].velocity);
+	}
+}
 
 void BulletManager::Clear()
 {
 	for (auto& bullet : m_Bullets)
 	{
-		bullet->SetActive(false);
+		bullet->Fin();
 	}
-}
 
+	m_Bullets.clear();
+}

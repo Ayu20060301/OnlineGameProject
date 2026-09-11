@@ -79,6 +79,10 @@ void Input::Update()
     {
         m_InputState |= KEY_X;
     }
+    if (CheckHitKey(KEY_INPUT_RETURN))
+    {
+        m_InputState |= KEY_RETURN;
+    }
 }
 
 void Input::Draw()

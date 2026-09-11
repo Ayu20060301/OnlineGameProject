@@ -12,12 +12,12 @@ public:
 	Bullet();
 	~Bullet() = default;
 
-	void Init(int nwHandle);
+	void Init();
+	void Update();
 	void Draw();
 
-	int  GetID() const { return m_ID; }
-	void SetID(int id) { m_ID = id; }
-	int  GetNetworkHandle() const { return m_NWHandle; }
+
+	bool IsActive() const { return m_IsActive; }
 
 	VECTOR GetPosition() const { return m_Transform.GetPosition(); }
 
@@ -29,10 +29,6 @@ public:
 
 	void OverlapGameObject(GameObject& other) override;
 
-private:
-	int m_ID; //弾のID
-	int m_NWHandle; //所有クライアント
-	IPDATA m_IPAddress; 
-
+private:	
 	VECTOR m_Velocity; //弾の速度
 };

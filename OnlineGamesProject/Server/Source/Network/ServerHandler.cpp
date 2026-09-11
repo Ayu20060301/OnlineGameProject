@@ -2,8 +2,8 @@
 #include "NetworkUtility.h"
 #include "../Player/PlayerManager.h"
 #include "../Player/Player.h"
-#include "../Wall/WallManager.h"
-#include "../Wall/Wall.h"
+#include "../Bullet/BulletManager.h"
+#include "../Bullet/Bullet.h"
 
 using namespace Network;
 
@@ -36,13 +36,6 @@ void ServerHandler::HandleLogin(int nwHandle)
     auto buffer = MakePacket<ResponseLoginData>(PacketType::LOGIN, response);
     NetWorkSend(nwHandle, reinterpret_cast<char*>(buffer.data()), (int)buffer.size());
 
-   //壁がまだ存在しなければ生成
-    auto walls = WallManager::GetInstance()->GetWalls();
-
-    if (walls.empty())
-    {
-        WallManager::GetInstance()->CreateWall();
-    }
 }
 
 void ServerHandler::HandleLogout(int nwHandle)
@@ -142,6 +135,41 @@ void ServerHandler::SyncTransform()
 
     // 全クライアントに送信する
     auto buffer = MakePacket<ResponseTransformData>(PacketType::ALL_TRANSFORM, data);
+    for (const auto& player : players)
+    {
+        NetWorkSend(player->GetNetworkHandle(), reinterpret_cast<char*>(buffer.data()), (int)buffer.size());
+    }
+}
+
+void ServerHandler::SyncBulletTransform()
+{
+    auto bullets = BulletManager::GetInstance()->GetBullets();
+
+    AllBulletTransformData data = {};
+
+    //現在存在する弾の数
+    data.count = static_cast<int>(bullets.size());
+
+    //BULLET_MAXを超えないようにする
+    if (data.count > BULLET_MAX)
+    {
+        data.count = BULLET_MAX;
+    }
+
+    //弾の座標・速度を設定
+    for (int i = 0; i < data.count; ++i)
+    {
+        data.bullets[i].pos = bullets[i]->GetPosition();
+
+        data.bullets[i].velocity = bullets[i]->GetVelocity();
+    }
+
+    //パケット作成
+    auto buffer = MakePacket<AllBulletTransformData>(PacketType::BULLET_TRANSFORM, data);
+
+    //全クライアントへ送信
+    auto players = PlayerManager::GetInstance()->GetPlayers();
+
     for (const auto& player : players)
     {
         NetWorkSend(player->GetNetworkHandle(), reinterpret_cast<char*>(buffer.data()), (int)buffer.size());

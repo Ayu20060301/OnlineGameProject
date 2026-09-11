@@ -27,7 +27,27 @@ void Client::Step()
 
 void Client::Draw()
 {
-	DrawString(0, 880,"クライアント側", GetColor(255, 255, 255));
+	const char* statusText = "";
+
+	switch (m_State)
+	{
+	    case OFFLINE:
+			statusText = "オフライン";
+			break;
+		case WAIT:
+			statusText = "接続中。。。";
+			break;
+		case ONLINE:
+			statusText = "オンライン";
+			break;
+		default:
+			statusText = "不明";
+			break;
+	}
+
+	SetFontSize(21);
+
+	DrawString(0, 880, statusText, GetColor(255, 255, 255));
 }
 
 void Client::Fin()

@@ -35,8 +35,17 @@ void Player::Init(int nwHandle)
 	aabb->SetCenter(VGet(0.0f, 0.0f, 0.0f));
 	aabb->SetSize(VGet(PLAYER_WIDTH, PLAYER_HEIGHT, 0.0f));
 
-	//初期トランスフォーム
-	SetPosition(VGet(100.0f, 100.0f, 0.0f));
+	//初期位置
+	if (m_ID == 1)
+	{
+		//初期トランスフォーム
+		SetPosition(VGet(300.0f, 400.0f, 0.0f));
+	}
+	else if (m_ID == 2)
+	{
+		SetPosition(VGet(1300.0f, 400.0f, 0.0f));
+	}
+
 	SetScale(VGet(1.0f, 1.0f, 1.0f));
 }
 
@@ -50,8 +59,8 @@ void Player::Draw()
 
 void Player::OverlapGameObject(GameObject& other)
 {
-	//プレイヤーに当たった
-	if (other.GetType() == GameObjectType::PLAYER)
+	//弾に当たった
+	if (other.GetType() == GameObjectType::BULLET)
 	{
 		//非アクティブ
 		m_IsActive = false;

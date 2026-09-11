@@ -13,4 +13,7 @@ namespace ServerHandler
 
 	//プレイヤーのトランスフォームデータ
 	void SyncTransform();
+
+	//弾のトランスフォームデータ
+	void SyncBulletTransform();
 }

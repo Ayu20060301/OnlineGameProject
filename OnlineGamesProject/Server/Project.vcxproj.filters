@@ -40,9 +40,6 @@
     <Filter Include="Source\Bullet">
       <UniqueIdentifier>{dfd3d6d0-8cc4-4283-879c-83381dc35ea9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Wall">
-      <UniqueIdentifier>{a785b98b-7639-4970-ae29-11402f89a67d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source\GameSetting">
       <UniqueIdentifier>{1a6afa76-d376-43de-ad97-3707d657c0c5}</UniqueIdentifier>
     </Filter>
@@ -95,12 +92,6 @@
     </ClCompile>
     <ClCompile Include="Source\Bullet\BulletManager.cpp">
       <Filter>Source\Bullet</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Wall\Wall.cpp">
-      <Filter>Source\Wall</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Wall\WallManager.cpp">
-      <Filter>Source\Wall</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -163,12 +154,6 @@
     </ClInclude>
     <ClInclude Include="Source\Bullet\BulletManager.h">
       <Filter>Source\Bullet</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Wall\Wall.h">
-      <Filter>Source\Wall</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Wall\WallManager.h">
-      <Filter>Source\Wall</Filter>
     </ClInclude>
     <ClInclude Include="Source\GameSetting\GameSetting.h">
       <Filter>Source\GameSetting</Filter>

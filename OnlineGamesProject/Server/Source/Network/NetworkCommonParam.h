@@ -12,6 +12,8 @@ namespace Network
 	// プレイヤー最大人数
 	constexpr int PLAYER_MAX = 2;
 
+	constexpr int BULLET_MAX = 20;
+
 	// パケットの種類（符号なし8ビットで扱う）
 	enum class PacketType : uint8_t
 	{
@@ -22,14 +24,11 @@ namespace Network
 		ALL_TRANSFORM,
 		DIE,
 
-		//弾
-		BULLET_SPAWN,
-		BULLET_TRANSFORM,
-		BULLET_DESTROY,
-
 		//壁のトランスフォーム
-		WALL_TRANSFORM
+		WALL_TRANSFORM,
 
+		//弾のトランスフォーム
+		BULLET_TRANSFORM,
 	};
 
 	// 全通信に使用するパケットデータ
@@ -109,27 +108,18 @@ namespace Network
 		int playerID;
 	};
 
-	//弾生成データ
-	struct BulletSpawnData
-	{
-		int bulletID;
-		int playerID;
-		VECTOR pos;
-		VECTOR velocity;
-	};
-
 	//弾トランスフォームデータ
 	struct BulletTransformData
 	{
-		int bulletID;
 		VECTOR pos;
 		VECTOR velocity;
 	};
 
-	//弾削除データ
-	struct BulletDestroyData
+	//全弾トランスフォームデータ
+	struct AllBulletTransformData
 	{
-		int bulletID;
+		int count;
+		BulletTransformData bullets[BULLET_MAX];
 	};
 
 	//壁のトランスフォーム

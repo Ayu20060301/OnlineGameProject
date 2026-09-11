@@ -3,22 +3,15 @@
 #include "../Network/ClientAPI.h"
 #include "../MyMath/MyMath.h"
 
-NetworkBullet::NetworkBullet(int id, bool isSelf,VECTOR pos,VECTOR velocity) : Bullet()
-,m_IsSelf(isSelf)
-,m_ID(id)
-,m_ServerPosition(VGet(0.0f,0.0f,0.0f))
-,m_ServerVelocity(VGet(0.0f,0.0f,0.0f))
+NetworkBullet::NetworkBullet(VECTOR pos,VECTOR velocity) : Bullet()
+,m_ServerPosition(pos)
+,m_ServerVelocity(velocity)
 {
 	//サーバー座標を使用する
-	m_UserServerTransform = !isSelf;
-}
+	m_UserServerTransform = true;
 
-NetworkBullet::NetworkBullet(Client* client, int id, bool isSelf) : Bullet()
-,m_IsSelf(isSelf)
-,m_ID(id)
-{
-	//サーバー座標を使用する
-	m_UserServerTransform = !isSelf;
+	SetPosition(pos);
+	SetVelocity(velocity);
 }
 
 NetworkBullet::~NetworkBullet() = default;
@@ -30,13 +23,5 @@ void NetworkBullet::Step()
 	//オフラインだったらステップしない
 	if (!ClientAPI::IsConnected) return;
 
-
-	if (m_IsSelf)
-	{
-		Bullet::Step();
-	}
-	else
-	{
-		m_Transform.SetPosition(m_ServerPosition);
-	}
+    m_Transform.SetPosition(m_ServerPosition);
 }

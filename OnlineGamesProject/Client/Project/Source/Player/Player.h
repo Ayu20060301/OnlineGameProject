@@ -44,24 +44,15 @@ public:
 public:
 	//プレイヤーが生きているか
 	bool IsActive() const { return m_IsActive; }
-
-	//無敵状態か
-	bool IsInvisible() const { return m_InvisibleTimer > 0; }
 	
 	//プレイヤーの座標を取得
 	VECTOR GetPos() const { return m_Transform.GetPosition(); }
 	
-	
-	CollisionAABB* GetCollisionAABB() { return m_CollisionAABB; }
 	float GetMoveSpeed() const { return m_MoveSpeed; }
 
 	void SetActive(bool active) { m_IsActive = active; }
-	void SetPlayerNumber(int number) { m_PlayerNumber = number; }
 
 	void Die();
-
-	//アニメーションの更新
-	void UpdateAnimation();
 
 protected:
 
@@ -69,17 +60,6 @@ protected:
 	float m_MoveSpeed; //移動速度
 	Splite* m_Splite;
 	Controller2D* m_Controller; //2Dコントローラー
-	int m_Handle; //プレイヤー画像
-	int m_PlayerNumber; //プレイヤー番号
-	int m_InvisibleTimer; //無敵タイマー
-	int m_Direction; //プレイヤーの向き
-	int m_AnimationIndex; //現在のアニメーション番号
-	int m_AnimationTimer; //アニメーションタイマー
-	VECTOR m_OldPos; //移動前の座標
-	VECTOR m_Move; //1フレームの移動量
-	int m_FireTimer;
-	//当たり判定
-	CollisionAABB* m_CollisionAABB;
 
 	//以下ネットワーク用
 	bool m_UserServerTransform;
