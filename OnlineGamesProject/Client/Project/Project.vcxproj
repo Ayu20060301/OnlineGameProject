@@ -145,7 +145,6 @@
     <ClCompile Include="Source\Input\InputString.cpp" />
     <ClCompile Include="Source\Main.cpp" />
     <ClCompile Include="Source\Network\Client.cpp" />
-    <ClCompile Include="Source\Network\Host.cpp" />
     <ClCompile Include="Source\Scene\PlayScene.cpp" />
     <ClCompile Include="Source\Scene\SceneBase.cpp" />
     <ClCompile Include="Source\Scene\SceneManager.cpp" />
@@ -159,7 +158,6 @@
     <ClInclude Include="Source\Input\InputString.h" />
     <ClInclude Include="Source\Memory\Memory.h" />
     <ClInclude Include="Source\Network\Client.h" />
-    <ClInclude Include="Source\Network\Host.h" />
     <ClInclude Include="Source\Network\NetworkCommonParam.h" />
     <ClInclude Include="Source\Network\NetworkUtility.h" />
     <ClInclude Include="Source\Scene\PlayScene.h" />

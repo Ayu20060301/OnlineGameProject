@@ -45,9 +45,6 @@
     <ClCompile Include="Source\Fade\Fade.cpp">
       <Filter>Source\Fade</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Network\Host.cpp">
-      <Filter>Source\NetWork</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Input\InputString.cpp">
       <Filter>Source\Input</Filter>
     </ClCompile>
@@ -91,9 +88,6 @@
     </ClInclude>
     <ClInclude Include="Source\Fade\Fade.h">
       <Filter>Source\Fade</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Network\Host.h">
-      <Filter>Source\NetWork</Filter>
     </ClInclude>
     <ClInclude Include="Source\Input\InputString.h">
       <Filter>Source\Input</Filter>

@@ -8,7 +8,8 @@ enum MainState
 	MAIN_STATE_NONE,
 	MAIN_STATE_SELECT_MODE,
 	MAIN_STATE_SET_IP,
-	MAIN_STATE_CHAT
+	MAIN_STATE_CHAT,
+	MAIN_STATE_NAME_INPUT,
 };
 
 class GameApp : public Singleton<GameApp>
@@ -29,4 +30,9 @@ public:
 private:
 	Client* m_Client;
 	MainState m_State;
+
+	//ëIëíÜÇÃçÄñ⁄
+	int m_SelectIndex;
+
+	bool m_IsRunning;
 };

@@ -6,7 +6,12 @@
 // 必ず双方で同じ状態にする必要がある
 
 // ポート番号は49152～65535が好ましい
-#define PORT_NUMBER 50000
+constexpr int PORT_NUMBER = 50000;
+
+// 残す履歴の最大数
+constexpr int CHAT_LOG_MAX = 10;
+
+constexpr int NETWORK_WORD_BUFFER_MAX = 64;
 
 // 通信できるユーザー名のMAXサイズ（全角8文字まで）
 constexpr int NETWORK_USER_NAME_MAX = 16;
@@ -26,4 +31,10 @@ struct ChatData
 
 	// 文字列（全角30文字まで）
 	char message[NETWORK_MESSAGE_BUFFER_MAX];
+};
+
+struct ShiritoriData
+{
+	int playerID;
+	char word[NETWORK_WORD_BUFFER_MAX];
 };
