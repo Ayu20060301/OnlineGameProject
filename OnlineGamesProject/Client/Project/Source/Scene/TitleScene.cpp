@@ -80,8 +80,7 @@ void TitleScene::StepLogo()
 
 void TitleScene::StepMenu()
 {
-
-	//上キー
+	// 上キー
 	if (Input::IsTriggerKey(KEY_UP))
 	{
 		m_SelectIndex--;
@@ -92,7 +91,7 @@ void TitleScene::StepMenu()
 		}
 	}
 
-	//下キー
+	// 下キー
 	if (Input::IsTriggerKey(KEY_DOWN))
 	{
 		m_SelectIndex++;
@@ -103,39 +102,24 @@ void TitleScene::StepMenu()
 		}
 	}
 
-	//決定
+	// 決定
 	if (Input::IsTriggerKey(KEY_RETURN))
 	{
 		switch (m_SelectIndex)
 		{
-		    case 0:
-				ClientAPI::Connect(); //オンライン
-				break;
-			case 1:
-				SceneManager::GetInstance()->ChangeScene(PLAY); //オフライン
-				break;
-		}
+		case 0:
+			// オンライン
+			ClientAPI::Connect();
+			break;
 
-		//接続完了
-		if (ClientAPI::IsConnected())
-		{
-			SceneManager::GetInstance()->ChangeScene(NETWORK_PLAY);
+		case 1:
+			// オフライン
+			SceneManager::GetInstance()->ChangeScene(PLAY);
+			return;
 		}
 	}
 
-	//オンラインプレイ
-	if (Input::IsTriggerKey(KEY_Z))
-	{
-		ClientAPI::Connect();
-	}
-
-	//オフラインプレイ
-	if (Input::IsTriggerKey(KEY_X))
-	{
-		SceneManager::GetInstance()->ChangeScene(PLAY);
-	}
-
-	//接続完了
+	// オンライン接続完了
 	if (ClientAPI::IsConnected())
 	{
 		SceneManager::GetInstance()->ChangeScene(NETWORK_PLAY);

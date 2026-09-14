@@ -20,7 +20,7 @@ Player::~Player() = default;
 void Player::Init()
 {
 	//移動速度
-	m_MoveSpeed = 10.0f;
+	m_MoveSpeed = 20.0f;
 
 	//コンポーネントの追加
 	m_Splite = AddComponent<Splite>();
@@ -58,7 +58,6 @@ void Player::Step()
 
 	pos += move * m_MoveSpeed;
 
-	//画面外に出ないようにする
 	// 画面外に出ないようにする
 	if (pos.y < 20.0f)
 	{

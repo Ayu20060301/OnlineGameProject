@@ -34,4 +34,8 @@ private:
 
 	int m_ServerHandle;
 	State m_State;
+
+	const char* m_Message;
+	int m_MessageTimer;
+
 };

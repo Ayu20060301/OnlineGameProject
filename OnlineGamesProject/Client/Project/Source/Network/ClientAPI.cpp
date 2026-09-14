@@ -87,8 +87,6 @@ void ClientAPI::OnReceiveLogin()
 
     //ログイン処理
     PlayerManager::GetInstance()->Login(data);   
-
-    BulletManager::GetInstance()->Login(data);
 }
 
 void ClientAPI::OnReceiveJoin()
@@ -109,8 +107,6 @@ void ClientAPI::OnReceiveLogout()
 
     //ログアウト
     PlayerManager::GetInstance()->Logout(data);
-
-    BulletManager::GetInstance()->Logout(data);
 }
 
 void ClientAPI::OnReceiveAllTransform()
@@ -141,6 +137,7 @@ void ClientAPI::OnReceiveBulletTransform()
 
     BulletManager::GetInstance()->SyncServerBullet(data);
 }
+
 
 void ClientAPI::Fin()
 {

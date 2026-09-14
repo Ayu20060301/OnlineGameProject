@@ -5,7 +5,7 @@
 
 class ComponentBase;
 
-//サーバー用プレイヤークラス
+//サーバー用バレットクラス
 class Bullet : public GameObject
 {
 public:

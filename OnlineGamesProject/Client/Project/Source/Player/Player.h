@@ -54,6 +54,8 @@ public:
 
 	void Die();
 
+	void SetID(int id) { m_ID = id; };
+	int GetID() const { return m_ID; };
 protected:
 
 	bool m_IsActive; //プレイヤーが生きているか
@@ -64,4 +66,5 @@ protected:
 	//以下ネットワーク用
 	bool m_UserServerTransform;
 	Transform m_ServerTransform;
+	int m_ID;
 };

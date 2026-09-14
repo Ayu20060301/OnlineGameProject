@@ -3,7 +3,7 @@
 #include "SceneParameter.h"
 #include "../Singleton/Singleton.h"
 #include <vector>
-
+#include "../Fade/Fade.h"
 
 class SceneManager : public Singleton<SceneManager>
 {
@@ -42,4 +42,9 @@ private:
 	//状態ごとの関数を呼ぶ関数ポインタ配列
 	void (SceneManager::* m_StateFunc[SCENE_STATE_MAX])(void);
 
+	//フェード
+	Fade m_Fade;
+
+	//シーン切り替え中か
+	bool m_IsChangingScene;
 };

@@ -8,7 +8,9 @@ SceneManager::SceneManager()
     m_Scenes = {};
     m_State = SCENE_STATE_NONE;
     m_NextScene = SCENE_TYPE_NONE;
-  
+
+    m_IsChangingScene = false;
+
     for (int i = 0; i < SCENE_STATE_MAX; i++)
     {
         m_StateFunc[i] = nullptr;
@@ -29,12 +31,37 @@ void SceneManager::Init()
     m_StateFunc[LOOP] = &SceneManager::LoopScene;
     m_StateFunc[FIN] = &SceneManager::FinScene;
 
-    //最初のシーンを生成して初期化から開始
-    ChangeScene(TITLE);
+    //最初のシーンを直接生成
+    SceneBase* scene = CreateScene(TITLE);
+
+    if (scene == nullptr) return;
+
+    m_Scenes.push_back(scene);
+
+    //初期化から開始
+    m_State = INIT;
+
+    //フェードイン
+    m_Fade.StartFadeIn(0.5f);
+
 }
 
 void SceneManager::Update()
 {
+    //フェード更新
+    m_Fade.Update();
+
+   //シーン切り替え中
+    if (m_IsChangingScene)
+    {
+        //フェードアウト完了まで待つ
+        if (!m_Fade.IsFinished()) return;
+
+        //フェードアウト完了
+        m_IsChangingScene = false;
+        m_State = FIN;
+    }
+
     //関数ポインタ配列であれば1行で状態ごとの関数を呼べる
     (this->*m_StateFunc[m_State])();
 }
@@ -53,7 +80,12 @@ void SceneManager::ChangeScene(SceneType type)
 {
    //次のシーンを設定
     m_NextScene = type;
-    m_State = FIN;
+
+    //シーン切り替え開始
+    m_IsChangingScene = true;
+
+    //フェードアウト開始
+    m_Fade.StartFadeOut(0.5f);
 }
 
 /// <summary>
@@ -117,6 +149,8 @@ void SceneManager::LoopScene()
         scene->Update();
         scene->Draw();
     }
+
+    m_Fade.Draw();
 }
 
 void SceneManager::FinScene()
@@ -130,6 +164,10 @@ void SceneManager::FinScene()
 
     //初期化状態に戻す
     m_State = INIT;
+
+    //フェードイン
+    m_Fade.StartFadeIn(0.5f);
+
 }
 
 /// <summary>

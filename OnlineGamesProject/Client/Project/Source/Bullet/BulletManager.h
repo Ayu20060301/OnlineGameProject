@@ -7,7 +7,6 @@
 
 class Bullet;
 class NetworkBullet;
-class Client;
 
 class BulletManager : public Singleton<BulletManager>
 {
@@ -26,27 +25,17 @@ public:
 
 public:
 
-	
-
-
 	//弾の生成
 	Bullet& CreateBullet();
 
 	//中央からランダム方向へ弾を大量発射
 	void CreateRandomBullets(int count);
 
-	//ネットワーク関係
-	NetworkBullet& CreateNetworkBullet(VECTOR pos,VECTOR velocity);
-
-	void Login(Network::ResponseLoginData data);
-	void Logout(Network::LogoutData data);
-
-	//ネットワーク弾の同期
+	//サーバーから弾情報を同期
 	void SyncServerBullet(const Network::AllBulletTransformData& data);
 
 	//弾を全削除
 	void Clear();
-
 private:
 	std::list<UniquePtr<Bullet>> m_Bullets;
 };

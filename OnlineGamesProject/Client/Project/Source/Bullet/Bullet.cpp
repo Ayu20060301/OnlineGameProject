@@ -75,3 +75,8 @@ void Bullet::Draw()
 void Bullet::Fin()
 {
 }
+
+void Bullet::Die()
+{
+	m_IsActive = false;
+}

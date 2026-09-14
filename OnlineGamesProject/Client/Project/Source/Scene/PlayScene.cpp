@@ -49,7 +49,7 @@ void PlayScene::Step()
 
 	++m_BulletTimer;
 
-	if (m_BulletTimer >= 10)
+	if (m_BulletTimer >= 30)
 	{
 		m_BulletTimer = 0;
 

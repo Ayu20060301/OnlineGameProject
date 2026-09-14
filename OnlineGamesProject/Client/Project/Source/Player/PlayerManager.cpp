@@ -128,10 +128,12 @@ void PlayerManager::Login(Network::ResponseLoginData data)
 		bool isSelf = id == data.selfID;
 		NetworkPlayer& player = CreateNetworkPlayer(id, isSelf);
 		
-		// スポーン位置に移動
-		player.SetPosition(data.spawnPos);
-		player.SetServerPosition(data.spawnPos);
-		
+		//自分のスポーン位置だけサーバーから受け取った位置を使用
+		if (isSelf)
+		{
+			player.SetPosition(data.spawnPos);
+			player.SetServerPosition(data.spawnPos);
+		}	
 	}
 }
 
@@ -190,7 +192,7 @@ void PlayerManager::SyncServerTransform(Network::ResponseTransformData data)
 /// <summary>
 /// プレイヤーを死亡させる
 /// </summary>
-/// <param name="playerID">志望するプレイヤーID</param>
+/// <param name="playerID">死亡するプレイヤーID</param>
 void PlayerManager::DiePlayer(int playerID)
 {
 	//IDが一致したプレイヤーを死亡させる

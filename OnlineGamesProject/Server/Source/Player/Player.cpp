@@ -14,6 +14,7 @@ Player::Player() : GameObject()
 , m_ID(-1)
 , m_NWHandle(-1)
 , m_IPAddress{}
+, m_IsDead(false)
 {
 	m_Type = GameObjectType::PLAYER;
 }
@@ -55,6 +56,11 @@ void Player::Draw()
 	VECTOR pos = GetPosition();
 	DrawFormatString(0, (m_ID - 1) * 20, GetColor(255, 255, 255), "ID:%d POS:[%.2f, %.2f, %.2f]", m_ID, pos.x, pos.y, pos.z);
 #endif
+	//死亡したプレイヤー
+	if (!m_IsActive)
+	{
+		DrawFormatString(600, 300, GetColor(255, 0, 0), "Player %d が死にました", m_ID);
+	}
 }
 
 void Player::OverlapGameObject(GameObject& other)
@@ -62,8 +68,14 @@ void Player::OverlapGameObject(GameObject& other)
 	//弾に当たった
 	if (other.GetType() == GameObjectType::BULLET)
 	{
+
+		if (m_IsDead) return;
+
 		//非アクティブ
 		m_IsActive = false;
+
+		//死亡
+		m_IsDead = true;
 
 		//死亡を送信
 		ServerHandler::OnDead(m_ID);

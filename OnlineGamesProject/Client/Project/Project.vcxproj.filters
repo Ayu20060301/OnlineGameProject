@@ -55,6 +55,9 @@
     <Filter Include="Source\Bullet">
       <UniqueIdentifier>{6abbb565-db98-4ef4-91e7-a954f7a054c0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Fade">
+      <UniqueIdentifier>{f85335b6-473f-4a13-a0c1-d1013e6f0efe}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Main.cpp">
@@ -132,11 +135,11 @@
     <ClCompile Include="Source\Bullet\BulletManager.cpp">
       <Filter>Source\Bullet</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Bullet\NetworkBullet.cpp">
-      <Filter>Source\Bullet</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Bullet\Bullet.cpp">
       <Filter>Source\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Fade\Fade.cpp">
+      <Filter>Source\Fade</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -239,11 +242,11 @@
     <ClInclude Include="Source\Bullet\BulletManager.h">
       <Filter>Source\Bullet</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Bullet\NetworkBullet.h">
-      <Filter>Source\Bullet</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Bullet\Bullet.h">
       <Filter>Source\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Fade\Fade.h">
+      <Filter>Source\Fade</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

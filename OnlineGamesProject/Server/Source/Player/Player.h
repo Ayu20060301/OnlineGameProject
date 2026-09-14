@@ -24,4 +24,5 @@ private:
 	int m_ID;
 	int m_NWHandle;
 	IPDATA m_IPAddress;
+	bool m_IsDead;
 };

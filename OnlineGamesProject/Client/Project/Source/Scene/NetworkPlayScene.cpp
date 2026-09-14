@@ -11,14 +11,14 @@ NetworkPlayScene::~NetworkPlayScene()
 
 void NetworkPlayScene::Init()
 {
-	//ログイン
-	ClientAPI::RequestLogin();
-
 	//プレイヤー管理生成
 	PlayerManager::CreateInstance();
 
 	//弾管理生成
 	BulletManager::CreateInstance();
+
+	//ログイン
+	ClientAPI::RequestLogin();
 }
 
 void NetworkPlayScene::Load()
@@ -28,8 +28,8 @@ void NetworkPlayScene::Load()
 
 void NetworkPlayScene::Fin()
 {
-	PlayScene::Fin();
-
 	//ネットワーク終了
 	ClientAPI::Disconnect();
+
+	PlayScene::Fin();
 }

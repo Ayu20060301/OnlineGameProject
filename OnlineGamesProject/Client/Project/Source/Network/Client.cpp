@@ -20,7 +20,6 @@ void Client::Step()
 	{
 	    case WAIT:     UpdateWaiting(); break;
 	    case ONLINE:   StepOnline();    break;
-
 		default: break;
 	}
 }
@@ -47,7 +46,9 @@ void Client::Draw()
 
 	SetFontSize(21);
 
+	//Ú‘±ó‘Ô
 	DrawString(0, 880, statusText, GetColor(255, 255, 255));
+
 }
 
 void Client::Fin()

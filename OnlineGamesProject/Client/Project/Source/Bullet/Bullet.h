@@ -1,6 +1,5 @@
 #pragma once
 
-
 #include "DxLib.h"
 #include "../Memory/Memory.h"
 #include "../GameObject/GameObject.h"
@@ -8,11 +7,11 @@
 class Splite;
 
 //バレットサイズ
-constexpr int BULLET_WIDTH = 20;
-constexpr int BULLET_HEIGHT = 20;
+constexpr int BULLET_WIDTH = 40;
+constexpr int BULLET_HEIGHT = 40;
 
 //発射する弾のインターバル
-constexpr int FIRE_INTERVAL = 20;
+constexpr int FIRE_INTERVAL = 5;
 
 /// <summary>
 /// バレットクラス
@@ -30,6 +29,8 @@ public:
 	virtual void Update();
 	virtual void Draw();
 	virtual void Fin();
+
+	void Die();
 
 
 public:

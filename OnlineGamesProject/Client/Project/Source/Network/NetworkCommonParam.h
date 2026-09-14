@@ -28,8 +28,9 @@ namespace Network
 		//壁のトランスフォーム
 		WALL_TRANSFORM,
 
-		//弾のトランスフォームデータ
+		//弾
 		BULLET_TRANSFORM,
+		BULLET_DIE,
 
 		DIE
 	};
@@ -115,6 +116,7 @@ namespace Network
 	//弾トランスフォームデータ
 	struct BulletTransformData
 	{
+		int bulletID;
 		VECTOR pos;
 		VECTOR velocity;
 	};

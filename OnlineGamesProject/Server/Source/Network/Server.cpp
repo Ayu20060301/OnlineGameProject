@@ -60,13 +60,12 @@ void Server::Update()
 	//データ受信処理
 	ReceiveData();
 
-	//サーバー側で弾を動かす
+	//サーバーで弾を移動
 	BulletManager::GetInstance()->Update();
-
-	//ServerHandler::SyncBulletTransform();
 
 	//サーバーで当たり判定
 	CheckCollision();
+
 }
 
 void Server::Draw()
@@ -159,7 +158,6 @@ void Server::SyncTransform(int handle)
 			break;
 		}
 	}
-
 	//当たり判定
 	CheckCollision();
 

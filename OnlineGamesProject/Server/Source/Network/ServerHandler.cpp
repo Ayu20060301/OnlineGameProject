@@ -25,12 +25,24 @@ void ServerHandler::HandleLogin(int nwHandle)
     for (const auto& player : players)
     {
         response.playerID[i] = player->GetID();
-        response.selfID = player->GetID();
+
+        if (player->GetNetworkHandle() == nwHandle)
+        {
+            response.selfID = player->GetID();
+        }
         i++;
     }
 
-    //一旦スポーン位置は固定
-    response.spawnPos = VGet(100.0f, 100.0f, 0.0f);
+    if (response.selfID == 1)
+    {
+        response.spawnPos = VGet(300.0f, 400.0f, 0.0f);
+    }
+    else if (response.selfID == 2)
+    {
+        response.spawnPos = VGet(1300.0f, 400.0f, 0.0f);
+    }
+
+
 
     //ログインするクライアントに送信する
     auto buffer = MakePacket<ResponseLoginData>(PacketType::LOGIN, response);
@@ -76,7 +88,17 @@ void ServerHandler::OnJoined(int nwHandle, int joinPlayerID)
     // データ設定
     JoinData data = {};
     data.playerID = joinPlayerID;
-    data.spawnPos = VGet(100.0f, 100.0f, 0.0f);
+   
+
+    //プレイヤーごとのスポーン位置
+    if (joinPlayerID == 1)
+    {
+        data.spawnPos = VGet(300.0f, 400.0f, 0.0f);
+    }
+    else if (joinPlayerID == 2)
+    {
+        data.spawnPos = VGet(1300.0f, 400.0f, 0.0f);
+    }
 
     // 参加するクライアント以外の全クライアントに送信する
     auto buffer = MakePacket<JoinData>(PacketType::JOIN, data);

@@ -141,7 +141,6 @@
   <ItemGroup>
     <ClCompile Include="Source\Bullet\Bullet.cpp" />
     <ClCompile Include="Source\Bullet\BulletManager.cpp" />
-    <ClCompile Include="Source\Bullet\NetworkBullet.cpp" />
     <ClCompile Include="Source\Component\Collision\ColliderComponent.cpp" />
     <ClCompile Include="Source\Component\Collision\CollisionAABB.cpp" />
     <ClCompile Include="Source\Component\Collision\CollisionManager.cpp" />
@@ -151,6 +150,7 @@
     <ClCompile Include="Source\Component\Transform\Transform.cpp" />
     <ClCompile Include="Source\Effect\SpriteAnimation.cpp" />
     <ClCompile Include="Source\Effect\SpriteAnimationManager.cpp" />
+    <ClCompile Include="Source\Fade\Fade.cpp" />
     <ClCompile Include="Source\GameApp\GameApp.cpp" />
     <ClCompile Include="Source\GameObject\GameObject.cpp" />
     <ClCompile Include="Source\Input\Input.cpp" />
@@ -170,7 +170,6 @@
   <ItemGroup>
     <ClInclude Include="Source\Bullet\Bullet.h" />
     <ClInclude Include="Source\Bullet\BulletManager.h" />
-    <ClInclude Include="Source\Bullet\NetworkBullet.h" />
     <ClInclude Include="Source\Component\Collision\ColliderComponent.h" />
     <ClInclude Include="Source\Component\Collision\CollisionAABB.h" />
     <ClInclude Include="Source\Component\Collision\CollisionManager.h" />
@@ -182,6 +181,7 @@
     <ClInclude Include="Source\Effect\EffectParameter.h" />
     <ClInclude Include="Source\Effect\SpriteAnimation.h" />
     <ClInclude Include="Source\Effect\SpriteAnimationManager.h" />
+    <ClInclude Include="Source\Fade\Fade.h" />
     <ClInclude Include="Source\GameApp\GameApp.h" />
     <ClInclude Include="Source\GameObject\GameObject.h" />
     <ClInclude Include="Source\GameSetting\GameSetting.h" />

@@ -8,8 +8,8 @@
 using namespace Network;
 
 //バレットサイズ
-constexpr int BULLET_WIDTH = 8;
-constexpr int BULLET_HEIGHT = 8;
+constexpr int BULLET_WIDTH = 40;
+constexpr int BULLET_HEIGHT = 40;
 
 Bullet::Bullet() : GameObject()
 , m_Velocity({})
@@ -19,16 +19,10 @@ Bullet::Bullet() : GameObject()
 
 void Bullet::Init()
 {
-
 	//当たり判定を設定
 	AABB2D* aabb = AddComponent<AABB2D>();
 	aabb->SetCenter(VGet(0.0f, 0.0f, 0.0f));
 	aabb->SetSize(VGet(BULLET_WIDTH, BULLET_HEIGHT, 0.0f));
-
-	// 中央から発射
-	SetPosition(VGet(SCREEN_WIDTH / 2.0f, SCREEN_HEIGHT / 2.0f, 0.0f));
-	// 例：右方向
-	SetVelocity(VGet(10.0f, 0.0f, 0.0f));
 }
 
 void Bullet::Update()
