@@ -85,11 +85,11 @@ void GameApp::Draw()
 				">>",
 				GetColor(255,255,255)
 			);
-			break
+			break;
 		case MAIN_STATE_NAME_INPUT:
 			SetFontSize(32);
 			DrawString(100, 200, "ƒ†[ƒU[–¼‚ð“ü—Í‚µ‚Ä‚­‚¾‚³‚¢", GetColor(255, 255, 255));
-			if(m_Client) m_Client->DrawNameInput();
+			//if(m_Client) m_Client->DrawNameInput();
 		case MAIN_STATE_CHAT:
 			if(m_Client) m_Client->Draw();
 			break;
@@ -165,10 +165,10 @@ void GameApp::SetIP()
 
 	IPDATA ipData;
 
-	ipData.d1 = 10;
-	ipData.d2 = 10;
-	ipData.d3 = 10;
-	ipData.d4 = 10;
+	ipData.d1 = 192;
+	ipData.d2 = 168;
+	ipData.d3 = 0;
+	ipData.d4 = 54;
 	m_Client->SetIPAddress(ipData);
 
 	m_State = MAIN_STATE_CHAT;
