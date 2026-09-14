@@ -3,7 +3,7 @@
 #include "SceneParameter.h"
 #include "../Singleton/Singleton.h"
 #include <vector>
-#include "../Fade/Fade.h"
+
 
 class SceneManager : public Singleton<SceneManager>
 {
@@ -16,15 +16,15 @@ public:
 	void Update();
 	void Fin();
 
-	void ChangeScene(SceneType type);
+	void ChangeScene(SceneType type, float fadeOutSpeed = 0.0f);
 	void AddScene(SceneType type);
 
 private:
 	void InitScene();
-    void LoadScene();
+	void LoadScene();
 	void StartScene();
-    void LoopScene();
-    void FinScene();
+	void LoopScene();
+	void FinScene();
 
 	SceneBase* CreateScene(SceneType type);
 	void ClearScene();
@@ -41,10 +41,5 @@ private:
 
 	//状態ごとの関数を呼ぶ関数ポインタ配列
 	void (SceneManager::* m_StateFunc[SCENE_STATE_MAX])(void);
-
-	//フェード
-	Fade m_Fade;
-
-	//シーン切り替え中か
-	bool m_IsChangingScene;
 };
+

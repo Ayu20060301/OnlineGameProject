@@ -10,11 +10,9 @@ enum SceneState
 	START,
 	LOOP,
 	FIN,
-	FADE_WAIT,
 	SCENE_STATE_MAX,
 	SCENE_STATE_NONE = -1
 };
-
 
 /// <summary>
 /// ÉVÅ[ÉìÇÃéÌóﬁ
@@ -23,6 +21,5 @@ enum SceneType
 {
 	TITLE,
 	PLAY,
-	NETWORK_PLAY,
-	SCENE_TYPE_NONE = -1,
+	SCENE_TYPE_NONE = -1
 };

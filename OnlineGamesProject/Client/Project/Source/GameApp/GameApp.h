@@ -1,6 +1,15 @@
 #pragma once
 #include "../Singleton/Singleton.h"
 
+class Client;
+
+enum MainState
+{
+	MAIN_STATE_NONE,
+	MAIN_STATE_SELECT_MODE,
+	MAIN_STATE_SET_IP,
+	MAIN_STATE_CHAT
+};
 
 class GameApp : public Singleton<GameApp>
 {
@@ -10,4 +19,14 @@ public:
 
 	void Init();
 	void Exec();
+
+	void Update();
+	void Draw();
+
+	void UpdateSelectMode();
+	void SetIP();
+
+private:
+	Client* m_Client;
+	MainState m_State;
 };

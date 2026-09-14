@@ -2,7 +2,6 @@
 #include "../GameSetting/GameSetting.h"
 #include "TitleScene.h"
 #include "../Input/Input.h"
-#include "../Network/ClientAPI.h"
 #include "SceneManager.h"
 
 
@@ -36,12 +35,12 @@ void TitleScene::Step()
 {
 	switch (m_State)
 	{
-	   case TitleState::LOGO:
-		   StepLogo();
-		   break;
-	   case TitleState::MENU:
-		   StepMenu();
-		   break;
+	case TitleState::LOGO:
+		StepLogo();
+		break;
+	case TitleState::MENU:
+		StepMenu();
+		break;
 	}
 }
 
@@ -53,13 +52,13 @@ void TitleScene::Draw()
 {
 	switch (m_State)
 	{
-	    case TitleState::LOGO:
-			DrawLogo();
-			break;
-		case TitleState::MENU:
-			DrawMenu();
-			break;
-    }
+	case TitleState::LOGO:
+		DrawLogo();
+		break;
+	case TitleState::MENU:
+		DrawMenu();
+		break;
+	}
 }
 
 void TitleScene::Fin()
@@ -109,28 +108,30 @@ void TitleScene::StepMenu()
 		{
 		case 0:
 			// オンライン
-			ClientAPI::Connect();
+			//ClientAPI::Connect();
 			break;
 
 		case 1:
 			// オフライン
-			SceneManager::GetInstance()->ChangeScene(PLAY);
+			//SceneManager::GetInstance()->ChangeScene(PLAY);
 			return;
 		}
 	}
 
+	/*
 	// オンライン接続完了
 	if (ClientAPI::IsConnected())
 	{
 		SceneManager::GetInstance()->ChangeScene(NETWORK_PLAY);
 	}
+	*/
 }
 
 void TitleScene::DrawLogo()
 {
 	const char* title = "オンラインゲーム";
 
-	DrawCenterString(title, 300, GetColor(255, 255, 255),100);
+	DrawCenterString(title, 300, GetColor(255, 255, 255), 100);
 
 	//----------------
 	//Enterキー表示
@@ -138,12 +139,10 @@ void TitleScene::DrawLogo()
 
 	const char* text = "Pressed Enter Key!";
 
-	int alpha = GetFadeAlpha();
-
 	//フェード
-	SetDrawBlendMode(DX_BLENDMODE_ALPHA, alpha);
+//	SetDrawBlendMode(DX_BLENDMODE_ALPHA, alpha);
 
-	DrawCenterString(text, 500, GetColor(255, 255, 255),32);
+	DrawCenterString(text, 500, GetColor(255, 255, 255), 32);
 
 	//ブレンド解除
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
@@ -154,8 +153,8 @@ void TitleScene::DrawMenu()
 	const char* online = "オンラインでプレイ";
 	const char* offline = "オフラインでプレイ";
 
-	DrawCenterString(online, 420, GetColor(255, 255, 255),32);
-	DrawCenterString(offline, 480, GetColor(255, 255, 255),32);
+	DrawCenterString(online, 420, GetColor(255, 255, 255), 32);
+	DrawCenterString(offline, 480, GetColor(255, 255, 255), 32);
 
 	//選択中の項目に矢印を表示
 	const char* arrow = ">";
@@ -174,7 +173,7 @@ void TitleScene::DrawMenu()
 	DrawString(580, arrowY, arrow, GetColor(255, 255, 255));
 }
 
-void TitleScene::DrawCenterString(const char* text, int y, unsigned int color,int size)
+void TitleScene::DrawCenterString(const char* text, int y, unsigned int color, int size)
 {
 	SetFontSize(size);
 
@@ -183,11 +182,4 @@ void TitleScene::DrawCenterString(const char* text, int y, unsigned int color,in
 	int x = (SCREEN_WIDTH - textWidth) / 2;
 
 	DrawString(x, y, text, color);
-}
-
-int TitleScene::GetFadeAlpha() const
-{
-	const float value = 128.0f + 127.0f * sinf(m_FadeTimer * 0.05f);
-
-	return static_cast<int>(value);
 }

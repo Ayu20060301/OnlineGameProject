@@ -2,6 +2,7 @@
 #include "GameSetting/GameSetting.h"
 #include "GameApp/GameApp.h"
 
+
 //メインループ
 int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_  HINSTANCE hPrevInstance, _In_ LPSTR lpCmdLine, _In_ int nShowCmd)
 {
@@ -28,15 +29,19 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_  HINSTANCE hPrevInstance, 
 	// 描画先を裏画面にする
 	SetDrawScreen(DX_SCREEN_BACK);
 
-	// ゲームシステム生成/初期化
+	//GameApp生成
 	GameApp::CreateInstance();
+
+	//初期化
 	GameApp::GetInstance()->Init();
 
-	// ゲーム実行
+	//ゲーム実行
 	GameApp::GetInstance()->Exec();
 
-	// 終了処理
+	//終了
 	GameApp::DeleteInstance();
+
+
 	DxLib_End();
 
 	return 0;

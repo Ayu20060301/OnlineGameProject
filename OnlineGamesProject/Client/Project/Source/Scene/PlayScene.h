@@ -9,13 +9,11 @@ public:
 	virtual ~PlayScene();
 
 public:
-	virtual void Init()override;
-	virtual void Load()override;
-	virtual void Start()override;
-	virtual void Step()override;
-	virtual void Update()override;
-	virtual void Draw()override;
-	virtual void Fin()override;
-private:
-	int m_BulletTimer;
+	virtual void Init() override;
+	virtual void Load() override;
+	virtual void Start() override;
+	virtual void Step() override;
+	virtual void Update() override;
+	virtual void Draw() override;
+	virtual void Fin() override;
 };

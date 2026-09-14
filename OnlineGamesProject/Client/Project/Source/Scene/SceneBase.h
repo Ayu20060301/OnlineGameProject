@@ -1,5 +1,6 @@
 #pragma once
 
+
 class SceneBase
 {
 public:
@@ -22,4 +23,5 @@ public:
 
 private:
 	bool m_IsActive;
+
 };

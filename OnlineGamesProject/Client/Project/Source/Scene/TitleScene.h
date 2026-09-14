@@ -15,13 +15,13 @@ public:
 	virtual ~TitleScene();
 
 public:
-	virtual void Init()override;
-	virtual void Load()override;
-	virtual void Start()override;
-	virtual void Step()override;
-	virtual void Update()override;
-	virtual void Draw()override;
-	virtual void Fin()override;
+	virtual void Init() override;
+	virtual void Load() override;
+	virtual void Start() override;
+	virtual void Step() override;
+	virtual void Update() override;
+	virtual void Draw() override;
+	virtual void Fin() override;
 private:
 	//状態ごとの更新
 	void StepLogo();
@@ -32,10 +32,7 @@ private:
 	void DrawMenu();
 
 	//中央揃いで文字を描画
-	void DrawCenterString(const char* text, int y, unsigned int color,int size);
-
-	//フェード用アルファ値を取得
-	int GetFadeAlpha() const;
+	void DrawCenterString(const char* text, int y, unsigned int color, int size);
 
 	TitleState m_State;
 
