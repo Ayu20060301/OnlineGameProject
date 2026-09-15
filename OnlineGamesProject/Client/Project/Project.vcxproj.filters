@@ -28,6 +28,12 @@
     <Filter Include="Source\Fade">
       <UniqueIdentifier>{f85335b6-473f-4a13-a0c1-d1013e6f0efe}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\BG">
+      <UniqueIdentifier>{56840506-9f8c-4b41-b841-8b1060d98d73}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Logo">
+      <UniqueIdentifier>{d9970004-e414-4a40-b1c9-c6d9e717c8be}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Main.cpp">
@@ -59,6 +65,12 @@
     </ClCompile>
     <ClCompile Include="Source\Scene\TitleScene.cpp">
       <Filter>Source\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\BG\BackGround.cpp">
+      <Filter>Source\BG</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Logo\Logo.cpp">
+      <Filter>Source\Logo</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -106,6 +118,12 @@
     </ClInclude>
     <ClInclude Include="Source\Scene\SceneParameter.h">
       <Filter>Source\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\BG\BackGround.h">
+      <Filter>Source\BG</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Logo\Logo.h">
+      <Filter>Source\Logo</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

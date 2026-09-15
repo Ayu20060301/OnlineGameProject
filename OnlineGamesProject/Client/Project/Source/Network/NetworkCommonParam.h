@@ -5,8 +5,32 @@
 // NetworkCommonParam.hはクライアント/サーバー共通のパラメータ
 // 必ず双方で同じ状態にする必要がある
 
+namespace Network
+{
+	enum ShiritoriPacketType
+	{
+		SHIRITORI_START,
+		SHIRITORI_WORD,
+		SHIRITORI_RESULT,
+		SHIRITORI_TURN,
+		SHIRITORI_FINISH,
+	};
+
+	enum ShiritoriResult
+	{
+		SHIRITORI_OK,
+		SHIRITORI_WRONG_TURN,
+		SHIRITORI_WRONG_WORD,
+		SHIRITORI_ALREADY_USED,
+		SHIRITORI_END_N,
+	};
+}
+
 // ポート番号は49152～65535が好ましい
 constexpr int PORT_NUMBER = 50000;
+
+//最大で入れる人数
+constexpr int PLAYER_MAX = 2;
 
 // 残す履歴の最大数
 constexpr int CHAT_LOG_MAX = 10;
@@ -23,7 +47,9 @@ constexpr int NETWORK_MESSAGE_MAX = 40;
 // 文字列の長さは文字数＋終端文字
 constexpr int NETWORK_MESSAGE_BUFFER_MAX = NETWORK_MESSAGE_MAX + 1;
 
-// クライアントが送信するデータ
+/// <summary>
+/// クライアントが送信するデータ
+/// </summary>
 struct ChatData
 {
 	// ユーザー名
@@ -33,8 +59,30 @@ struct ChatData
 	char message[NETWORK_MESSAGE_BUFFER_MAX];
 };
 
+/// <summary>
+/// サーバーから送信したデータ
+/// </summary>
+struct ServerData
+{
+	int playerCount;
+	int turnPlayerID;
+	ChatData chatData[CHAT_LOG_MAX];
+};
+
+/// <summary>
+/// しりとり通信データ
+/// </summary>
 struct ShiritoriData
 {
-	int playerID;
-	char word[NETWORK_WORD_BUFFER_MAX];
+	Network::ShiritoriPacketType type; //通信の種類
+	Network::ShiritoriResult result; //判定結果
+	int playerID; //単語を送信したプレイヤー 
+	int turnPlayerID;
+	char name[NETWORK_USER_NAME_BUFFER_MAX]; //ユーザー名
+	char word[NETWORK_WORD_BUFFER_MAX]; //入力された単語
+};
+
+struct ShiritoriStartData
+{
+	char startChar[NETWORK_WORD_BUFFER_MAX];
 };

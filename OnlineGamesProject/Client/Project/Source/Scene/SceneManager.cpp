@@ -108,7 +108,7 @@ void SceneManager::LoopScene()
 	// ƒ‹[ƒvˆ—‚ð‡”Ô‚És‚¤
 	for (SceneBase* scene : m_Scenes)
 	{
-		if (!scene->IsActive()) continue;
+		//if (!scene->IsActive()) continue;
 
 		scene->Step();
 		scene->Update();
@@ -134,11 +134,11 @@ SceneBase* SceneManager::CreateScene(SceneType type)
 	SceneBase* scene = nullptr;
 	switch (type)
 	{
-	case TITLE: scene = new TitleScene; break;
+	//case TITLE: scene = new TitleScene; break;
 	case PLAY: scene = new PlayScene; break;
 	}
 
-	if (scene) scene->SetActive(true);
+	//if (scene) scene->SetActive(true);
 
 	return scene;
 }

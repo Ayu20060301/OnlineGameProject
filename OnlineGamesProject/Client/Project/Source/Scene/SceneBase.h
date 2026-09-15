@@ -15,13 +15,4 @@ public:
 	virtual void Update() = 0;
 	virtual void Draw() = 0;
 	virtual void Fin() = 0;
-
-public:
-	bool IsActive() const { return m_IsActive; }
-
-	void SetActive(bool isActive) { m_IsActive = isActive; }
-
-private:
-	bool m_IsActive;
-
 };

@@ -2,10 +2,12 @@
 #include "GameApp.h"
 #include "../Input/Input.h""
 #include "../Network/Client.h"
+#include "../BG/BackGround.h"
 
 GameApp::GameApp()
 {
 	m_Client = new Client;
+	m_BackGround = new BackGround;
 	m_State = MAIN_STATE_SELECT_MODE;
 	m_SelectIndex = 0;
 	m_IsRunning = true;
@@ -15,6 +17,10 @@ GameApp::~GameApp()
 {
 	delete m_Client;
 	m_Client = nullptr;
+
+	delete m_BackGround;
+	m_BackGround = nullptr;
+
 	Input::Fin();
 }
 
@@ -22,12 +28,13 @@ void GameApp::Init()
 {
 	Input::Init();
 
+	m_BackGround->Load();
 	m_Client->Init();
 }
 
 void GameApp::Exec()
 {
-	while (ProcessMessage() >= 0)
+	while (m_IsRunning && ProcessMessage() >= 0)
 	{
 		Sleep(1);
 
@@ -52,9 +59,6 @@ void GameApp::Update()
 	   case MAIN_STATE_SELECT_MODE:
 		UpdateSelectMode();
 		   break;
-	   case MAIN_STATE_NAME_INPUT:
-		   if (m_Client) m_Client->UpdateNameChange();
-		   break;
 	   case MAIN_STATE_SET_IP:
 		   SetIP();
 		   break;
@@ -66,30 +70,26 @@ void GameApp::Update()
 
 void GameApp::Draw()
 {
+
+	//背景を最初に描画
+	if (m_BackGround)
+	{
+		m_BackGround->Draw();
+	}
+
 	switch (m_State)
 	{
 	    case MAIN_STATE_SELECT_MODE:
 
 			SetFontSize(32);
 
-			DrawString(10, 50, "ユーザー名 : ", GetColor(255, 255, 255));
 
-			DrawString(120, 300, "ホスト", GetColor(255,255,255));
-			DrawString(120, 380, "クライアント", GetColor(255,255,255));
+			DrawString(120, 300, "プレイ", GetColor(255,255,255));
 			DrawString(120, 460, "ゲームをやめる", GetColor(255,255,255));
 
 			// 選択カーソル
-			DrawString(
-				80,
-				300 + m_SelectIndex * 80,
-				">>",
-				GetColor(255,255,255)
-			);
+			DrawString(80,300 + m_SelectIndex * 160,">>",GetColor(255,255,255));
 			break;
-		case MAIN_STATE_NAME_INPUT:
-			SetFontSize(32);
-			DrawString(100, 200, "ユーザー名を入力してください", GetColor(255, 255, 255));
-			//if(m_Client) m_Client->DrawNameInput();
 		case MAIN_STATE_CHAT:
 			if(m_Client) m_Client->Draw();
 			break;
@@ -106,7 +106,7 @@ void GameApp::UpdateSelectMode()
 
 		if (m_SelectIndex < 0)
 		{
-			m_SelectIndex = 2;
+			m_SelectIndex = 1;
 		}
 	}
 
@@ -115,7 +115,7 @@ void GameApp::UpdateSelectMode()
 	{
 		m_SelectIndex++;
 
-		if (m_SelectIndex > 2)
+		if (m_SelectIndex > 1)
 		{
 			m_SelectIndex = 0;
 		}
@@ -129,34 +129,15 @@ void GameApp::UpdateSelectMode()
 			// ホスト
 			m_Client = new Client();
 			m_Client->Init();
-
 			m_State = MAIN_STATE_CHAT;
 			break;
-
 		case 1:
-			// クライアント
-			m_Client = new Client();
-			m_Client->Init();
-
-			m_State = MAIN_STATE_CHAT;
-			break;
-
-		case 2:
-			// ゲームをやめる
+			//ゲームをやめる
 			m_IsRunning = false;
 			break;
 		}
 	}
 
-	//Zキーでユーザー名を変更
-	if (Input::IsTriggerKey(KEY_Z))
-	{
-		if (m_Client)
-		{
-			m_Client->StartNameInput();
-			m_State = MAIN_STATE_NAME_INPUT;
-		}
-	}
 }
 
 void GameApp::SetIP()
@@ -165,10 +146,10 @@ void GameApp::SetIP()
 
 	IPDATA ipData;
 
-	ipData.d1 = 192;
-	ipData.d2 = 168;
-	ipData.d3 = 0;
-	ipData.d4 = 54;
+	ipData.d1 = 10;
+	ipData.d2 = 0;
+	ipData.d3 = 80;
+	ipData.d4 = 123;
 	m_Client->SetIPAddress(ipData);
 
 	m_State = MAIN_STATE_CHAT;

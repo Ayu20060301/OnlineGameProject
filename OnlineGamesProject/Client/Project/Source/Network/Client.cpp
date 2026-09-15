@@ -7,14 +7,24 @@
 Client::Client()
 {
 	m_ServerHandle = 0;
-	m_NWState = NW_STATE_NANE_INPUT;
+	m_NWState = NW_STATE_NAME_INPUT; //初期状態は名前入力
 	m_IPAddress = {};
 	m_UserNameInput = nullptr;
 	m_MessageInput = nullptr;
 	m_SendChatData = {};
-	//m_SendShiritoriData = {};
-	//m_WordList = {};
-	m_ServerChatData = {};
+	m_PlayerCount = 0;
+	m_SendShiritoriData = {};
+	m_LoadingAngle = 0.0f;
+
+	//現在のターン
+	m_TurnPlayerID = 0;
+	m_TurnPlayerName[0] = '\0';
+
+	//最初の文字
+	m_StartChar[0] = '\0';
+
+	//結果メッセージ
+	m_ResultMessage[0] = '\0';
 }
 
 Client::~Client()
@@ -40,27 +50,44 @@ void Client::Update()
 {
 	switch (m_NWState)
 	{
-	case NW_STATE_NANE_INPUT:			UpdateNameInput(); break;
-	case NW_STATE_WAITING_CONNECTION:	UpdateWaitingConnection(); break;
-	case NW_STATE_MESSAGE_INPUT:		UpdateMessageInput(); break;
+	    case NW_STATE_NAME_INPUT:			UpdateNameInput(); break;
+	    case NW_STATE_WAITING_CONNECTION:	UpdateWaitingConnection(); break;
+	    case NW_STATE_MESSAGE_INPUT:		UpdateMessageInput(); break; 
+		case NW_STATE_CONNECTION_FAILED:
+			//Enterで名前入力に戻る
+			if (Input::IsTriggerKey(KEY_ENTER))
+			{
+				m_NWState = NW_STATE_NAME_INPUT;
+				m_UserNameInput->Start();
+			}
+			break;
 	}
 }
 
 void Client::Draw()
 {
-	if (m_NWState == NW_STATE_NANE_INPUT)
+	//接続人数
+	DrawFormatString(800, 0, GetColor(255, 255, 255), "接続人数 : %d人 / %d人", m_PlayerCount,PLAYER_MAX);
+
+
+	if (m_NWState == NW_STATE_NAME_INPUT)
 	{
 		DrawFormatString(0, 0, GetColor(255, 255, 255), "ユーザー名を入力");
 	}
+	else if (m_NWState == NW_STATE_WAITING_CONNECTION)
+	{
+		DrawLoading();
+	}
+	else if (m_NWState == NW_STATE_CONNECTION_FAILED)
+	{
+		DrawFormatString(650, 400, GetColor(255, 255, 255), "接続に失敗しました");
+		DrawFormatString(650, 480, GetColor(255, 255, 255), "Enterでもどる");
+	}
 	else if (m_NWState == NW_STATE_MESSAGE_INPUT)
 	{
-		DrawFormatString(0, 0, GetColor(255, 255, 255), "メッセージを入力");
-		DrawFormatString(0, 840, GetColor(255, 255, 255), "Ctrl + Qで切断");
-		DrawFormatString(0, 860, GetColor(255, 255, 255), "接続先IPアドレス：%d.%d.%d.%d", m_IPAddress.d1, m_IPAddress.d2, m_IPAddress.d3, m_IPAddress.d4);
+		DrawShiritori();
 		DrawChat();
 	}
-
-	//DrawString(0, 880, "クライアント側", GetColor(255, 255, 255));
 
 	m_UserNameInput->Draw();
 	m_MessageInput->Draw();
@@ -69,14 +96,17 @@ void Client::Draw()
 void Client::Fin()
 {
 	// 状態が接続中以降であれば切断
-	if (m_NWState >= NW_STATE_WAITING_CONNECTION)
+	if (m_NWState >= NW_STATE_WAITING_CONNECTION || m_NWState == NW_STATE_MESSAGE_INPUT)
 	{
 		Disconnect();
 	}
 
 	// 入力システム削除
 	delete m_UserNameInput;
+	m_UserNameInput = nullptr;
+
 	delete m_MessageInput;
+	m_MessageInput = nullptr;
 }
 
 /// <summary>
@@ -84,19 +114,30 @@ void Client::Fin()
 /// </summary>
 void Client::Connect()
 {
+	// 接続待ち状態にする
+	m_NWState = NW_STATE_WAITING_CONNECTION;
+
+	//ローディング開始
+	m_LoadingAngle = 0.0f;
+
 	// 指定したIPアドレスの端末に接続
 	m_ServerHandle = ConnectNetWork(m_IPAddress, PORT_NUMBER);
 
-	// ハンドルが-1なら接続できてない
+	// 接続失敗
 	if (m_ServerHandle == -1)
 	{
-		// 名前入力に戻る
-		m_UserNameInput->Start();
-	}
+		m_NWState = NW_STATE_CONNECTION_FAILED;
+	} 
 	else
 	{
-		// 接続待ちへ
-		m_NWState = NW_STATE_WAITING_CONNECTION;
+		//サーバーにユーザー名を送信
+		ChatData nameData = {};
+
+		strcpy_s(nameData.name, NETWORK_USER_NAME_BUFFER_MAX, m_SendChatData.name);
+
+		//メッセージは空のまま送信
+		NetWorkSend(m_ServerHandle, &nameData, sizeof(nameData));
+
 	}
 }
 
@@ -108,41 +149,18 @@ void Client::Disconnect()
 	// 切断
 	CloseNetWork(m_ServerHandle);
 	m_ServerHandle = 0;
-	m_NWState = NW_STATE_NANE_INPUT;
+	m_NWState = NW_STATE_NAME_INPUT;
 
 	// メッセージ入力終了
 	m_MessageInput->Fin();
 	// ユーザー名入力開始
 	m_UserNameInput->Start();
-}
 
-void Client::StartNameInput()
-{
-	m_UserNameInput->Start();
-}
+	//最初の文字をクリア
+	m_StartChar[0] = '\0';
 
-void Client::UpdateNameChange()
-{
-	m_UserNameInput->Update();
-
-	if (Input::IsTriggerKey(KEY_RETURN))
-	{
-		const char* name = m_UserNameInput->GetInputString();
-
-		if (strlen(name) > 0)
-		{
-			strcpy_s(
-				m_SendChatData.name,
-				NETWORK_USER_NAME_BUFFER_MAX,
-				name
-			);
-
-			m_UserNameInput->Fin();
-
-			// メニューへ戻る
-		}
-	}
-
+	//結果メッセージをクリア
+	m_ResultMessage[0] = '\0';
 }
 
 /// <summary>
@@ -180,14 +198,22 @@ void Client::UpdateNameInput()
 /// </summary>
 void Client::UpdateWaitingConnection()
 {
+	//ローディングを回転させる
+	m_LoadingAngle += 5.0f;
+
+	if (m_LoadingAngle >= 360.0f)
+	{
+		m_LoadingAngle -= 360.0f;
+	}
+
 	// 接続できたかチェック
 	if (GetNetWorkAcceptState(m_ServerHandle))
 	{
-		// 接続完了
-		m_NWState = NW_STATE_MESSAGE_INPUT;
+			// 接続完了
+			m_NWState = NW_STATE_MESSAGE_INPUT;
 
-		// メッセージ入力開始
-		m_MessageInput->Start();
+			// メッセージ入力開始
+			m_MessageInput->Start();
 	}
 }
 
@@ -203,17 +229,29 @@ void Client::UpdateMessageInput()
 	if (Input::IsTriggerKey(KEY_ENTER))
 	{
 		// 入力メッセージを取得
-		const char* message = m_MessageInput->GetInputString();
+		const char* word = m_MessageInput->GetInputString();
 
 		// 文字数チェック
-		int messageLen = (int)strlen(message);
+		int messageLen = (int)strlen(word);
+
 		if (messageLen > 0)
 		{
+			//結果メッセージをクリア
+			m_ResultMessage[0] = '\0';
+
+			//しりとりデータを設定
+			m_SendShiritoriData = {};
+
+			m_SendShiritoriData.type = Network::SHIRITORI_WORD;
+
+			//プレイヤーIDはサーバー側で設定する
+			m_SendShiritoriData.playerID = 0;
+
 			// メッセージをチャットデータに設定
-			strcpy_s(m_SendChatData.message, NETWORK_MESSAGE_BUFFER_MAX, message);
+			strcpy_s(m_SendShiritoriData.word, NETWORK_WORD_BUFFER_MAX, word);
 
 			// サーバーにチャットデータを送信
-			NetWorkSend(m_ServerHandle, &m_SendChatData, sizeof(m_SendChatData));
+			NetWorkSend(m_ServerHandle, &m_SendShiritoriData, sizeof(m_SendShiritoriData));
 
 			// メッセージをクリア
 			m_MessageInput->Clear();
@@ -238,19 +276,85 @@ void Client::ReceiveData()
 {
 	//サーバーから送られたデータのサイズを取得
 	int dataLength = GetNetWorkDataLength(m_ServerHandle);
-	//データが送られてきたかチェック
-	if (dataLength > 0)
-	{
-		//シリアライズされたデータを受信する
-		ChatData serializedData[CHAT_LOG_MAX] = {};
-		NetWorkRecv(m_ServerHandle, serializedData, sizeof(serializedData));
 
-		//シリアライズされたデータを戻す
+	//データが送られてきたかチェック
+	if (dataLength <= 0) return;
+
+	//チャットデータ
+	if (dataLength == sizeof(ServerData))
+	{
+		ServerData receiveData = {};
+
+		NetWorkRecv(m_ServerHandle, &receiveData, sizeof(receiveData));
+
+		//接続人数を更新
+		m_PlayerCount = receiveData.playerCount;
+
+		//現在のターンプレイヤーIDを更新
+		m_TurnPlayerID = receiveData.turnPlayerID;
+
+		//チャットログを更新
 		m_ServerChatData.clear();
 
-		for (const ChatData& data : serializedData)
+		for (const ChatData& data : receiveData.chatData)
 		{
-			m_ServerChatData.push_back(data);
+			if (strlen(data.message) > 0)
+			{
+				m_ServerChatData.push_back(data);
+			}
+		}
+	}
+
+	//-----------------------------
+	//しりとり開始データ
+	//-----------------------------
+	else if (dataLength == sizeof(ShiritoriStartData))
+	{
+		ShiritoriStartData receiveData = {};
+
+		NetWorkRecv(m_ServerHandle, &receiveData, sizeof(receiveData));
+
+		//最初の文字を保存
+		strcpy_s(m_StartChar, NETWORK_WORD_BUFFER_MAX, receiveData.startChar);
+	}
+
+	//-----------------------------
+	//しりとり履歴
+	//-----------------------------
+	else if (dataLength == sizeof(ShiritoriData) * CHAT_LOG_MAX)
+	{
+		ShiritoriData serializedData[CHAT_LOG_MAX] = {};
+
+		NetWorkRecv(m_ServerHandle, serializedData, sizeof(serializedData));
+
+		//しりとり履歴を更新
+		m_WordList.clear();
+
+		for (const ShiritoriData& data : serializedData)
+		{
+			if (strlen(data.word) > 0)
+			{
+				m_WordList.push_back(data);
+			}
+		}
+	}
+
+	//-----------------------------
+	//しりとり結果
+	//----------------------------
+	else if (dataLength == sizeof(ShiritoriData))
+	{
+		ShiritoriData receiveData = {};
+
+		NetWorkRecv(m_ServerHandle, &receiveData, sizeof(receiveData));
+
+		//同じ単語が入力された
+		if (receiveData.result == Network::SHIRITORI_ALREADY_USED)
+		{
+			strcpy_s(m_ResultMessage, NETWORK_WORD_BUFFER_MAX, "その単語は既に使われています");
+
+			//入力欄をクリア
+			m_MessageInput->Clear();
 		}
 	}
 
@@ -261,7 +365,84 @@ void Client::DrawChat()
 	int raw = 0;
 	for (ChatData data : m_ServerChatData)
 	{
-		DrawFormatString(0, 40 + raw * 20, GetColor(255, 255, 255), "%s: %s", data.name, data.message);
+		DrawFormatString(0, 45 + raw * 20, GetColor(255, 255, 255), "%s: %s", data.name, data.message);
 		raw++;
 	}
+}
+
+void Client::DrawShiritori()
+{
+	DrawFormatString(0, 40, GetColor(255, 255, 255), "しりとり");
+
+	//------------------
+	//最初の文字
+	//------------------
+	if (strlen(m_StartChar) > 0)
+	{
+		DrawFormatString(0, 65, GetColor(0, 255, 255), "最初の文字 : %s", m_StartChar);
+	}
+
+	//-----------------
+	//現在のターンを表示
+	//-----------------
+	DrawFormatString(0, 90, GetColor(255, 255, 0), "%sさんの番です", m_TurnPlayerName);
+
+	//---------------
+	//しりとり履歴
+	//---------------
+	int y = 125;
+
+	for (const ShiritoriData& data : m_WordList)
+	{
+		DrawFormatString(0, y, GetColor(255, 255, 255), "%s : %s", data.name,data.word);
+
+		y += 30;
+	}
+
+
+	//---------------------
+	//結果メッセージ
+	//---------------------
+	if (strlen(m_ResultMessage) > 0)
+	{
+		DrawFormatString(0, 770, GetColor(255, 100, 100), "%s", m_ResultMessage);
+	}
+
+	DrawFormatString(0, 800, GetColor(255, 255, 255), "単語を入力してEnter");
+
+	DrawFormatString(0, 840, GetColor(255, 255, 255), "Ctrl + Qで切断");
+}
+
+void Client::DrawLoading()
+{
+	const int centerX = 800;
+	const int centerY = 450;
+
+	const int radius = 50;
+	const int dotSize = 8;
+
+	for (int i = 0; i < 8; i++)
+	{
+		float angle = m_LoadingAngle + i * 45.0f;
+
+		float rad = angle * DX_PI / 180.0f;
+
+		int x = centerX + (int)(cosf(rad) * radius);
+		int y = centerY + (int)(sinf(rad) * radius);
+
+		int alpha = 255 - i * 25;
+
+		if (alpha < 50)
+		{
+			alpha = 50;
+		}
+
+		SetDrawBlendMode(DX_BLENDMODE_ALPHA, alpha);
+
+		DrawCircle(x, y, dotSize, GetColor(255, 255, 255), true);
+	}
+		SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+
+		DrawFormatString(centerX - 60, centerY + 80, GetColor(255, 255, 255), "接続中");
+	
 }

@@ -8,10 +8,10 @@ class InputString;
 
 enum NetworkState
 {
-	NW_STATE_NANE_INPUT,			// 名前入力
+	NW_STATE_NAME_INPUT,			// 名前入力
 	NW_STATE_WAITING_CONNECTION,	// 接続待ち
 	NW_STATE_MESSAGE_INPUT,			// メッセージ入力
-	NW_STATE_SHIRITORI
+	NW_STATE_CONNECTION_FAILED   //接続失敗
 };
 
 class Client
@@ -29,32 +29,38 @@ public:
 	void Connect();
 	void Disconnect();
 
-	void StartNameInput();
-	void UpdateNameChange();
-
 	void SetIPAddress(IPDATA address) { m_IPAddress = address; }
 
 	const char* GetUserName() const { return m_SendChatData.name; }
 
 private:
+	//更新処理
 	void UpdateNameInput();
 	void UpdateWaitingConnection();
 	void UpdateMessageInput();
+	
+	//受信処理
 	void ReceiveData();
+
+	//描画処理
 	void DrawChat();
-private:
-	void UpdateShiritori();
-	void ReceiveShiritoriData();
 	void DrawShiritori();
+	void DrawLoading();
 
 protected:
 	int m_ServerHandle;
 	ChatData m_SendChatData;
-	ShiritoriData m_SendShiritoriData;
-	std::list<ShiritoriData> m_WordList;
+	ShiritoriData m_SendShiritoriData; //しりとり送信用
+	std::list<ShiritoriData> m_WordList; //これまでに使われた単語
 	InputString* m_UserNameInput;
 	InputString* m_MessageInput;
 	NetworkState m_NWState;
 	IPDATA m_IPAddress;
 	std::list<ChatData> m_ServerChatData;
+	int m_PlayerCount;
+	float m_LoadingAngle;
+	int m_TurnPlayerID;
+	char m_TurnPlayerName[NETWORK_USER_NAME_BUFFER_MAX];
+	char m_StartChar[NETWORK_WORD_BUFFER_MAX];
+	char m_ResultMessage[NETWORK_WORD_BUFFER_MAX];
 };

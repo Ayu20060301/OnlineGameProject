@@ -2,6 +2,7 @@
 #include "../Singleton/Singleton.h"
 
 class Client;
+class BackGround;
 
 enum MainState
 {
@@ -29,6 +30,8 @@ public:
 
 private:
 	Client* m_Client;
+	BackGround* m_BackGround;
+
 	MainState m_State;
 
 	//‘I‘ğ’†‚Ì€–Ú

@@ -139,10 +139,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source\BG\BackGround.cpp" />
     <ClCompile Include="Source\Fade\Fade.cpp" />
     <ClCompile Include="Source\GameApp\GameApp.cpp" />
     <ClCompile Include="Source\Input\Input.cpp" />
     <ClCompile Include="Source\Input\InputString.cpp" />
+    <ClCompile Include="Source\Logo\Logo.cpp" />
     <ClCompile Include="Source\Main.cpp" />
     <ClCompile Include="Source\Network\Client.cpp" />
     <ClCompile Include="Source\Scene\PlayScene.cpp" />
@@ -151,11 +153,13 @@
     <ClCompile Include="Source\Scene\TitleScene.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\BG\BackGround.h" />
     <ClInclude Include="Source\Fade\Fade.h" />
     <ClInclude Include="Source\GameApp\GameApp.h" />
     <ClInclude Include="Source\GameSetting\GameSetting.h" />
     <ClInclude Include="Source\Input\Input.h" />
     <ClInclude Include="Source\Input\InputString.h" />
+    <ClInclude Include="Source\Logo\Logo.h" />
     <ClInclude Include="Source\Memory\Memory.h" />
     <ClInclude Include="Source\Network\Client.h" />
     <ClInclude Include="Source\Network\NetworkCommonParam.h" />

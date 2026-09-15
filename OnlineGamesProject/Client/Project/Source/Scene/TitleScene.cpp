@@ -2,184 +2,38 @@
 #include "../GameSetting/GameSetting.h"
 #include "TitleScene.h"
 #include "../Input/Input.h"
-#include "SceneManager.h"
+#include "../GameApp/GameApp.h"
 
-
-TitleScene::TitleScene() : SceneBase()
-, m_State(TitleState::LOGO)
-, m_FadeTimer(0)
-, m_SelectIndex(0)
+/*
+TitleScene::TitleScene()
 {
+	m_SelectIndex = 0;
 }
 
 TitleScene::~TitleScene()
 {
+
 }
+
 
 void TitleScene::Init()
 {
-}
-
-void TitleScene::Load()
-{
-}
-
-void TitleScene::Start()
-{
-	m_State = TitleState::LOGO;
-	m_FadeTimer = 0;
-	m_SelectIndex = 0;
-}
-
-void TitleScene::Step()
-{
-	switch (m_State)
-	{
-	case TitleState::LOGO:
-		StepLogo();
-		break;
-	case TitleState::MENU:
-		StepMenu();
-		break;
-	}
+	
 }
 
 void TitleScene::Update()
 {
+
 }
 
 void TitleScene::Draw()
 {
-	switch (m_State)
-	{
-	case TitleState::LOGO:
-		DrawLogo();
-		break;
-	case TitleState::MENU:
-		DrawMenu();
-		break;
-	}
+	SetFontSize(32);
+
+	DrawString(120, 300, "プレイ", GetColor(255, 255, 255));
+
+	DrawString(120, 460, "ゲームをやめる", GetColor(255, 255, 255));
+
+	DrawString(80, 300 + m_SelectIndex * 160, ">>", GetColor(255, 255, 255));
 }
-
-void TitleScene::Fin()
-{
-}
-
-void TitleScene::StepLogo()
-{
-	//フェード用タイマー
-	m_FadeTimer++;
-
-	//Enterキーでメニューへ
-	if (Input::IsTriggerKey(KEY_RETURN))
-	{
-		m_State = TitleState::MENU;
-	}
-}
-
-void TitleScene::StepMenu()
-{
-	// 上キー
-	if (Input::IsTriggerKey(KEY_UP))
-	{
-		m_SelectIndex--;
-
-		if (m_SelectIndex < 0)
-		{
-			m_SelectIndex = 1;
-		}
-	}
-
-	// 下キー
-	if (Input::IsTriggerKey(KEY_DOWN))
-	{
-		m_SelectIndex++;
-
-		if (m_SelectIndex > 1)
-		{
-			m_SelectIndex = 0;
-		}
-	}
-
-	// 決定
-	if (Input::IsTriggerKey(KEY_RETURN))
-	{
-		switch (m_SelectIndex)
-		{
-		case 0:
-			// オンライン
-			//ClientAPI::Connect();
-			break;
-
-		case 1:
-			// オフライン
-			//SceneManager::GetInstance()->ChangeScene(PLAY);
-			return;
-		}
-	}
-
-	/*
-	// オンライン接続完了
-	if (ClientAPI::IsConnected())
-	{
-		SceneManager::GetInstance()->ChangeScene(NETWORK_PLAY);
-	}
-	*/
-}
-
-void TitleScene::DrawLogo()
-{
-	const char* title = "オンラインゲーム";
-
-	DrawCenterString(title, 300, GetColor(255, 255, 255), 100);
-
-	//----------------
-	//Enterキー表示
-	//----------------
-
-	const char* text = "Pressed Enter Key!";
-
-	//フェード
-//	SetDrawBlendMode(DX_BLENDMODE_ALPHA, alpha);
-
-	DrawCenterString(text, 500, GetColor(255, 255, 255), 32);
-
-	//ブレンド解除
-	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
-}
-
-void TitleScene::DrawMenu()
-{
-	const char* online = "オンラインでプレイ";
-	const char* offline = "オフラインでプレイ";
-
-	DrawCenterString(online, 420, GetColor(255, 255, 255), 32);
-	DrawCenterString(offline, 480, GetColor(255, 255, 255), 32);
-
-	//選択中の項目に矢印を表示
-	const char* arrow = ">";
-
-	int arrowY;
-
-	if (m_SelectIndex == 0)
-	{
-		arrowY = 420;
-	}
-	else
-	{
-		arrowY = 480;
-	}
-
-	DrawString(580, arrowY, arrow, GetColor(255, 255, 255));
-}
-
-void TitleScene::DrawCenterString(const char* text, int y, unsigned int color, int size)
-{
-	SetFontSize(size);
-
-	int textWidth = GetDrawStringWidth(text, static_cast<int>(strlen(text)));
-
-	int x = (SCREEN_WIDTH - textWidth) / 2;
-
-	DrawString(x, y, text, color);
-}
+*/
